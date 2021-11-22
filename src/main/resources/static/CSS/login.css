@@ -1,0 +1,30 @@
+
+.form12{
+background: #eee;
+width:1100px;
+border-radius: 55px;
+  margin: 80px auto;
+  height:500px;
+}
+.navbar-brand {
+  letter-spacing: 3px;
+  color: #ffffff;
+}
+
+.navbar-brand:hover {
+	color:#ffffff;
+}
+
+.navbar-scroll .nav-link,
+.navbar-scroll .fa-bars {
+  color: #ffffff;
+}
+
+.navbar-scrolled .nav-link,
+.navbar-scrolled .fa-bars {
+  color: #ffffff;
+}
+
+.navbar-scrolled {
+  background-color: #ffffff;
+}
