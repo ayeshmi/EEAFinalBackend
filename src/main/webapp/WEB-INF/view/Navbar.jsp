@@ -94,10 +94,74 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/addItemPage">Add New Item</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllItem">View All Items</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/addItemTable">View All Items</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/updateProfile">View Items with categories</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllItem">View Items with categories</a>
 				</div></li>
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>User</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllUserPage">View All Users</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/addItemTable">View All Items</a>
+					
+				</div></li>
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Pharmacist</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/addPharmacientPage">Add Pharmacist</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllPharmacient">View All Pharmacist</a>
+					
+				</div></li>
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Contact Us</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/allConatctUs">View All ContactUs</a>
+					<div class="dropdown-divider"></div>
+					
+					
+				</div></li>
+				
     </sec:authorize>
 			
 		</ul>

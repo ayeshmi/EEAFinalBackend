@@ -156,49 +156,84 @@ label{
     width: 200px;
     height: 200px;
 }
-img{
-width:100px;
-height:100px;
-}
     </style>
     <body>
        <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
-      <form class="row1 form12" action="/api/auth/addItem" method="post" enctype="multipart/form-data" >
-        <h1 id="headerTitle1"><b>View Item.</b></h1>
+      <form class="row1 form12" action="/api/auth/updateItem" method="post" enctype="multipart/form-data" >
+        <h1 id="headerTitle1"><b>Add New Item.</b></h1>
         <br></br>
-        <img src = "https://remede.com.au/wp-content/uploads/2016/11/iStock-472537538-Women-Health.jpg">
+        
             <label for="inputAddress">Item name</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}" disabled>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}">
           
             <label for="inputAddress">Price</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" disabled>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" >
 
             <label for="inputAddress">Description</label>
-            <textarea rows = "5" cols = "50" name = "description"  class="form-control form-control-lg" placeholder="Enter item description" value="${item.description}" disabled>${item.description}</textarea>
+            <textarea rows = "5" cols = "50" name = "description"  class="form-control form-control-lg" placeholder="Enter item description" value="${item.description}">${item.description}</textarea>
 
             <label for="inputAddress">Category</label>
-           <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.specifications}" disabled>
+            <select name="specifications" id="pet-select" >
+              <option value="">${item.specifications}</option>
+              <option value="WomanHealth">Woman Health</option>
+              <option value="AnimalCare">Animal Care</option>
+              <option value="FirstAid">First Aid</option>
+              <option value="EyeCare">Eye Care</option>
+              <option value="BabyCare">Baby Care</option>
+              <option value="SkinCare">Skin Care</option>
+              <option value="HareCare">Hare Care</option>
+              <option value="SmokeCessation">Smoke Cessation</option>
+              <option value="SexualLife">Sexual Life</option>
+              <option value="Cosmetics">Cosmetics</option>
+              <option value="SupportandBandages">Support and Bandages</option>
+              <option value="Beauty">Beauty</option>
+              <option value="EarCare">Ear care</option>
+              <option value="Feverandpainrelief">Fever and pain relief</option>
+              
+          </select>
 
             <label for="inputAddress">Suitable for</label>
-            <textarea rows = "5" cols = "60" name = "suitableFor" class="form-control form-control-lg"  value="${item.suitableFor}" disabled>${item.suitableFor}</textarea>
+            <textarea rows = "5" cols = "60" name = "suitableFor" class="form-control form-control-lg" placeholder="Enter suitable persons">${item.suitableFor}</textarea>
 
             <label for="inputAddress">How to use</label>
-            <textarea rows = "5" cols = "10" name = "howToUse" class="form-control form-control-lg" placeholder="Enter how to use this item" value="${item.howToUse}" disabled>${item.howToUse}</textarea>
+            <textarea rows = "5" cols = "10" name = "howToUse" class="form-control form-control-lg" placeholder="Enter how to use this item">${item.howToUse}</textarea>
 
 
             <label for="inputAddress">Ingredients</label>
-            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter item ingredients" value="${item.ingredients}" disabled>${item.ingredients}</textarea>
+            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter item ingredients">${item.ingredients}</textarea>
 
             <label for="inputAddress">Delivery</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.delivery}" disabled>
-             
-
-            <label for="inputAddress">Return</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.returnItem}" disabled>
             
+             <select name="delivery" id="pet-select">
+              <option value="">${item.delivery}</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+          </select>
           
+          <label for="inputAddress">Availability</label>
+            
+            <select name="returnItem" id="pet-select">
+              <option value="">${item.availability}</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <label for="inputAddress">Return</label>
+            
+            <select name="returnItem" id="pet-select">
+              <option value="">${item.returnItem}</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+          </select>
+            <label for="inputAddress">Item image</label>
+          
+              <input type="file" name="image" 
+                id="customFile" value="Click the above button to upload the image" style="height: 100px;">
+          
+        <br></br>
+        <button type="file">Submit</button>
+        <br></br>
       </form>
        
     </body>

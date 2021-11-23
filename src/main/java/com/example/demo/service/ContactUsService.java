@@ -37,10 +37,9 @@ public class ContactUsService {
 		return contactUs;
 	}
 	
-	public ContactUs upadateContactUSDetails( String id, String answer,String email){
-		Long Id=Long.parseLong(id);
-		System.out.println("hello Ayeshmi");
-		ContactUs contactUs=contactusRepository.findById(Id)
+	public ContactUs upadateContactUSDetails( Long id, String answer,String email){
+		
+		ContactUs contactUs=contactusRepository.findById(id)
 				.orElseThrow();
 				
 		contactUs.setAnswer(answer);

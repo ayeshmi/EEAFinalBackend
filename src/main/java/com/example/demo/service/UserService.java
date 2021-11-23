@@ -2,8 +2,10 @@ package com.example.demo.service;
 
 
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.ERole;
 import com.example.demo.model.EmailSender;
+import com.example.demo.model.Item;
 import com.example.demo.model.LoginRequest;
 import com.example.demo.model.MessageResponse;
 import com.example.demo.model.Role;
@@ -77,7 +80,8 @@ System.out.println("Hello");
 	}
 	
 	public List<User> getAllUsers(){
-		return userRepository.findAll();
+		List<User> users=userRepository.findAll();
+		return users;
 	}
 
 	public User uploadProfileDetails(User user1) {
@@ -156,6 +160,20 @@ System.out.println("Hello");
 		System.out.println("updated");
 		
 		
+	}
+
+	public void deleteUser(Long id) {
+		User item=userRepository.findById(id)
+				.orElseThrow();
+		userRepository.delete(item);
+		System.out.println("user is deleted");
+		
+		
+	}
+
+	public User viewItemByID(Long id) {
+		User user=userRepository.findById(id).orElseThrow();
+		return user;
 	}
 	
 

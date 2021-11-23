@@ -165,39 +165,23 @@ height:100px;
        <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
-      <form class="row1 form12" action="/api/auth/addItem" method="post" enctype="multipart/form-data" >
-        <h1 id="headerTitle1"><b>View Item.</b></h1>
+      <form class="row1 form12" action="/api/auth/contactus/${contactUs.id}" method="post"  >
+        <h1 id="headerTitle1"><b>View Pharmacient.</b></h1>
         <br></br>
-        <img src = "https://remede.com.au/wp-content/uploads/2016/11/iStock-472537538-Women-Health.jpg">
-            <label for="inputAddress">Item name</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}" disabled>
+        <img src = ${pharmacient.image}>
+            <label for="inputAddress">User name</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${contactUs.name}" disabled>
           
-            <label for="inputAddress">Price</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" disabled>
+            <label for="inputAddress">Email</label>
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="email" value="${contactUs.email}" disabled>
 
-            <label for="inputAddress">Description</label>
-            <textarea rows = "5" cols = "50" name = "description"  class="form-control form-control-lg" placeholder="Enter item description" value="${item.description}" disabled>${item.description}</textarea>
+            <label for="inputAddress">Message</label>
+            <textarea rows = "5" cols = "50" name = "message"  class="form-control form-control-lg" placeholder="Enter your answer">${contactUs.message}</textarea>
 
-            <label for="inputAddress">Category</label>
-           <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.specifications}" disabled>
-
-            <label for="inputAddress">Suitable for</label>
-            <textarea rows = "5" cols = "60" name = "suitableFor" class="form-control form-control-lg"  value="${item.suitableFor}" disabled>${item.suitableFor}</textarea>
-
-            <label for="inputAddress">How to use</label>
-            <textarea rows = "5" cols = "10" name = "howToUse" class="form-control form-control-lg" placeholder="Enter how to use this item" value="${item.howToUse}" disabled>${item.howToUse}</textarea>
-
-
-            <label for="inputAddress">Ingredients</label>
-            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter item ingredients" value="${item.ingredients}" disabled>${item.ingredients}</textarea>
-
-            <label for="inputAddress">Delivery</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.delivery}" disabled>
-             
-
-            <label for="inputAddress">Return</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price"  value="${item.returnItem}" disabled>
+            <label for="inputAddress">Answer</label>
+            <textarea rows = "5" cols = "50" name = "answer"  class="form-control form-control-lg" placeholder="Enter your answer"></textarea>
             
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
           
       </form>
        

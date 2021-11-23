@@ -168,6 +168,15 @@ label{
             <label for="inputAddress">Item name</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name">
           
+            <label for="inputAddress">Item Type</label>
+            <select name="itemType" id="pet-select">
+              <option value="">--Please choose an option--</option>
+              <option value="Drug">Drug</option>
+              <option value="Equipment">Equipment</option>
+              
+              
+          </select>
+          
             <label for="inputAddress">Price</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" >
 

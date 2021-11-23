@@ -1,11 +1,10 @@
 package com.example.demo.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -19,7 +18,7 @@ public class Item {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotBlank
+	
 	@Size(max = 60)
 	private String name;
 	
@@ -58,6 +57,10 @@ public class Item {
 	@NotBlank
 	@Size(max = 50)
 	private String returnItem;
+	
+	@NotBlank
+	@Size(max = 50)
+	private String itemType;
 	
 
 	
@@ -169,6 +172,17 @@ public class Item {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+
+
+	public String getItemType() {
+		return itemType;
+	}
+
+
+	public void setItemType(String itemType) {
+		this.itemType = itemType;
 	}
 	
 	

@@ -73,7 +73,18 @@ public class UserController {
 		
 	}
 	
-	 
+	@GetMapping("/viewAllUserPage")
+	public ModelAndView getAllUser() {
+		// System.out.println("get item details"+file);
+		List<User> users = userService.getAllUsers();
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("Users", users);
+		modelAndView.setViewName("ViewAllUserTable");
+
+		return modelAndView;
+
+	} 
 	
 	
 	
@@ -85,7 +96,27 @@ public class UserController {
 		
 	}
 	
- 
+	@GetMapping("/viewUserByID/{id}")
+	public ModelAndView viewUserByID(@PathVariable("id") Long id) {
+		// System.out.println("get item details"+file);
+		System.out.println("Called1234");
+		User user = userService.viewItemByID(id);
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("ViewSelectedUserDetails");
+
+		return modelAndView;
+
+	}
+	
+	@GetMapping("/deleteUser/{id}")
+	public void deleteItem(@PathVariable Long id) {
+		userService.deleteUser(id);
+
+		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+
+	}
 	
 	@RequestMapping("/home")
 	public String Hello() {
@@ -120,6 +151,8 @@ public class UserController {
 	public String UpdateProfilePage() {
 		return "UpdateProfile";
 	}
+	
+	
 	
 	
 	@ResponseBody
