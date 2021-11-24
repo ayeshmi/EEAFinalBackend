@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.model.Item;
+
 import com.example.demo.model.Pharmacient;
 import com.example.demo.service.PharmacientService;
 

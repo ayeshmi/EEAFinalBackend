@@ -162,6 +162,29 @@
 					
 				</div></li>
 				
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Order</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewCart/${id}">View Cart</a>
+					<div class="dropdown-divider"></div>
+					
+					
+				</div></li>
+				
     </sec:authorize>
 			
 		</ul>

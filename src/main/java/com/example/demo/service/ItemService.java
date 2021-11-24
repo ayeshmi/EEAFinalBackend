@@ -30,8 +30,6 @@ public class ItemService {
 
 
 	public void addItem(Item item) {
-	
-		item.setImage("http://localhost:8080/api/auth/"+item.getImage());
 		
 		itemRepo.save(item);
 		System.out.println("Process is completed");

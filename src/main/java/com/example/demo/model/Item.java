@@ -23,6 +23,7 @@ public class Item {
 	private String name;
 	
 	
+	
 	@Size(max = 20)
 	private String availability;
 	
@@ -85,6 +86,10 @@ public class Item {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	
+
+	
 
 	public String getName() {
 		return name;
