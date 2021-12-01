@@ -1,4 +1,9 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -43,54 +48,47 @@ border-radius: 55px;
 }
 </style>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #000080;">
-  <div class="container">
-    <a class="navbar-brand" href="#">DOMSEL</a>
-    <button class="navbar-toggler ps-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-      aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="d-flex justify-content-start align-items-center">
-        <i class="fas fa-bars"></i>
-      </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarExample01">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link px-3" href="#!"><b>Login</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>Register</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>About Us</b></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link px-3" href="#!"><b>Contact Us</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>Home</b></a>
-        </li>
-      </ul>
+<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0"
+		style="background-color: #000080;">
+		<div class="container">
+			<a class="navbar-brand" href="#">DOMSEL</a>
+			<button class="navbar-toggler ps-0" type="button"
+				data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+				aria-controls="navbarExample01" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="d-flex justify-content-start align-items-center">
+					<i class="fas fa-bars"></i>
+				</span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarExample01">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Login</b></a>
+					</li>
+					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Register</b></a>
+					</li>
+					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>About
+								Us</b></a></li>
+					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Contact
+								Us</b></a></li>
+					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Home</b></a>
+					</li>
+				</ul>
 
-      <ul class="navbar-nav flex-row">
-        <li class="nav-item">
-          <a class="nav-link pe-3" href="#!">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ps-3" href="#!">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+				<ul class="navbar-nav flex-row">
+					<li class="nav-item"><a class="nav-link pe-3" href="#!"> <i
+							class="fab fa-youtube"></i>
+					</a></li>
+					<li class="nav-item"><a class="nav-link px-3" href="#!"> <i
+							class="fab fa-facebook-f"></i>
+					</a></li>
+					<li class="nav-item"><a class="nav-link ps-3" href="#!"> <i
+							class="fab fa-instagram"></i>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
 		<br><br>
 	
 	<section class="vh-100">
@@ -105,21 +103,19 @@ border-radius: 55px;
         <h2>Contact Us</h2>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form1Example13" class="form-control form-control-lg" name="name" />
+            <input type="text" id="form1Example13" class="form-control form-control-lg" name="name" placeholder="Enter your name" />
             <label class="form-label" for="form1Example13">Name</label>
           </div>
           
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form1Example13" class="form-control form-control-lg" name="email" />
+            <input type="text" id="form1Example13" class="form-control form-control-lg" name="email" placeholder="Enter your email" />
             <label class="form-label" for="form1Example13">Email</label>
           </div>
     
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <textarea rows = "5" cols = "60" name = "message" class="form-control form-control-lg" >
-            
-         </textarea><br>
+            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter your message"></textarea>
             <label class="form-label" for="form1Example23">Message</label>
           </div>
 
@@ -131,6 +127,7 @@ border-radius: 55px;
                 type="checkbox"
                 value=""
                 id="form1Example3"
+                
                 checked
               />
               <label class="form-check-label" for="form1Example3"> Remember me </label>

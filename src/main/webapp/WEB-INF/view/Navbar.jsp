@@ -52,7 +52,7 @@
 						Us</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"><b>Contact
+			<li class="nav-item"><a class="nav-link" href="${contextPath}/api/auth/profil"><b>Contact
 						Us</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
@@ -181,7 +181,9 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/viewCart/${id}">View Cart</a>
 					<div class="dropdown-divider"></div>
-					
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewOrder/${id}">View Order Details</a>
+					<div class="dropdown-divider"></div>
 					
 				</div></li>
 				

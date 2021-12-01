@@ -1,14 +1,12 @@
 package com.example.demo.controller.webController;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +31,10 @@ public class OrderController {
 	
 	@PostMapping("/addToCart/{itemId}")
 	public void addOrder(@RequestParam("clientEmail") String clientEmail,@RequestParam("userId") Long userId,
-			@RequestParam("price") String price,@RequestParam("quantity") String quantity,@PathVariable Long itemId){
+			@RequestParam("price") String price,@RequestParam("quantity") String quantity,@PathVariable Long itemId,@RequestParam("itemName") String itemName){
 		//System.out.println("sdsd"+order.getClientEmail());
 		
-	orderService.addToCartItem(clientEmail,userId,price,quantity,itemId,java.time.LocalDate.now());
+	orderService.addToCartItem(clientEmail,userId,price,quantity,itemId,java.time.LocalDate.now(),itemName);
 	System.out.println(java.time.LocalDate.now());  
 		System.out.println("Item is sucessfully added"+quantity);
 		
@@ -48,6 +46,24 @@ public class OrderController {
 		
 	orderService.orderConfirmation(email);  
 		System.out.println("order is sucessfully added");
+		
+	}
+	
+	@GetMapping("/OrderCompleted/{itemId}")
+	public void orderCompleted(@PathVariable Long itemId){
+		//System.out.println("sdsd"+order.getClientEmail());
+		
+	orderService.orderCompleted(itemId);  
+		System.out.println("order is sucessfully completed");
+		
+	}
+	
+	@GetMapping("/OrderCancelation/{itemId}")
+	public void orderCancelation(@PathVariable Long itemId){
+		//System.out.println("sdsd"+order.getClientEmail());
+		
+	orderService.orderCancelation(itemId);  
+		System.out.println("order is sucessfully completed");
 		
 	}
 	
@@ -79,6 +95,39 @@ public class OrderController {
 		return modelAndView;
 		
 	}
+	
+	@GetMapping("/viewOrder/{id}")
+	public ModelAndView viewOrderDetailsUser(@PathVariable Long id) {
+        List<Order> orders1=orderService.viewOrderDetailsUser(id);
+        System.out.println("size"+orders1.size());
+        List<Item> itemList1=new ArrayList<Item>();
+        
+        int totalPrice=0;
+        int priceFullTotal=0;
+        for(int i=0;i<orders1.size();i++) {
+        	Order order1=orders1.get(i);
+        Item item=	itemService.viewItemByID(order1.getItemId());
+        int itemPrice = Integer.parseInt(order1.getPrice());
+        int quantity = Integer.parseInt(order1.getQuantity());
+        totalPrice=itemPrice*quantity;
+        priceFullTotal=priceFullTotal+totalPrice;
+        itemList1.add(item);
+			
+		}
+        System.out.println("sdsdsddd"+itemList1.size());
+		ModelAndView modelAndView = new ModelAndView();
+        System.out.println("ff"+priceFullTotal);
+		modelAndView.addObject("ordersO", orders1);
+		//modelAndView.addObject("itemsO", itemList1);
+		modelAndView.addObject("totalPrice", priceFullTotal);
+		modelAndView.setViewName("OrderDetails");
+
+		return modelAndView;
+		
+	}
+	
+	
+	
 
 	@RequestMapping("/orderConfirmation/{totalPrice}")
 	public ModelAndView orderPage(@PathVariable int totalPrice) {

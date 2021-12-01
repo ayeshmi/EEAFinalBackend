@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,10 +64,10 @@ border-bottom-right-radius: 16px;
         <div class="row d-flex justify-content-center my-4">
           <div class="col-md-8">
           
-            <c:forEach var="cart" items="${orders}">
+            <c:forEach var="cart" items="${ordersO}">
             <div class="card mb-4">
               <div class="card-header py-3">
-                <h5 class="mb-0">Cart items</h5>
+                <h5 class="mb-0">Order Detail</h5>
               </div>
             
               <div class="card-body">
@@ -86,8 +88,8 @@ border-bottom-right-radius: 16px;
                   <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                     <!-- Data -->
                     <p><strong></strong></p>
-                    <p>${cart.clientEmail}</p>
-                    <p>Size: M</p>
+                    <p>${cart.itemName}</p>
+                    <p>Ordered by:${cart.clientEmail}</p>
                     <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
@@ -121,8 +123,12 @@ border-bottom-right-radius: 16px;
     
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong>$17.99</strong>
+                      <strong>Rs.${totalPrice}.00</strong>
                     </p>
+                    
+                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}" class="button1"  >CONFIRM ORDER RECEIVED</a>
+                    <br></br>
+                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}" >CANCEL ORDER</a>
                     <!-- Price -->
                   </div>
                 </div>
@@ -133,7 +139,7 @@ border-bottom-right-radius: 16px;
               </div>
             </div>
             </c:forEach>
-             
+            
             <div class="card mb-4">
 
             </div>
@@ -155,37 +161,7 @@ border-bottom-right-radius: 16px;
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card mb-4">
-              <div class="card-header py-3">
-                <h5 class="mb-0">Summary</h5>
-              </div>
-              <div class="card-body">
-                <ul class="list-group list-group-flush">
-                  <li
-                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Products
-                    <span>$53.98</span>
-                  </li>
-                 
-                  <li
-                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                    <div>
-                      <strong>Total amount</strong>
-                      <strong>
-                        <p class="mb-0">(including VAT)</p>
-                      </strong>
-                    </div>
-                    <span><strong>${totalPrice}.00</strong></span>
-                  </li>
-                </ul>
-    
-                <a type="button" class="btn btn-primary btn-lg btn-block" href = "${contextPath}/api/auth/orderConfirmation/${totalPrice}">
-                  Go to checkout
-                </a>
-              </div>
-            </div>
-          </div>
+         
         </div>
       </div>
     </section>

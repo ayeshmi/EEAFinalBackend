@@ -75,11 +75,17 @@ public class ContactUsController {
 	}
 	
 	@GetMapping("/deleteContactUs/{id}")
-	public ResponseEntity<?> deleteContactUs(@PathVariable Long id){
+	public ModelAndView deleteContactUs(@PathVariable Long id){
 		contactusService.deleteContactUs(id);
-		
-		return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+		ModelAndView modelAndView = getAllContactUsDetails();
+
+		modelAndView.addObject("message","message is successfull");
+		//modelAndView.setViewName("ViewAllContactUs");
+		return modelAndView;
+		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 		
 	}
+	
+
 	
 }

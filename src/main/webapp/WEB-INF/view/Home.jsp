@@ -2,6 +2,8 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -112,55 +114,9 @@ video {
 }
 </style>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #000080;">
-  <div class="container">
-    <a class="navbar-brand" href="#">DOMSEL</a>
-    <button class="navbar-toggler ps-0" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-      aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="d-flex justify-content-start align-items-center">
-        <i class="fas fa-bars"></i>
-      </span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarExample01">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link px-3" href="#!"><b>Login</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>Register</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>About Us</b></a>
-        </li>
-        <li class="nav-item active">
-          <a class="nav-link px-3" href="#!"><b>Contact Us</b></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!"><b>Home</b></a>
-        </li>
-      </ul>
-
-      <ul class="navbar-nav flex-row">
-        <li class="nav-item">
-          <a class="nav-link pe-3" href="#!">
-            <i class="fab fa-youtube"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link px-3" href="#!">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link ps-3" href="#!">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-		<br><br>
+<jsp:include page="Navbar.jsp">
+    <jsp:param name="page2" value="home2"/>
+</jsp:include>
 	
 	<section class="vh-100">
 	<!-- The video -->
@@ -176,7 +132,7 @@ Purchase medication from legitimate websites online. Search for a site to see if
 
 Check to see if a site is safe:</p>
   <!-- Use a button to pause/play the video with JavaScript -->
-  <button id="myBtn" onclick="myFunction()">GET STARTED</button>
+  <a type="button" id="myBtn" onclick="myFunction()" href = "${contextPath}/api/auth/a" >GET STARTED</a>
 </div>
   </section>
 		

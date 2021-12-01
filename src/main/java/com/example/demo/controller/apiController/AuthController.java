@@ -3,7 +3,6 @@ package com.example.demo.controller.apiController;
 
 import java.util.List;
 
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +59,7 @@ public class AuthController {
 
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		JwtResponse jwtResponse = userService.loginService(loginRequest);
+		JwtResponse jwtResponse = userService.loginServiceRestApi(loginRequest);
 		if (jwtResponse != null) {
 			return ResponseEntity.ok(jwtResponse);
 		} else {
@@ -82,6 +81,7 @@ public class AuthController {
 		
 	}
 	
+
 	
 	
 

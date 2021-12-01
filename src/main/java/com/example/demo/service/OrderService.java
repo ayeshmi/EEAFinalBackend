@@ -4,11 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.EmailSender;
 import com.example.demo.model.Order;
-import com.example.demo.model.User;
 import com.example.demo.repository.OrderRepository;
 
 @Service
@@ -16,9 +15,12 @@ public class OrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private EmailSender emailSender;
 
 	public void addToCartItem(String clientEmail, Long userId, String price, String quantity, Long itemId,
-			LocalDate date) {
+			LocalDate date,String itemName) {
 		// TODO Auto-generated method stub
 		Order order=new Order();
 		order.setClientEmail(clientEmail);
@@ -28,13 +30,14 @@ public class OrderService {
 		order.setQuantity(quantity);
 		order.setUserId(userId);
 		order.setType("cart");
+		order.setItemName(itemName);
 		
 		orderRepository.save(order);
 		
 	}
 
 	public List<Order> viewCartDetailsUser(Long id){
-		List<Order> orders=orderRepository.findByUserId(id);
+		List<Order> orders=orderRepository.searchCartDetails(id);
 		
 		return orders;
 	}
@@ -57,6 +60,33 @@ public class OrderService {
 				.orElseThrow();
 		orderRepository.delete(order);
 		System.out.println("order is deleted");
+	}
+
+	public List<Order> viewOrderDetailsUser(Long id) {
+		// TODO Auto-generated method stub
+      List<Order> orders=orderRepository.search(id);
+		System.out.println("orders"+orders.size());
+		return orders;
+		
+	}
+
+	public void orderCompleted(Long itemId) {
+		Order order=orderRepository.findById(itemId)
+				.orElseThrow();
+		
+		order.setStatus("Completed");
+		orderRepository.save(order);
+		emailSender.sendEmailOrderCompleted();
+		
+		
+	}
+
+	public void orderCancelation(Long itemId) {
+		Order order=orderRepository.findById(itemId)
+				.orElseThrow();
+		order.setStatus("Cancel");
+		orderRepository.save(order);
+		emailSender.sendEmailOrderCancelation();
 	}
 	
 	

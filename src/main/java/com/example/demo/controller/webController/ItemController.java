@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.model.Comment;
 import com.example.demo.model.Item;
+import com.example.demo.service.CommentService;
 import com.example.demo.service.FileStorageService;
 import com.example.demo.service.ItemService;
 
@@ -34,6 +36,9 @@ public class ItemController {
 
 	@Autowired
 	private FileStorageService fileStorageService;
+	
+	@Autowired
+	private CommentService commentService;
 
 	@PostMapping("/addItem")
 	public void AddItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
@@ -84,9 +89,11 @@ public class ItemController {
 		// System.out.println("get item details"+file);
 		System.out.println("Called1234");
 		Item item = itemService.viewItemByID(id);
+		List<Comment> viewComments=commentService.getCommentByItemId(id);
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("item", item);
+		modelAndView.addObject("comments", viewComments);
 		modelAndView.setViewName("ViewSelectedItemDetails");
 
 		return modelAndView;

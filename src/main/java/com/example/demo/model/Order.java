@@ -41,9 +41,12 @@ public class Order {
 	@Size(max = 100)
 	private String quantity;
 	
-	@NotBlank
+	
 	@Size(max = 100)
 	private String status;
+	
+	@Size(max = 100)
+	private String itemName;
 	
 	
 
@@ -122,6 +125,15 @@ public class Order {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
+	public String getItemName() {
+		return itemName;
+	}
+
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
+	}
+	
 	
 	
 	

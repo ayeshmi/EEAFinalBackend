@@ -79,6 +79,29 @@ System.out.println("Hello");
 		return jwtResponse;
 	}
 	
+	public JwtResponse loginServiceRestApi(LoginRequest loginRequest) {
+		
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getPassword(),loginRequest.getUsername()));
+System.out.println("Hello");
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+		String jwt = jwtUtils.generateJwtToken(authentication);
+		
+		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+		List<String> roles = userDetails.getAuthorities().stream()
+				.map(item -> item.getAuthority())
+				.collect(Collectors.toList());
+		
+		JwtResponse jwtResponse=new JwtResponse(jwt, 
+				 userDetails.getId(), 
+				 userDetails.getUsername(), 
+				 userDetails.getEmail(), 
+				 roles
+				 );
+		
+		return jwtResponse;
+	}
+	
 	public List<User> getAllUsers(){
 		List<User> users=userRepository.findAll();
 		return users;

@@ -28,6 +28,31 @@ public class EmailSender {
         javaMailSender.send(msg);
 
     }
+	 
+	 public void sendEmailOrderCompleted() {
+
+	        SimpleMailMessage msg = new SimpleMailMessage();
+	        msg.setTo("domsellanka@gmail.com", "domsellanka@gmail.com");
+
+	        msg.setSubject("Testing from Spring Boot");
+	        msg.setText("Order is completed.");
+
+	        javaMailSender.send(msg);
+
+	    }
+	 
+	 public void sendEmailOrderCancelation() {
+
+	        SimpleMailMessage msg = new SimpleMailMessage();
+	        msg.setTo("domsellanka@gmail.com", "domsellanka@gmail.com");
+
+	        msg.setSubject("Testing from Spring Boot");
+	        msg.setText("Order is cancel.");
+
+	        javaMailSender.send(msg);
+
+	    }
+	 
 	 public void sendEmailContactUs(String email,String answer) {
 		 
 	        SimpleMailMessage msg = new SimpleMailMessage();

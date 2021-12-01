@@ -41,6 +41,9 @@
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
+<jsp:include page="Message.jsp">
+    <jsp:param name="message" value="hello"/>
+</jsp:include>
 <br><br>
 <h1>User List</h1>
     <table class="table table-striped">

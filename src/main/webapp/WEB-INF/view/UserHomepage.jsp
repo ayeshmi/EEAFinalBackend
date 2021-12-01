@@ -1,60 +1,40 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
 <body>
 
-<h1>The Storage getItem() Method</h1>
+<div class="container mt-3">
+  <h3>Toast Example</h3>
+  <p>A toast is like an alert box that is only shown for a couple of seconds when something happens (i.e. when a user clicks on a button, submits a form, etc.).</p>
+  <p>In this example, we use a button to show the toast message.</p>
+ 
+  <button type="button" class="btn btn-primary" id="myBtn">Show Toast</button>
 
-<p>This example demonstrates how to use the getItem() method to get the value of a specified local storage item.</p>
+  <div class="toast mt-3">
+    <div class="toast-header">
+      Toast Header
+    </div>
+    <div class="toast-body">
+      Some text inside the toast body
+    </div>
+  </div>
+</div>
 
-<h2>Missing localStorage items?</h2>
-
-<p>Since you might not have the specified item stored in your local storage, we have added a script that creates it for you.</p>
-
-<button onclick="createItem()">Create local storage item</button>
-
-
-<br></br>
-<jsp:include page="Navbar.jsp">
-    <jsp:param name="page2" value="home2"/>
-</jsp:include>
-<h2>Get the value of the local storage item named "mytime"</h2>
-
-<p>Click the button to get the item value:</p>
-<security:authorize access="isAuthenticated()" >
-    authenticated as <security:authentication property="principal.email" /> 
-</security:authorize>
-<button onclick="myFunction()">Get the item value</button>
-<security:authorize access="hasAuthority('ROLE_USER')">
-<p id="currentUser"></p>
-<c:forEach var="lecturer" items="${user}">
-
-   
-
-
-            <tr class="table-secondary">
-
-                <td>${lecturer.username} </td>
-                <td>${lecturer.email}</td>
-                
-
-                
-            </tr>
-           
-        </c:forEach>
-        </security:authorize>
 <script>
-
-function createItem() {
-  localStorage.mytime = Date.now();
-}
-
-function myFunction() {
-  var x = localStorage.getItem("mytime");
-  document.getElementById("demo").innerHTML = x;
-}
-
+$(document).ready(function(){
+  $("#myBtn").click(function(){
+    $('.toast').toast('show');
+  });
+});
 </script>
+
 </body>
 </html>

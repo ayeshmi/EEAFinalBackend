@@ -39,6 +39,7 @@ public class UserController {
 
 	@PostMapping("/signinW")
 	public ModelAndView Login(@ModelAttribute LoginRequest loginRequest) {
+		System.out.println("request is loaded"+loginRequest);
 		JwtResponse jwtResponse = userService.loginService(loginRequest);
 		String page=homeController.directUserToHomePage(jwtResponse);
 		ModelAndView modelAndView = new ModelAndView();
@@ -80,6 +81,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("Users", users);
+		modelAndView.addObject("message", "dsdsjdsd");
 		modelAndView.setViewName("ViewAllUserTable");
 
 		return modelAndView;
