@@ -8,13 +8,12 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.example.demo.security.*;
 
 
@@ -74,11 +73,29 @@ public class AuthController {
 
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(  @RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
 		userService.registerUser(signUpRequest);
 		ResponseEntity<?> message=userService.registerUser(signUpRequest);
 		return ResponseEntity.ok(new MessageResponse(""+message));
 		
+	}
+	
+	@DeleteMapping("/deleteUser/{id}")
+	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+		userService.deleteUser(id);
+
+		return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+
+	}
+	
+	@GetMapping("/viewUserByIDRA/{id}")
+	public User viewUserByID(@PathVariable("id") Long id) {
+		// System.out.println("get item details"+file);
+		System.out.println("Called1234");
+		User user = userService.viewItemByID(id);
+		
+		return user;
+
 	}
 	
 

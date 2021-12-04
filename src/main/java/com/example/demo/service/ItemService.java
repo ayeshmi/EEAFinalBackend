@@ -122,6 +122,23 @@ public class ItemService {
         
         itemRepo.save(p);
 	}
+
+	public void updateItembyID(Item item, Long id) {
+		Item itemUpdate=itemRepo.findById(id)
+				.orElseThrow();
+		itemUpdate.setImage(item.getImage());
+		itemUpdate.setPrice(item.getPrice());
+		itemUpdate.setDelivery(item.getDelivery());
+		itemUpdate.setDescription(item.getDescription());
+		itemUpdate.setHowToUse(item.getHowToUse());
+		itemUpdate.setIngredients(item.getIngredients());
+		//itemUpdate.setAvailability("Available");
+		itemUpdate.setSpecifications(item.getSpecifications());
+		itemUpdate.setSuitableFor(item.getSuitableFor());
+		itemUpdate.setReturnItem(item.getReturnItem());
+		itemRepo.save(itemUpdate);
+		
+	}
 	
         
 }
