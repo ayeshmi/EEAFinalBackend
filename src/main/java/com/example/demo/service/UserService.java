@@ -198,6 +198,11 @@ System.out.println("Hello");
 		User user=userRepository.findById(id).orElseThrow();
 		return user;
 	}
+
+	public User viewItemByEmail(String email) {
+		User user=userRepository.findByEmail(email);
+		return user;
+	}
 	
 
 	

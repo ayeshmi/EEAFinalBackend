@@ -63,5 +63,9 @@ public class PharmacientService {
 		System.out.println("Deleted");
 		
 	}
+	public void addPharmacientAPI(Pharmacient pharmacient) {
+		pharmacientRepository.save(pharmacient);
+		
+	}
 
 }

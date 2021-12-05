@@ -98,6 +98,16 @@ public class AuthController {
 
 	}
 	
+	@GetMapping("/viewUserByEmailRA/{email}")
+	public User viewUserByID(@PathVariable("email") String email) {
+		// System.out.println("get item details"+file);
+		System.out.println("Called1234");
+		User user = userService.viewItemByEmail(email);
+		
+		return user;
+
+	}
+	
 
 	
 	

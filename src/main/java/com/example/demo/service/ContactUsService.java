@@ -36,6 +36,14 @@ public class ContactUsService {
 		return contactUs;
 	}
 	
+	public ContactUs getContactUsDetailsByIdAPI(Long id){
+		
+		ContactUs contactUs=contactusRepository.findById(id) 
+				.orElseThrow();
+		System.out.println("caled");
+		return contactUs;
+	}
+	
 	public ContactUs upadateContactUSDetails( Long id, String answer,String email){
 		
 		ContactUs contactUs=contactusRepository.findById(id)

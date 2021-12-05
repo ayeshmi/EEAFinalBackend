@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Item;
 import com.example.demo.model.MessageResponse;
@@ -75,6 +75,15 @@ public class ItemControllerAPI {
 
 	
 
+
+	}
+	
+	@GetMapping("/viewSelectedCategoryItemRA/{name}")
+	public List<Item> getSelectedCategoryItem(@PathVariable("name") String name) {
+
+		List<Item> items = itemService.getSelectedCategoryItem(name);
+		
+		return items;
 
 	}
 
