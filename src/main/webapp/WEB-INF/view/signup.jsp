@@ -101,21 +101,21 @@
 <!-- Email input -->
 							<div class="form-outline mb-4">
 								<input type="text" id="form1Example13" 
-									class="form-control form-control-lg" name="username" /> <label
+									class="form-control form-control-lg" name="username" placeholder="Enter username"/> <label
 									class="form-label" for="form1Example13">Username</label>
 							</div>
 
 							<!-- Email input -->
 							<div class="form-outline mb-4">
 								<input type="text" id="form1Example13"
-									class="form-control form-control-lg" name="email" /> <label
+									class="form-control form-control-lg" name="email" placeholder="Enter email"/> <label
 									class="form-label" for="form1Example13">Email</label>
 							</div>
 							
 							<!-- Password input -->
 							<div class="form-outline mb-4">
 								<input type="password" id="form1Example23"
-									class="form-control form-control-lg" name="password" /> <label
+									class="form-control form-control-lg" name="password" placeholder="Enter password"/> <label
 									class="form-label" for="form1Example23">Password</label>
 							</div>
 

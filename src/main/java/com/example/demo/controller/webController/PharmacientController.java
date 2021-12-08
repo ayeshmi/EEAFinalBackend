@@ -1,6 +1,8 @@
 package com.example.demo.controller.webController;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.example.demo.model.Pharmacient;
+import com.example.demo.model.SignupRequest;
 import com.example.demo.service.PharmacientService;
+import com.example.demo.service.UserService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
@@ -24,16 +28,26 @@ public class PharmacientController {
 	
 	@Autowired
 	private PharmacientService pharmacientService;
+	
+	@Autowired
+	private UserService userService;
 
 	
 	@PostMapping("/addPharmacient")
 	public void addPharmacient(@RequestParam("image") MultipartFile file, @RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName, @RequestParam("contactNumber") String contactNumber,
-			@RequestParam("email") String email, @RequestParam("address") String address) {
+			@RequestParam("email") String email, @RequestParam("address") String address,@RequestParam("role") String role) {
 		// System.out.println("get item details"+file);
 		pharmacientService.addPharmacient(file,firstName,lastName,contactNumber,email,address);
-
-		System.out.println("Request is leanded" + file);
+		SignupRequest request=new SignupRequest();
+		request.setUsername(firstName);
+		request.setEmail(email);
+		request.setPassword(firstName);
+		Set<String> strRoles = new HashSet<String>();
+		strRoles.add(role);
+		request.setRole(strRoles);
+		userService.registerUser(request);
+		System.out.println("Request is leanded" + role);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("Home");
 

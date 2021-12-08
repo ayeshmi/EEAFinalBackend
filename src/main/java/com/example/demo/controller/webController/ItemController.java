@@ -41,7 +41,7 @@ public class ItemController {
 	private CommentService commentService;
 
 	@PostMapping("/addItem")
-	public void AddItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
+	public ModelAndView AddItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
 			@RequestParam("delivery") String delivery, @RequestParam("suitableFor") String suitableFor,
@@ -52,9 +52,9 @@ public class ItemController {
 
 		System.out.println("Request is leanded" + file);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Home");
-
-		// return modelAndView;
+		modelAndView.setViewName("AddItem");
+       modelAndView.addObject("message", "item is successfully added.");
+		 return modelAndView;
 
 	}
 

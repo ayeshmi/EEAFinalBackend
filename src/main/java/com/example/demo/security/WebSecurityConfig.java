@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -28,8 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
-	@Autowired
-	private AuthEntryPointJwt unauthorizedHandler;
+
 
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -58,19 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		 .antMatchers("/api/auth/**").permitAll()
          .antMatchers("/css/**").permitAll()
-         .antMatchers("/user/login").permitAll()
-         .antMatchers("/user/loginUser").permitAll()
          .anyRequest().authenticated().and()
-         .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
-         .formLogin()
-         .loginPage("/user/login")
-         .permitAll()
-         .defaultSuccessUrl("/facade",true)
-         .loginProcessingUrl("/loginUser")
-         .and()
-         .logout().logoutSuccessUrl("/user/login")
-         .permitAll();
-			
+         .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+         
+		
 			
         
 	}

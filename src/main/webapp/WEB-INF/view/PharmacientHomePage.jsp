@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>DOMSEL LANKA</title>
+<title>Insert title here</title>
 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +63,7 @@ border-radius: 55px;
 <h1 id="lblGreetings" style="text-align: center;
 		font-size: 22px;"></h1>
 <h1 style="text-align: center;
-		font-size: 22px;">Welcome to Admin Page</h1>
+		font-size: 22px;">Welcome to  Pharmacist Page</h1>
 <section class="vh-100">
 	<div class="form12">
 <div class="container py-5 h-100">
@@ -73,7 +73,7 @@ border-radius: 55px;
   </div>
   <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
 	<form class="form" id="formElem" action="/api/auth/signinW" method="POST">
-	<h2>Admin Responsibilities </h2>
+	<h2> Pharmacist Responsibilities </h2>
 	<ul>
 		<li>Handle user accounts</li>
 		<li>Handle order requests</li>

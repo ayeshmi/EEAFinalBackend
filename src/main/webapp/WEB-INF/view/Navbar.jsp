@@ -91,6 +91,162 @@
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
+					
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllItem">View Items with categories</a>
+				</div></li>
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				
+				
+				
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Contact Us</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/allConatctUs">My Contact Us Details</a>
+					<div class="dropdown-divider"></div>
+					
+					
+				</div></li>
+				
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Order</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewCart/${id}">View Cart</a>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewOrder/${id}">View Order Details</a>
+					<div class="dropdown-divider"></div>
+					
+				</div></li>
+				
+    </sec:authorize>
+    
+    
+    <sec:authorize access="hasAuthority('ROLE_PHARMACIST')">
+        <li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Item</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/addItemPage">Add New Item</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/addItemTable">View All Items</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllItem">View Items with categories</a>
+				</div></li>
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Contact Us</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/allConatctUs">View All ContactUs</a>
+					<div class="dropdown-divider"></div>
+					
+					
+				</div></li>
+				
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				<li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Order</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewCart/${id}">View Cart</a>
+					<div class="dropdown-divider"></div>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewOrder/${id}">View Order Details</a>
+					<div class="dropdown-divider"></div>
+					
+				</div></li>
+				
+    </sec:authorize>
+    
+     <sec:authorize access="hasAuthority('ROLE_ADMIN')">
+        <li class="nav-item dropdown"><a
+				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> <b>Item</b>
+			</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/addItemPage">Add New Item</a>
 					<div class="dropdown-divider"></div>

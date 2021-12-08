@@ -97,8 +97,8 @@ width:100px;
 									class="form-label" for="form1Example23">Address</label>
 							</div>
 							
-							<label for="inputAddress">Item image</label>
-          
+							<label for="inputAddress">Pharmacist image</label>
+          <input type="hidden" name="role" value="pharmacist" />
               <input type="file" name="image" 
                 id="customFile" value="Click the above button to upload the image" style="height: 100px;">
 

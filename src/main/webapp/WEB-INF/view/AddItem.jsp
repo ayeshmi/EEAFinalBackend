@@ -1,5 +1,8 @@
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -161,7 +164,7 @@ label{
        <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
-      <form class="row1 form12" action="/api/auth/addItem" method="post" enctype="multipart/form-data" >
+      <form class="row1 form12" action="/api/auth/addItem" method="post" enctype="multipart/form-data" id="ayeshmi">
         <h1 id="headerTitle1"><b>Add New Item.</b></h1>
         <br></br>
         
@@ -237,7 +240,19 @@ label{
         <button type="file">Submit</button>
         <br></br>
       </form>
-       
+      <p>${message}</p>
+      <script type="text/javascript">
+      function SubForm (){
+    	    $.ajax({
+    	        url: 'http://localhost:8080/api/auth/addItemPage',
+    	        type: 'post',
+    	        data: $('#ayeshmi').serialize(),
+    	        success: function(){
+    	            alert("worked");
+    	        }
+    	    });
+    	}
+      </script> 
     </body>
     
 </html>

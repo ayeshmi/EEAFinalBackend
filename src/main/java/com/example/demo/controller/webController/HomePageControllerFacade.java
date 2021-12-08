@@ -31,8 +31,8 @@ public class HomePageControllerFacade {
 	            	page="AdminHomePage";
 	                break;
 
-	            case "Student":
-	            	page="Home";
+	            case "ROLE_PHARMACIST":
+	            	page="PharmacientHomePage";
 	                break;
 	        }
 

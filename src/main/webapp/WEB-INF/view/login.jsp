@@ -44,6 +44,8 @@ border-radius: 55px;
 }
 </style>
 <body>
+<%@include file="Message.jsp" %>
+<%@include file="ErrorMessage.jsp" %>
 <nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0" style="background-color: #000080;">
   <div class="container">
     <a class="navbar-brand" href="#">DOMSEL</a>
@@ -102,11 +104,11 @@ border-radius: 55px;
         <img src="https://mdbootstrap.com/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-        <form class="form" id="formElem" action="/api/auth/signinW" method="POST">
+        <form class="form"  id="myForm" action="/api/auth/signinW" method="POST">
         <h2>Login</h2>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form1Example13" class="form-control form-control-lg" name="username"/>
+            <input type="text" id="form1Example13" class="form-control form-control-lg" name="username" placeholder="Enter username"/>
             <label class="form-label" for="form1Example13">Username</label>
           </div>
           
@@ -114,7 +116,7 @@ border-radius: 55px;
 
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <input type="password" id="form1Example23" class="form-control form-control-lg" name="password" />
+            <input type="password" id="form1Example23" class="form-control form-control-lg" name="password" placeholder="Enter password"/>
             <label class="form-label" for="form1Example23">Password</label>
           </div>
 
@@ -145,7 +147,7 @@ border-radius: 55px;
   </div>
   </div>
 </section>
-		
+
 		
 		
 	

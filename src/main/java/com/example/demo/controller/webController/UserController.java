@@ -39,21 +39,26 @@ public class UserController {
 
 	@PostMapping("/signinW")
 	public ModelAndView Login(@ModelAttribute LoginRequest loginRequest) {
-		System.out.println("request is loaded"+loginRequest);
+		
 		JwtResponse jwtResponse = userService.loginService(loginRequest);
-		String page=homeController.directUserToHomePage(jwtResponse);
 		ModelAndView modelAndView = new ModelAndView();
-		List<JwtResponse> lectures = new ArrayList<>();
-		lectures.add(jwtResponse);
-		if(page!=null) {
+		if(jwtResponse != null) {
+			String page=homeController.directUserToHomePage(jwtResponse);
+			
+			List<JwtResponse> lectures = new ArrayList<>();
+			lectures.add(jwtResponse);
 			modelAndView.setViewName(page);	
 			modelAndView.addObject("user",lectures );
 		}
+		
 		else {
-			//modelAndView.addObject("Check Entered values again");
+			MessageResponse message=new MessageResponse("Invalid username and password, Check again.");
+			System.out.println("hello wrong");
+			modelAndView.setViewName("login");	
+			modelAndView.addObject("error",message);
 		}
 		
-		//homeController.directUserToHomePage(jwtResponse);
+		
 		return modelAndView;
 		
 	}
@@ -81,7 +86,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("Users", users);
-		modelAndView.addObject("message", "dsdsjdsd");
+		
 		modelAndView.setViewName("ViewAllUserTable");
 
 		return modelAndView;
@@ -104,7 +109,7 @@ public class UserController {
 		System.out.println("Called1234");
 		User user = userService.viewItemByID(id);
 		ModelAndView modelAndView = new ModelAndView();
-
+ 
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("ViewSelectedUserDetails");
 
@@ -112,10 +117,25 @@ public class UserController {
 
 	}
 	
-	@GetMapping("/deleteUser/{id}")
-	public void deleteItem(@PathVariable Long id) {
+	@GetMapping("/deleteUser")
+	public ModelAndView deleteItem(@RequestParam("userId") Long id) {
 		userService.deleteUser(id);
+		List<User> users = userService.getAllUsers();
+		ModelAndView modelAndView = new ModelAndView();
+		
+       MessageResponse message=new MessageResponse("hello ayeshmi");
+       //modelAndView = getLectures(lecture.getScheduledDate());
+       modelAndView.addObject("success",message);
+       
 
+		modelAndView.addObject("Users", users);
+		
+		modelAndView.setViewName("ViewAllUserTable");
+     
+	   
+       return  modelAndView;
+
+		
 		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 
 	}
@@ -129,15 +149,15 @@ public class UserController {
 	public String welcome() {
 		return "Register";
 	}
-	@RequestMapping("/a")
+	@RequestMapping("/register")
 	public String home() {
 		return "signup";
 	}
-	@RequestMapping("/b")
+	@RequestMapping("/login")
 	public String home12() {
 		return "login";
 	}
-	@RequestMapping("/c")
+	@RequestMapping("/contactUs")
 	//@PreAuthorize("hasAuthority('ROLE_USER')")
 	public String home123() {
 		return "ContactUs";
@@ -152,6 +172,17 @@ public class UserController {
 	//@PreAuthorize("hasAuthority('ROLE_USER')")
 	public String UpdateProfilePage() {
 		return "UpdateProfile";
+	}
+	
+	@RequestMapping("/deleteUserPage")
+	//@PreAuthorize("hasAuthority('ROLE_USER')")
+	public String DeleteUserPage() {
+		return "DeleteUser";
+	}
+	
+	@RequestMapping("/aboutUs")
+	public String aboutUs() {
+		return "AboutUs";
 	}
 	
 	

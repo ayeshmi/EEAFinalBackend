@@ -38,6 +38,7 @@ public class OrderService {
 
 	public List<Order> viewCartDetailsUser(Long id){
 		List<Order> orders=orderRepository.searchCartDetails(id);
+		System.out.println("fsfsf"+orders);
 		
 		return orders;
 	}

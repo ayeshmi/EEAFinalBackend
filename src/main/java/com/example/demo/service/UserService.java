@@ -56,27 +56,34 @@ public class UserService {
 	@Autowired
 	private EmailSender emailSender;
 	
-	public JwtResponse loginService(LoginRequest loginRequest) {
-		
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
-System.out.println("Hello");
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
-		
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
-		List<String> roles = userDetails.getAuthorities().stream()
-				.map(item -> item.getAuthority())
-				.collect(Collectors.toList());
-		
-		JwtResponse jwtResponse=new JwtResponse(jwt, 
-				 userDetails.getId(), 
-				 userDetails.getUsername(), 
-				 userDetails.getEmail(), 
-				 roles
-				 );
-		
+public JwtResponse loginService(LoginRequest loginRequest) {
+	JwtResponse jwtResponse = null;
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
+	System.out.println("Hello");
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			String jwt = jwtUtils.generateJwtToken(authentication);
+			
+			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();		
+			List<String> roles = userDetails.getAuthorities().stream()
+					.map(item -> item.getAuthority())
+					.collect(Collectors.toList());
+			
+			 jwtResponse=new JwtResponse(jwt, 
+					 userDetails.getId(), 
+					 userDetails.getUsername(), 
+					 userDetails.getEmail(), 
+					 roles
+					 );
+			
+			
+		}
+		catch(Exception e) {
+			System.out.println("error is "+e);
+		}
 		return jwtResponse;
+	
 	}
 	
 	public JwtResponse loginServiceRestApi(LoginRequest loginRequest) {
@@ -151,8 +158,8 @@ System.out.println("Hello");
 					roles.add(adminRole);
 
 					break;
-				case "mod":
-					Role modRole = roleRepository.findByName(ERole.ROLE_MODERATOR)
+				case "pharmacist":
+					Role modRole = roleRepository.findByName(ERole.ROLE_PHARMACIST)
 							.orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 					roles.add(modRole);
 

@@ -84,6 +84,7 @@ public class ItemService {
 
 	public Item viewItemByID(Long id) {
 		// TODO Auto-generated method stub
+		System.out.println("ayeshmi"+id);
 		Item item=itemRepo.findById(id).orElseThrow();
 		
 		return item;

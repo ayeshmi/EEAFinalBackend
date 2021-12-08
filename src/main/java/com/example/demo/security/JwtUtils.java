@@ -44,7 +44,13 @@ public class JwtUtils {
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        return body.getSubject();
+		if(body != null) {
+		return	body.getSubject();	
+		}
+		else {
+			return null;
+		}
+        
 	}
 	
 	public String getUsernameFromToken(String token) {

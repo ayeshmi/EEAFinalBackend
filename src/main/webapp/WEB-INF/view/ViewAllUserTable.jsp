@@ -41,10 +41,12 @@
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
-<jsp:include page="Message.jsp">
-    <jsp:param name="message" value="hello"/>
-</jsp:include>
+
+
+
 <br><br>
+ <%@include file="Message.jsp" %>
+ <%@include file="ErrorMessage.jsp" %>
 <h1>User List</h1>
     <table class="table table-striped">
         <thead>
@@ -63,12 +65,29 @@
             <td>${user.username}</td>
             <td>${user.email}</td>
             <td>${user.email}</td>
-            <td><a href = "${contextPath}/api/auth/viewUserByID/${user.id}" class = "item-name">View</a></td>
-            <td><a href = "${contextPath}/api/auth/deleteUser/${user.id}" class = "item-name">Delete</a></td>
+            <td><a href = "${contextPath}/api/auth/viewUserByID/${user.id}" class = "item-name1">View</a></td>
+            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
+                       style="margin-left: 5px;"><b>Delete</b></a></td>
             
           </tr>
           </c:forEach>
         </tbody>
       </table>  
+      <h1>${message}</h1>
 </body>
+
+
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function getID(value) {
+
+        document.getElementById("deleteId").value = value;
+        console.log(document.getElementById("deleteId").value);
+    }
+
+</script>
+   <%@ include file="DeleteUser12.jsp" %>
+
+
+
 </html>
