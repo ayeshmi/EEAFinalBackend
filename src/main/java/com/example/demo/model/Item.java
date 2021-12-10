@@ -32,23 +32,23 @@ public class Item {
 	private String price;
 	
 	@NotBlank
-	@Size(max = 200)
+	@Size(max = 700)
 	private String description;
 	
 	@NotBlank
-	@Size(max = 200)
+	@Size(max = 700)
 	private String specifications;
 	
 	@NotBlank
-	@Size(max = 200)
+	@Size(max = 700)
 	private String suitableFor;
 	
 	@NotBlank
-	@Size(max = 200)
+	@Size(max = 700)
 	private String howToUse;
 	
 	@NotBlank
-	@Size(max = 200)
+	@Size(max = 700)
 	private String ingredients;
 	
 	@NotBlank

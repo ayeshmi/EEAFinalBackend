@@ -111,18 +111,18 @@ label{
         <form class="row1 form12">
             <h1 id="headerTitle1"><b>View User Details.</b></h1>
             <br></br>
-            <img class='form-img22'  src="http://cdn.onlinewebfonts.com/svg/img_191958.png" alt='register' />
+            <img class='form-img22'  src=${user.image}  alt='register' />
                 <label for="inputAddress">Username</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Username" value=${username} disabled>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Username" value=${user.username} disabled>
               
                 <label for="inputAddress">Email</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Email" value=${email} disabled>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Email" value=${user.email} disabled>
 
                 <label for="inputAddress">BirthDay</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="BirthDay" value=${email} disabled>
+                <input type="text" class="form-control" id="inputAddress" placeholder="BirthDay" value=${user.birthday} disabled>
 
                 <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                <input type="text" class="form-control" id="inputAddress" placeholder="Address" value=${user.address} disabled>
             
           </form>
         </div>

@@ -219,6 +219,7 @@ border-bottom-right-radius: 16px;
 <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
+       <%@include file="ViewAllError.jsp" %>
   <div class="container">
     <h1 id="hello">${item.name}</h1>
     
@@ -276,7 +277,9 @@ border-bottom-right-radius: 16px;
         
       </div>
       
+<div class="card mb-4">
 
+            </div>
     </div>
     <div class="row">
       <div class="col">
@@ -289,14 +292,15 @@ border-bottom-right-radius: 16px;
         <p>${item.howToUse}</p>
         
       </div>
-      <div class="col">
+     
+    </div>
+
+    <div class="row">
+     <div class="col">
         <h2>Ingredients:</h2>
         <p>${item.ingredients}</p>
         
       </div>
-    </div>
-
-    <div class="row">
       
       <div class="col">
         <h2>Delivery:</h2>
@@ -309,6 +313,9 @@ border-bottom-right-radius: 16px;
         
       </div>
     </div>
+    <div class="card mb-4">
+
+            </div>
     <section class="row2">
     <h2>Add your comment here.</h2>
     <form action="/api/auth/addComment/${item.id}" method="get">
@@ -332,6 +339,8 @@ border-bottom-right-radius: 16px;
               </div>
           </div>
         
+       
+        
           <div class="action">
               <button type="button" class="btn btn-primary btn-xs" title="Edit">
                   <span class="glyphicon glyphicon-pencil"></span>
@@ -350,6 +359,11 @@ border-bottom-right-radius: 16px;
   
 </section>
 <br></br>
+
+
+ <div class="card mb-4">
+
+            </div>
 <div class="row2">
 <h2>Rate from here.</h2>
  <div class="feedback">
@@ -462,48 +476,7 @@ border-bottom-right-radius: 16px;
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<div class="buttons">
-      <h1>Notifications</h1>
-      <button onclick="notifySuccess()">
-        Success
-      </button>
-      <button onclick="notifyError()">
-        Error
-      </button>
-      <button onclick="notifyInfo()">
-        Info
-      </button>
-    </div>
-    
-    <div id="notification-area">
-    </div>
 
-
-<div class="container mt-3">
-<h3>Tooltip Options</h3>
-<p>The <strong>delay</strong> option specifies the number of milliseconds it will take to hide the toast.</p>
-<p>In this example, it will take 2000 milliseconds to hide the toast, once it is shown. Click on the "Show Toast" button to see the effect.</p>
-<button type="button" class="btn btn-primary" id="myBtn">Show Toast</button>
-
-<div class="toast mt-3">
-  <div class="toast-header">
-    Toast Header
-  </div>
-  <div class="toast-body">
-    Some text inside the toast body
-  </div>
-</div>
-</div>
-
-<script>
-$(document).ready(function(){
-$('#hello'){
-  $('.toast').toast({delay: 2000});
-  $('.toast').toast('show');
-};
-});
-
-</script>
 
          
 </body>

@@ -55,6 +55,7 @@ border-bottom-right-radius: 16px;
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
+<%@include file="ViewAllError.jsp" %>
   <div class="container">
     
     <section class="h-100 gradient-custom">
@@ -86,8 +87,8 @@ border-bottom-right-radius: 16px;
                   <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                     <!-- Data -->
                     <p><strong></strong></p>
-                    <p>${cart.clientEmail}</p>
-                    <p>Size: M</p>
+                    <p>${item.name}</p>
+                    <p>Order By:${cart.clientEmail}</p>
                     <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
@@ -108,7 +109,7 @@ border-bottom-right-radius: 16px;
                       </button>
     
                       <div class="form-outline">
-                        <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                        <input id="form1" min="0" name="quantity" value=${cart.quantity} type="number" class="form-control" />
                         <label class="form-label" for="form1">Quantity</label>
                       </div>
     
@@ -121,7 +122,7 @@ border-bottom-right-radius: 16px;
     
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong>$17.99</strong>
+                      <strong>Rs.${cart.price}</strong>
                     </p>
                     <!-- Price -->
                   </div>

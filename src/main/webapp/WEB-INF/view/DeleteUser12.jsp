@@ -6,13 +6,13 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"><B>Delete Lecture</B></h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="exampleModalLabel"><B>Delete User</B></h5>
+                
             </div>
 
             <div class="modal-body">
 
-                <P>Confirm deletion of the selected Lecture.</P>
+                <P>Confirm deletion of the selected User.</P>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

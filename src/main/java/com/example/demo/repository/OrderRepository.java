@@ -17,10 +17,10 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 	List<Order> findByClientEmail(String clientEmail);
 	
 	//@Query(value="select * from order_Table where user_id=110 AND type='order'")
-	@Query(value="select * from order_Table where user_id=110 AND type='order'", nativeQuery = true)
+	@Query(value="select * from order_Table where user_id=:keyword AND type='order'", nativeQuery = true)
 	List<Order> search(@Param("keyword")Long userId);
 	
-	@Query(value="select * from order_Table where user_id=110 AND type='cart'", nativeQuery = true)
+	@Query(value="select * from order_Table where user_id=:keyword AND type='cart'", nativeQuery = true)
 	List<Order> searchCartDetails(@Param("keyword")Long userId);
 	
 	

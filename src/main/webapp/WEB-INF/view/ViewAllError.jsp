@@ -1,14 +1,14 @@
 <%@ page import="com.example.demo.model.MessageResponse" %>
 <%
-MessageResponse success = null;
+MessageResponse message1 = null;
     try{
-        success = (MessageResponse) request.getAttribute("success");
+        message1 = (MessageResponse) request.getAttribute("ErrorMessage");
     }
     catch (Exception e){
         e.printStackTrace();
     }
 
-    if (success != null){
+    if (message1 != null){
 %>
 
 <style>
@@ -24,6 +24,7 @@ MessageResponse success = null;
     position: absolute;
     top: 15%;
     left: 30%;
+   
    
   }
   
@@ -57,19 +58,14 @@ MessageResponse success = null;
   </style>
 <div class="alert" style="align-content: center;">
   
-  <strong ><%= success.getMessage() %></strong> 
-  <br></br>
- <form action="${contextPath}/api/auth/viewAllUserPage" method="get" id="myForm">
-  
-                        <input hidden id="deleteId" name="userId">
-                        <button type="submit" class="button" >Ok</button>
-                    </form>
+  <strong > <%= message1.getMessage() %></strong> 
+ 
+<br></br>
+                        <button onclick="this.parentElement.style.display='none';" class="button" >Ok</button>
+                    
 </div>
-
-
-
-
-
-
+<br></br>
+<br></br>
+<br></br>
 
 <% } %>

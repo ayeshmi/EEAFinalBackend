@@ -38,6 +38,9 @@ public class User {
 	@Size(max = 120)
 	private String password;
 	
+	
+	@Size(max = 250)
+	private String image;
 
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -47,6 +50,17 @@ public class User {
 	private Set<Role> roles = new HashSet<>();
     
 	public User() {
+	}
+
+
+	public User(@Size(max = 50) String username, @NotBlank @Size(max = 100) @Email String email,
+			@Size(max = 50) String birthday, @Size(max = 200) String address, @Size(max = 250) String image) {
+		super();
+		this.username = username;
+		this.email = email;
+		this.birthday = birthday;
+		this.address = address;
+		this.image = image;
 	}
 
 
@@ -63,8 +77,15 @@ public class User {
 		this.password = password;
 	
 	}
-	
-	
+		
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public Long getId() {
 		return id;
 	}

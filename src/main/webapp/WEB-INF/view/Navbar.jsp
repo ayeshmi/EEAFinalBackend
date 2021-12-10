@@ -44,11 +44,11 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 18px;">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="#"><b>Home</b>
+			<li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
 					<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-			<li class="nav-item"><a class="nav-link" href="#"><b>About
+			<li class="nav-item"><a class="nav-link" href="${contextPath}/api/auth/aboutUs"><b>About
 						Us</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
@@ -62,11 +62,13 @@
 				aria-expanded="false"> <b>Profile</b>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
+                <sec:authorize access="isAuthenticated()" >
+                <sec:authentication property="principal.id" var="id"/> 
+                </sec:authorize>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/profile">View Profile Details</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserByID/${id}">View Profile Details</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/updateProfile">Update Profile Details</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserUpdate/${id}">Update Profile Details</a>
 				</div></li>
 				<li class="nav-item"><a class="nav-link" href="#"></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>

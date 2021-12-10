@@ -41,6 +41,12 @@
 </style>
 
 <body>
+
+
+
+ <%@include file="ErrorMessage.jsp" %>
+ <%@include file="loginError.jsp" %>
+ 
 	<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0"
 		style="background-color: #000080;">
 		<div class="container">
@@ -101,21 +107,21 @@
 <!-- Email input -->
 							<div class="form-outline mb-4">
 								<input type="text" id="form1Example13" 
-									class="form-control form-control-lg" name="username" placeholder="Enter username"/> <label
+									class="form-control form-control-lg" name="username" placeholder="Enter username" required/> <label
 									class="form-label" for="form1Example13">Username</label>
 							</div>
 
 							<!-- Email input -->
 							<div class="form-outline mb-4">
 								<input type="text" id="form1Example13"
-									class="form-control form-control-lg" name="email" placeholder="Enter email"/> <label
+									class="form-control form-control-lg" name="email" placeholder="Enter email" required/> <label
 									class="form-label" for="form1Example13">Email</label>
 							</div>
 							
 							<!-- Password input -->
 							<div class="form-outline mb-4">
 								<input type="password" id="form1Example23"
-									class="form-control form-control-lg" name="password" placeholder="Enter password"/> <label
+									class="form-control form-control-lg" name="password" placeholder="Enter password" required/> <label
 									class="form-label" for="form1Example23">Password</label>
 							</div>
 
@@ -123,12 +129,10 @@
 								class="d-flex justify-content-around align-items-center mb-4">
 								<!-- Checkbox -->
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value=""
-										id="form1Example3" checked /> <label
-										class="form-check-label" for="form1Example3"> Remember
-										me </label>
+									 <label
+										class="form-check-label" for="form1Example3"> If you already have an account </label>
 								</div>
-								<a href="#!" class="passworda">Forgot password?</a>
+								<a href="${contextPath}/api/auth/login" class="passworda">Login from here</a>
 							</div>
 
 							<!-- Submit button -->

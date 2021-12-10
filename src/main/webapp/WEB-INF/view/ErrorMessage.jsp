@@ -59,7 +59,7 @@ MessageResponse message = null;
   
   <strong > <%= message.getMessage() %></strong> 
  
- <form action="${contextPath}/api/auth/signinW"  id="myForm">
+ <form action="${contextPath}/api/auth/login"  id="myForm">
   
                         <input hidden id="deleteId" name="userId">
                         <button type="submit" class="button" aria-label="Close">Ok</button>

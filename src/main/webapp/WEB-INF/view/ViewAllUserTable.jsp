@@ -47,6 +47,7 @@
 <br><br>
  <%@include file="Message.jsp" %>
  <%@include file="ErrorMessage.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
 <h1>User List</h1>
     <table class="table table-striped">
         <thead>
