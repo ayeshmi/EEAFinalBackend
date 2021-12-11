@@ -7,11 +7,13 @@
 <html>
     <style>
         .form12{
-background: rgb(103, 173, 57);
+background: rgb(76, 26, 194);
+	background: linear-gradient(135deg, rgb(71, 169, 194) 0%,
+		rgb(19, 21, 131) 100%);
 width:750px;
 border-radius: 55px;
   margin: 80px auto;
-  height:1450px;
+  height:1650px;
 }
 #headerTitle1{
   text-align: center;
@@ -162,11 +164,11 @@ label{
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
       <form class="row1 form12" action="/api/auth/updateItem" method="post" enctype="multipart/form-data" >
-        <h1 id="headerTitle1"><b>Add New Item.</b></h1>
+        <h1 id="headerTitle1"><b>Update Item Details.</b></h1>
         <br></br>
-        
+        <img class='form-img22'  src=${item.image} alt='image' />
             <label for="inputAddress">Item name</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}">
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}" disabled>
           
             <label for="inputAddress">Price</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" >

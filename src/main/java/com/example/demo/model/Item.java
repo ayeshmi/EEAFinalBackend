@@ -35,7 +35,7 @@ public class Item {
 	@Size(max = 700)
 	private String description;
 	
-	@NotBlank
+
 	@Size(max = 700)
 	private String specifications;
 	
@@ -51,15 +51,15 @@ public class Item {
 	@Size(max = 700)
 	private String ingredients;
 	
-	@NotBlank
+	
 	@Size(max = 50)
 	private String delivery;
 	
-	@NotBlank
+	
 	@Size(max = 50)
 	private String returnItem;
 	
-	@NotBlank
+	
 	@Size(max = 50)
 	private String itemType;
 	

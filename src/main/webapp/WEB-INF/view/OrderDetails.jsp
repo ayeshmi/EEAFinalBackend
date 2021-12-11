@@ -77,7 +77,7 @@ border-bottom-right-radius: 16px;
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
                     <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                      <img src=${cart.itemImage}
                         class="w-100" />
                       <a href="#!">
                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
@@ -89,47 +89,38 @@ border-bottom-right-radius: 16px;
                   <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                     <!-- Data -->
                     <p><strong></strong></p>
-                    <p>${cart.itemName}</p>
-                    <p>Ordered by:${cart.clientEmail}</p>
+                    <a href="${contextPath}/api/auth/viewItemByItem/${cart.itemId}">${cart.name}</a>
+                    <p><strong>Ordered by:</strong>${cart.clientEmail}</p>
+                    <p><strong>Order Status:</strong>${cart.status}</p>
                     <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
                     </a>
-                    <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                      title="Move to the wish list">
-                      <i class="fas fa-heart"></i>
-                    </button>
+                    
                     <!-- Data -->
                   </div>
     
                   <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <!-- Quantity -->
                     <div class="d-flex mb-4" style="max-width: 300px">
-                      <button class="btn btn-primary px-3 me-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
+                      
     
                       <div class="form-outline">
-                        <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                        <input id="form1" min="0" name="quantity" value=${cart.quantity} type="number" class="form-control" disabled/>
                         <label class="form-label" for="form1">Quantity</label>
                       </div>
-    
-                      <button class="btn btn-primary px-3 ms-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
+
                     </div>
                     <!-- Quantity -->
     
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong>Rs.${totalPrice}.00</strong>
+                      <strong>Rs.${cart.totalPrice}.00</strong>
                     </p>
                     
-                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}" class="button1"  >CONFIRM ORDER RECEIVED</a>
+                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}/${cart.userId}" class="button1"  >CONFIRM ORDER RECEIVED</a>
                     <br></br>
-                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}" >CANCEL ORDER</a>
+                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}/${cart.userId}" >CANCEL ORDER</a>
                     <!-- Price -->
                   </div>
                 </div>

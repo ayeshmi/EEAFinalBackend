@@ -1,6 +1,5 @@
 package com.example.demo.controller.webController;
 
-
 import java.io.IOException;
 import java.util.List;
 
@@ -22,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.Item;
+import com.example.demo.model.MessageResponse;
 import com.example.demo.service.CommentService;
 import com.example.demo.service.FileStorageService;
 import com.example.demo.service.ItemService;
@@ -36,7 +36,7 @@ public class ItemController {
 
 	@Autowired
 	private FileStorageService fileStorageService;
-	
+
 	@Autowired
 	private CommentService commentService;
 
@@ -45,16 +45,27 @@ public class ItemController {
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
 			@RequestParam("delivery") String delivery, @RequestParam("suitableFor") String suitableFor,
-			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem,@RequestParam("itemType") String itemType) {
-		// System.out.println("get item details"+file);
-		itemService.addItem(file, name, description, specifications, price, ingredients, delivery, suitableFor,
-				howToUse, returnItem,itemType);
+			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem,
+			@RequestParam("itemType") String itemType) {
 
-		System.out.println("Request is leanded" + file);
+		MessageResponse message = null;
+
+		message = itemService.addItem(file, name, description, specifications, price, ingredients, delivery,
+				suitableFor, howToUse, returnItem, itemType);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("AddItem");
-       modelAndView.addObject("message", "item is successfully added.");
-		 return modelAndView;
+		 System.out.println("order is added");
+		if (message != null) {
+
+			modelAndView.setViewName("AddItem");
+			modelAndView.addObject("ErrorMessage", message);
+		} else {
+			modelAndView.setViewName("AddItem");
+			MessageResponse response =new MessageResponse("Check user inputs and try again.");
+			modelAndView.addObject("ErrorMessage", response);
+		}
+		
+
+		return modelAndView;
 
 	}
 
@@ -63,12 +74,16 @@ public class ItemController {
 		// System.out.println("get item details"+file);
 		List<Item> items = itemService.getAllItems();
 		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("items", items);
-		modelAndView.setViewName("ViewItemCategorical");
-
+		if(items != null) {
+			modelAndView.addObject("items", items);
+			modelAndView.setViewName("ViewItemCategorical");	
+		}else {
+			MessageResponse response =new MessageResponse("Item list is empty.");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("ViewItemCategorical");
+		}
+		
 		return modelAndView;
-
 	}
 
 	@GetMapping("/viewSelectedCategoryItem/{name}")
@@ -89,7 +104,7 @@ public class ItemController {
 		// System.out.println("get item details"+file);
 		System.out.println("Called1234");
 		Item item = itemService.viewItemByID(id);
-		List<Comment> viewComments=commentService.getCommentByItemId(id);
+		List<Comment> viewComments = commentService.getCommentByItemId(id);
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("item", item);
@@ -99,7 +114,7 @@ public class ItemController {
 		return modelAndView;
 
 	}
-	
+
 	@GetMapping("/viewItemUpdateByItem/{id}")
 	public ModelAndView viewItemUpdateByID(@PathVariable("id") Long id) {
 		// System.out.println("get item details"+file);
@@ -113,43 +128,46 @@ public class ItemController {
 		return modelAndView;
 
 	}
-	
+
 	@PostMapping("/updateItem")
-	public void UpdateItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
+	public ModelAndView UpdateItem(@RequestParam("image") MultipartFile file,
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
 			@RequestParam("delivery") String delivery, @RequestParam("suitableFor") String suitableFor,
 			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem) {
-		// System.out.println("get item details"+file);
-		itemService.updateItem(file, description, specifications, price, ingredients, delivery, suitableFor,
-				howToUse, returnItem);
-
-		System.out.println("Request is leanded" + file);
+	
+		MessageResponse message = null;
+		message=itemService.updateItem(file, description, specifications, price, ingredients, delivery, suitableFor, howToUse,
+				returnItem);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Home");
-
-		// return modelAndView;
-
+		if(message !=null) {
+			
+			modelAndView.setViewName("Home");
+		}
+		else {
+			MessageResponse response =new MessageResponse("Item list is empty.");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("ViewItemCategorical");
+		}
+		 return modelAndView;
 	}
 
 	@RequestMapping("/addItemPage")
 	public String addItemPage() {
 		return "AddItem";
 	}
-	
-	
 
 	@RequestMapping("/addItemTable")
 	public ModelAndView viewAllItemAdming() {
-        List<Item> items=itemService.viewAllItems();
-		
+		List<Item> items = itemService.viewAllItems();
+
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("items", items);
 		modelAndView.setViewName("ViewAllItemsTable");
 
 		return modelAndView;
-		
+
 	}
 
 	@RequestMapping("/itemCategorical")
@@ -176,12 +194,12 @@ public class ItemController {
 
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
 	}
-	
+
 	@GetMapping("/deleteItem/{id}")
 	public void deleteItem(@PathVariable Long id) {
 		itemService.deleteItem(id);
 
-		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+		// return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 
 	}
 

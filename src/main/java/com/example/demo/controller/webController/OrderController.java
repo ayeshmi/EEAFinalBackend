@@ -1,6 +1,5 @@
 package com.example.demo.controller.webController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +33,11 @@ public class OrderController {
 	public ModelAndView addOrder(@RequestParam("clientEmail") String clientEmail,
 			@RequestParam("userId") Long userId, @RequestParam("price") String price,
 			@RequestParam("quantity") String quantity, @PathVariable Long itemId,
-			@RequestParam("itemName") String itemName) {
+			@RequestParam("itemName12") String itemName,@RequestParam("image") String image) {
 		MessageResponse response = null;
+		
 		response = orderService.addToCartItem(clientEmail, userId, price, quantity, itemId, java.time.LocalDate.now(),
-				itemName);
+				itemName,image);
 		Item item=itemService.viewItemByID(itemId);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("item", item);
@@ -61,52 +61,110 @@ public class OrderController {
 	@GetMapping("/addOrder/{email}")
 	public void orderConfirmation(@PathVariable String email) {
 		// System.out.println("sdsd"+order.getClientEmail());
-
 		orderService.orderConfirmation(email);
 		System.out.println("order is sucessfully added");
 
 	}
 
-	@GetMapping("/OrderCompleted/{itemId}")
-	public void orderCompleted(@PathVariable Long itemId) {
-		// System.out.println("sdsd"+order.getClientEmail());
+	@GetMapping("/OrderCompleted/{itemId}/{userId}")
+	public ModelAndView orderCompleted(@PathVariable("itemId") Long itemId,@PathVariable("userId") Long userId) {
 
-		orderService.orderCompleted(itemId);
-		System.out.println("order is sucessfully completed");
+		MessageResponse response = null;
+		ModelAndView modelAndView = new ModelAndView();
+		response=orderService.orderCompleted(itemId);
+		List<Order> orders1 = orderService.viewOrderDetailsUser(userId);
+		if(response != null) {
+			if (orders1.size() != 0) {
+				int totalPrice = 0;
+				int priceFullTotal = 0;
+				for (int i = 0; i < orders1.size(); i++) {
+				    Order order1 = orders1.get(i);	
+					int itemPrice = Integer.parseInt(order1.getPrice());
+					int quantity = Integer.parseInt(order1.getQuantity());
+					totalPrice = itemPrice * quantity;
+					priceFullTotal = priceFullTotal + totalPrice;
+				}
+				
+				modelAndView.addObject("ordersO", orders1);
+				modelAndView.addObject("totalPrice", priceFullTotal);
+				modelAndView.setViewName("OrderDetails");
+			} else {
+				
+				MessageResponse message = new MessageResponse("User list is empty.");
+				modelAndView.addObject("ErrorMessage", message);
+				modelAndView.setViewName("OrderDetails");
+			}
+			modelAndView.addObject("ErrorMessage", response);	
+			modelAndView.setViewName("OrderDetails");
+		}
+		else {
+			MessageResponse message = new MessageResponse("Something went wrong, try again.");
+			modelAndView.addObject("ErrorMessage", message);
+			modelAndView.setViewName("OrderDetails");
+		}
+		
+		return modelAndView;
 
 	}
 
-	@GetMapping("/OrderCancelation/{itemId}")
-	public void orderCancelation(@PathVariable Long itemId) {
-		// System.out.println("sdsd"+order.getClientEmail());
-
-		orderService.orderCancelation(itemId);
-		System.out.println("order is sucessfully completed");
+	@GetMapping("/OrderCancelation/{itemId}/{userId}")
+	public ModelAndView orderCancelation(@PathVariable("itemId") Long itemId,@PathVariable("userId") Long userId) {
+		MessageResponse response = null;
+		ModelAndView modelAndView = new ModelAndView();
+		response=orderService.orderCancelation(itemId);
+		List<Order> orders1 = orderService.viewOrderDetailsUser(userId);
+		if(response != null) {
+			if (orders1.size() != 0) {
+				int totalPrice = 0;
+				int priceFullTotal = 0;
+				for (int i = 0; i < orders1.size(); i++) {
+				    Order order1 = orders1.get(i);	
+					int itemPrice = Integer.parseInt(order1.getPrice());
+					int quantity = Integer.parseInt(order1.getQuantity());
+					totalPrice = itemPrice * quantity;
+					priceFullTotal = priceFullTotal + totalPrice;
+				}
+				
+				modelAndView.addObject("ordersO", orders1);
+				modelAndView.addObject("totalPrice", priceFullTotal);
+				modelAndView.setViewName("OrderDetails");
+			} else {
+				
+				MessageResponse message = new MessageResponse("User list is empty.");
+				modelAndView.addObject("ErrorMessage", message);
+				modelAndView.setViewName("OrderDetails");
+			}
+			modelAndView.addObject("ErrorMessage", response);	
+			modelAndView.setViewName("OrderDetails");
+		}
+		else {
+			MessageResponse message = new MessageResponse("Something went wrong, try again.");
+			modelAndView.addObject("ErrorMessage", message);
+			modelAndView.setViewName("OrderDetails");
+		}
+		
+		return modelAndView;
+		
 
 	}
 
 	@GetMapping("/viewCart/{id}")
 	public ModelAndView viewCartDetailsUser(@PathVariable Long id) {
-		System.out.println("list is empty125");
+		
 		List<Order> orders = orderService.viewCartDetailsUser(id);
-		List<Item> itemList = new ArrayList<Item>();
+		
 		ModelAndView modelAndView = new ModelAndView();
 		int totalPrice = 0;
 		int priceFullTotal = 0;
 		if(orders.size() != 0) {
 			for (int i = 0; i < orders.size(); i++) {
 				Order order1 = orders.get(i);
-				Item item = itemService.viewItemByID(order1.getItemId());
 				int itemPrice = Integer.parseInt(order1.getPrice());
 				int quantity = Integer.parseInt(order1.getQuantity());
 				totalPrice = itemPrice * quantity;
 				priceFullTotal = priceFullTotal + totalPrice;
-				itemList.add(item);
-
 			}
-
 			modelAndView.addObject("orders", orders);
-			modelAndView.addObject("items", itemList);
 			modelAndView.addObject("totalPrice", priceFullTotal);
 			modelAndView.setViewName("ViewCart");
 		}
@@ -116,8 +174,7 @@ public class OrderController {
 			modelAndView.addObject("ErrorMessage", response);	
 			modelAndView.setViewName("ViewCart");
 			
-		}
-		
+		}	
 		
 		return modelAndView;
 
@@ -129,20 +186,14 @@ public class OrderController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		if (orders1.size() != 0) {
-			
-			List<Item> itemList1 = new ArrayList<Item>();
-
 			int totalPrice = 0;
 			int priceFullTotal = 0;
 			for (int i = 0; i < orders1.size(); i++) {
-				Order order1 = orders1.get(i);
-				Item item = itemService.viewItemByID(order1.getItemId());
+			    Order order1 = orders1.get(i);	
 				int itemPrice = Integer.parseInt(order1.getPrice());
 				int quantity = Integer.parseInt(order1.getQuantity());
 				totalPrice = itemPrice * quantity;
 				priceFullTotal = priceFullTotal + totalPrice;
-				itemList1.add(item);
-
 			}
 			
 			modelAndView.addObject("ordersO", orders1);
@@ -172,9 +223,42 @@ public class OrderController {
 		return modelAndView;
 	}
 
-	@GetMapping("/deletecartItem/{id}")
-	public void deleteCartItem(@PathVariable Long id) {
-		orderService.deleteItem(id);
+	@GetMapping("/deletecartItem/{id}/{userId}")
+	public ModelAndView deleteCartItem(@PathVariable("id") Long id,@PathVariable("userId") Long userId) {
+		System.out.println("user id"+userId);
+		MessageResponse message=orderService.deleteItem(id);
+		ModelAndView modelAndView = new ModelAndView();
+        List<Order> orders = orderService.viewCartDetailsUser(userId);
+		int totalPrice = 0;
+		int priceFullTotal = 0;
+		if(orders.size() != 0) {
+			for (int i = 0; i < orders.size(); i++) {
+				Order order1 = orders.get(i);
+				
+				int itemPrice = Integer.parseInt(order1.getPrice());
+				int quantity = Integer.parseInt(order1.getQuantity());
+				totalPrice = itemPrice * quantity;
+				priceFullTotal = priceFullTotal + totalPrice;
+				
+
+			}
+			modelAndView.addObject("ErrorMessage", message);
+			modelAndView.addObject("orders", orders);
+			
+			modelAndView.addObject("totalPrice", priceFullTotal);
+			modelAndView.setViewName("ViewCart");
+		}
+		else {
+			
+			MessageResponse response =new MessageResponse("No Items in the cart.");
+			modelAndView.addObject("ErrorMessage", response);	
+			modelAndView.setViewName("ViewCart");
+			
+		}
+		
+		
+		return modelAndView;
+
 
 
 	}

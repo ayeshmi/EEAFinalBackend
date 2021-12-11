@@ -34,7 +34,7 @@ public class OrderControllerAPI {
 	public void addOrder(@RequestBody Order order){
 		//System.out.println("sdsd"+order.getClientEmail());
 		
-	orderService.addToCartItem(order.getClientEmail(),order.getUserId(),order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getItemName());
+	//orderService.addToCartItem(order.getClientEmail(),order.getUserId(),order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getItemName());
 	System.out.println(java.time.LocalDate.now());  
 		System.out.println("Item is sucessfully added to cart");
 		

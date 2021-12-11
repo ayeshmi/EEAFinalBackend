@@ -56,14 +56,18 @@ border-bottom-right-radius: 16px;
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
 <%@include file="ViewAllError.jsp" %>
+  
   <div class="container">
     
     <section class="h-100 gradient-custom">
       <div class="container py-5">
+      
         <div class="row d-flex justify-content-center my-4">
           <div class="col-md-8">
           
-            <c:forEach var="cart" items="${orders}">
+          
+          <c:forEach var="cart" items="${orders}">
+                  
             <div class="card mb-4">
               <div class="card-header py-3">
                 <h5 class="mb-0">Cart items</h5>
@@ -72,10 +76,14 @@ border-bottom-right-radius: 16px;
               <div class="card-body">
                 <!-- Single item -->
                 <div class="row">
+                
                   <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <!-- Image -->
+                     
                     <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                      <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12a.jpg"
+                                        
+                     
+                      <img src=${cart.itemImage}
                         class="w-100" />
                       <a href="#!">
                         <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
@@ -86,57 +94,56 @@ border-bottom-right-radius: 16px;
     
                   <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
                     <!-- Data -->
+                   <input type="hidden" name="id" value=${item.id} /> 
                     <p><strong></strong></p>
-                    <p>${item.name}</p>
+                    <a href="${contextPath}/api/auth/viewItemByItem/${cart.itemId}">${cart.name}</a>
+                   
                     <p>Order By:${cart.clientEmail}</p>
-                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}"
+                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}/${cart.userId}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
+                      
                     </a>
-                    <button type="button" class="btn btn-danger btn-sm mb-2" data-mdb-toggle="tooltip"
-                      title="Move to the wish list">
-                      <i class="fas fa-heart"></i>
-                    </button>
+                    
                     <!-- Data -->
                   </div>
-    
+                  
+   
                   <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <!-- Quantity -->
-                    <div class="d-flex mb-4" style="max-width: 300px">
-                      <button class="btn btn-primary px-3 me-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                        <i class="fas fa-minus"></i>
-                      </button>
+                    <div class="d-flex mb-4" style="min-width: 150px">
+                      
     
                       <div class="form-outline">
-                        <input id="form1" min="0" name="quantity" value=${cart.quantity} type="number" class="form-control" />
+                        <input id="form1" min="0" name="quantity" value=${cart.quantity} type="number" class="form-control" disabled/>
                         <label class="form-label" for="form1">Quantity</label>
                       </div>
     
-                      <button class="btn btn-primary px-3 ms-2"
-                        onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                        <i class="fas fa-plus"></i>
-                      </button>
+                     
                     </div>
                     <!-- Quantity -->
     
                     <!-- Price -->
                     <p class="text-start text-md-center">
-                      <strong>Rs.${cart.price}</strong>
+                      <strong>Rs.${cart.totalPrice}</strong>
                     </p>
                     <!-- Price -->
                   </div>
+                    
                 </div>
+                   
                 <!-- Single item -->
     
                 <hr class="my-4" />
     
               </div>
             </div>
-            </c:forEach>
-             
+         
+           
+             </c:forEach>
             <div class="card mb-4">
-
+              
+                     
             </div>
             <div class="card mb-4 mb-lg-0">
               <div class="card-body">

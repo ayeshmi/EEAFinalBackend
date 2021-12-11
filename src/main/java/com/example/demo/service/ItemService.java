@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.example.demo.model.Item;
-
+import com.example.demo.model.MessageResponse;
 import com.example.demo.repository.ItemRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,73 +25,110 @@ public class ItemService {
 	@Autowired
 	private FileStorageService fileStorageService;
 	
-	
-	
-
 
 	public void addItem(Item item) {
-		
-		itemRepo.save(item);
-		System.out.println("Process is completed");
+		try {
+			itemRepo.save(item);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
 	
 	}
 
-	public void addItem(MultipartFile file, String name, String description, String specifications, String price,
+	public MessageResponse addItem(MultipartFile file, String name, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,String itemType) {
-		System.out.println("Called");
+		
 		Item p = new Item();
-		String imagePath=imageUploader(file);
-		p.setImage(imagePath);
 		
+		MessageResponse message=null;
+		try {
+			String imagePath=imageUploader(file);
+			p.setImage(imagePath);		
+	        p.setName(name);
+	        p.setPrice(price);
+	        p.setDelivery(delivery);
+	        p.setDescription(description);
+	        p.setHowToUse(howToUse);
+	        p.setIngredients(ingredients);
+	        p.setAvailability("Available");
+	        p.setSpecifications(specifications);
+	        p.setSuitableFor(suitableFor);
+	        p.setReturnItem(returnItem);
+	        p.setItemType(itemType);
+	        
+	        itemRepo.save(p);
+	        message=new MessageResponse("Item is successfully Added.");
+		}catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
 		
-		
-        p.setName(name);
-        p.setPrice(price);
-        p.setDelivery(delivery);
-        p.setDescription(description);
-        p.setHowToUse(howToUse);
-        p.setIngredients(ingredients);
-        p.setAvailability("Available");
-        p.setSpecifications(specifications);
-        p.setSuitableFor(suitableFor);
-        p.setReturnItem(returnItem);
-        p.setItemType(itemType);
-        
-        itemRepo.save(p);
-		
+		return message;
 	}
 	
 	public String imageUploader(MultipartFile file) {
-		String fileName = fileStorageService.storeFile(file);
-		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-				.path("/api/auth/video/")
-				.path(fileName)
-				.toUriString();
+		String fileDownloadUri=null;
+		try {
+			String fileName = fileStorageService.storeFile(file);
+			 fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+					.path("/api/auth/video/")
+					.path(fileName)
+					.toUriString();
+		}
+		catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
+		
 		
 		return fileDownloadUri;
 	}
 
 	public List<Item> getAllItems() {
-		List<Item> items=itemRepo.findAll();
+		List<Item> items=null;
+		try {
+			 items=itemRepo.findAll();
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+		
 		return items;
 	}
 
 	public List<Item> getSelectedCategoryItem(String category) {
-		// TODO Auto-generated method stub
-		List<Item> items= itemRepo.findBySpecifications(category);
+		
+		List<Item> items=null;
+		try {
+			 items=itemRepo.findBySpecifications(category);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
 		return items;
 	}
 
 	public Item viewItemByID(Long id) {
-		// TODO Auto-generated method stub
-		System.out.println("ayeshmi"+id);
-		Item item=itemRepo.findById(id).orElseThrow();
+		
+		Item item=null;
+		try {
+			 item=itemRepo.findById(id).orElseThrow();
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
 		
 		return item;
 	}
 
 	public List<Item> viewAllItems() {
-		List<Item> items=itemRepo.findAll();
+		List<Item> items=null;
+		try {
+			 items=itemRepo.findAll();
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+		
 		return items;
 		
 	}
@@ -105,23 +142,30 @@ public class ItemService {
 		return ResponseEntity.ok(response);
 	}
 
-	public void updateItem(MultipartFile file, String description, String specifications, String price,
+	public MessageResponse updateItem(MultipartFile file, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem) {
-		// TODO Auto-generated method stub
-		Item p = new Item();
-		String imagePath=imageUploader(file);
-		p.setImage(imagePath);
-        p.setPrice(price);
-        p.setDelivery(delivery);
-        p.setDescription(description);
-        p.setHowToUse(howToUse);
-        p.setIngredients(ingredients);
-        p.setAvailability("Available");
-        p.setSpecifications(specifications);
-        p.setSuitableFor(suitableFor);
-        p.setReturnItem(returnItem);
-        
-        itemRepo.save(p);
+		MessageResponse message=null;
+		try {
+			Item p = new Item();
+			String imagePath=imageUploader(file);
+			p.setImage(imagePath);
+	        p.setPrice(price);
+	        p.setDelivery(delivery);
+	        p.setDescription(description);
+	        p.setHowToUse(howToUse);
+	        p.setIngredients(ingredients);
+	        p.setAvailability("Available");
+	        p.setSpecifications(specifications);
+	        p.setSuitableFor(suitableFor);
+	        p.setReturnItem(returnItem);
+	        
+	        itemRepo.save(p);
+	        message=new MessageResponse("Item is successfully Updated."); 
+		}
+		catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
+		return message;
 	}
 
 	public void updateItembyID(Item item, Long id) {

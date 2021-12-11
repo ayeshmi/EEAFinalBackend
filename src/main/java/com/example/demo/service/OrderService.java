@@ -21,9 +21,13 @@ public class OrderService {
 	private EmailSender emailSender;
 
 	public MessageResponse addToCartItem(String clientEmail, Long userId, String price, String quantity, Long itemId,
-			LocalDate date, String itemName) {
+			LocalDate date, String itemName,String image) {
 		// TODO Auto-generated method stub
 		Order order = new Order();
+		int itemQuantity=Integer.parseInt(quantity);
+		int itemPrice=Integer.parseInt(price);
+		int totalPrice=itemQuantity*itemPrice;
+		
 		MessageResponse message=null;
 		try {
 			order.setClientEmail(clientEmail);
@@ -33,7 +37,9 @@ public class OrderService {
 			order.setQuantity(quantity);
 			order.setUserId(userId);
 			order.setType("cart");
-			order.setItemName(itemName);
+			order.setName(itemName);
+			order.setTotalPrice(Integer.toString(totalPrice));
+			order.setItemImage(image);
 
 			orderRepository.save(order);
 			message=new MessageResponse("Item is successfully added to the cart.");
@@ -46,29 +52,47 @@ public class OrderService {
 	}
 
 	public List<Order> viewCartDetailsUser(Long id) {
-		List<Order> orders = orderRepository.searchCartDetails(id);
-		System.out.println("fsfsf" + orders);
+		List<Order> orders=null;
+		try {
+			orders = orderRepository.searchCartDetails(id);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
 
 		return orders;
 	}
 
 	public void orderConfirmation(String email) {
-		System.out.println("sdsd" + email);
-		List<Order> orders = orderRepository.findByClientEmail(email);
-		for (int i = 0; i < orders.size(); i++) {
-			Order order = orders.get(i);
-			order.setType("order");
-			order.setStatus("processing");
-			orderRepository.save(order);
+		List<Order> orders=null;
+		try {
+			orders = orderRepository.findByClientEmail(email);
+			for (int i = 0; i < orders.size(); i++) {
+				Order order = orders.get(i);
+				order.setType("order");
+				order.setStatus("processing");
+				orderRepository.save(order);
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Error is" + e);
 		}
+		
 
 	}
 
-	public void deleteItem(Long id) {
-		// TODO Auto-generated method stub
-		Order order = orderRepository.findById(id).orElseThrow();
-		orderRepository.delete(order);
-		System.out.println("order is deleted");
+	public MessageResponse deleteItem(Long id) {
+		MessageResponse message=null;
+		try {
+			Order order = orderRepository.findById(id).orElseThrow();
+			orderRepository.delete(order);
+			
+			message=new MessageResponse ("Item is successfully deleted from the cart.");
+		}catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
+		
+		return message;
 	}
 
 	public List<Order> viewOrderDetailsUser(Long id) {
@@ -76,7 +100,7 @@ public class OrderService {
 		List<Order> orders = null;
 		try {
 			orders = orderRepository.search(id);
-			System.out.println("orders" + orders.size());
+			
 		} catch (Exception e) {
 			System.out.println("Error is" + e);
 		}
@@ -85,20 +109,41 @@ public class OrderService {
 
 	}
 
-	public void orderCompleted(Long itemId) {
-		Order order = orderRepository.findById(itemId).orElseThrow();
-
-		order.setStatus("Completed");
-		orderRepository.save(order);
-		emailSender.sendEmailOrderCompleted();
+	public MessageResponse orderCompleted(Long itemId) {
+		Order order=null;
+		MessageResponse message=null;
+        try {
+        	order = orderRepository.findById(itemId).orElseThrow();
+        	order.setStatus("Completed");
+    		orderRepository.save(order);
+    		emailSender.sendEmailOrderCompleted();
+    		message=new MessageResponse("We are happy, Order is successfully completed.");
+        }catch(Exception e) {
+        	System.out.println("Error is" + e);
+        }
+		return message;
 
 	}
 
-	public void orderCancelation(Long itemId) {
-		Order order = orderRepository.findById(itemId).orElseThrow();
-		order.setStatus("Cancel");
-		orderRepository.save(order);
-		emailSender.sendEmailOrderCancelation();
+	
+	public MessageResponse orderCancelation(Long itemId) {
+		Order order=null;
+		MessageResponse message=null;
+		try {
+			order = orderRepository.findById(itemId).orElseThrow();
+			order.setStatus("Cancel");
+			orderRepository.save(order);
+			emailSender.sendEmailOrderCancelation();
+			message=new MessageResponse("Order is canceled.");
+		}catch(Exception e) {
+			System.out.println("Error is" + e);
+		
+		
 	}
+		return message;
+	}
+	
+
+	
 
 }

@@ -41,6 +41,7 @@
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
+<%@include file="ViewAllError.jsp" %>
     <table class="table table-striped">
         <thead>
           <tr>

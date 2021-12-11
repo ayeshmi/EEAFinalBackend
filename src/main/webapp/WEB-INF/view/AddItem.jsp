@@ -175,6 +175,7 @@ label {
 	<jsp:include page="Navbar.jsp">
 		<jsp:param name="page2" value="home2" />
 	</jsp:include>
+	<%@include file="ViewAllError.jsp" %>
 	<form class="row1 form12" action="/api/auth/addItem" method="post"
 		enctype="multipart/form-data" id="ayeshmi">
 		<h1 id="headerTitle1">
@@ -182,9 +183,9 @@ label {
 		</h1>
 		<br></br> <label for="inputAddress">Item name</label> <input
 			type="text" class="form-control" id="inputAddress"
-			placeholder="Enter item name" name="name"> <label
+			placeholder="Enter item name" name="name" required> <label
 			for="inputAddress">Item Type</label> <select name="itemType"
-			id="pet-select">
+			id="pet-select" >
 			<option value="">--Please choose an option--</option>
 			<option value="Drug">Drug</option>
 			<option value="Equipment">Equipment</option>
@@ -192,13 +193,13 @@ label {
 
 		</select> <label for="inputAddress">Price</label> <input type="number"
 			class="form-control" id="inputAddress" placeholder="Enter item price"
-			name="price"> <label for="inputAddress">Description</label>
+			name="price" required> <label for="inputAddress">Description</label>
 		<textarea rows="5" cols="50" name="description"
 			class="form-control form-control-lg"
-			placeholder="Enter item description"></textarea>
+			placeholder="Enter item description" required></textarea>
 
 		<label for="inputAddress">Category</label> <select
-			name="specifications" id="pet-select">
+			name="specifications" id="pet-select" required>
 			<option value="">--Please choose an option--</option>
 			<option value="WomanHealth">Woman Health</option>
 			<option value="AnimalCare">Animal Care</option>
@@ -218,33 +219,33 @@ label {
 		</select> <label for="inputAddress">Suitable for</label>
 		<textarea rows="5" cols="60" name="suitableFor"
 			class="form-control form-control-lg"
-			placeholder="Enter suitable persons"></textarea>
+			placeholder="Enter suitable persons" required></textarea>
 
 		<label for="inputAddress">How to use</label>
 		<textarea rows="5" cols="10" name="howToUse"
 			class="form-control form-control-lg"
-			placeholder="Enter how to use this item"></textarea>
+			placeholder="Enter how to use this item" required></textarea>
 
 
 		<label for="inputAddress">Ingredients</label>
 		<textarea rows="5" cols="10" name="ingredients"
 			class="form-control form-control-lg"
-			placeholder="Enter item ingredients"></textarea>
+			placeholder="Enter item ingredients" required></textarea>
 
 		<label for="inputAddress">Delivery</label> <select name="delivery"
-			id="pet-select">
+			id="pet-select" required>
 			<option value="">--Please choose an option--</option>
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
 		</select> <label for="inputAddress">Return</label> <select name="returnItem"
-			id="pet-select">
+			id="pet-select" required>
 			<option value="">--Please choose an option--</option>
 			<option value="yes">Yes</option>
 			<option value="no">No</option>
 		</select> <label for="inputAddress">Item image</label> <input type="file"
 			name="image" id="customFile"
 			value="Click the above button to upload the image"
-			style="height: 100px;"> <br></br>
+			style="height: 100px;" required> <br></br>
 		<button type="file">Submit</button>
 		<br></br>
 	</form>

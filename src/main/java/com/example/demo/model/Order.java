@@ -45,10 +45,14 @@ public class Order {
 	@Size(max = 100)
 	private String status;
 	
+	@Size(max = 200)
+	private String name;
+	
 	@Size(max = 100)
-	private String itemName;
+	private String totalPrice;
 	
-	
+	@Size(max = 300)
+	private String itemImage;
 
 	public Order() {
 		
@@ -126,12 +130,28 @@ public class Order {
 		this.status = status;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getName() {
+		return name;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setName(String itemName) {
+		this.name = itemName;
+	}
+
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	public String getItemImage() {
+		return itemImage;
+	}
+
+	public void setItemImage(String itemImage) {
+		this.itemImage = itemImage;
 	}
 	
 	

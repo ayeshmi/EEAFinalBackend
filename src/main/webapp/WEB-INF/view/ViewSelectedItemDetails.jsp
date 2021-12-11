@@ -13,10 +13,7 @@
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet" />
 	
-  
-  
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
@@ -221,7 +218,7 @@ border-bottom-right-radius: 16px;
        </jsp:include> 
        <%@include file="ViewAllError.jsp" %>
   <div class="container">
-    <h1 id="hello">${item.name}</h1>
+    <h1 >${item.name}</h1>
     
    
     <br></br>
@@ -229,8 +226,8 @@ border-bottom-right-radius: 16px;
      
       <div class="col">
         
-        <img src=${item.image} alt="Girl in a jacket" width="200" height="200">
-
+        <img src=${item.image} alt="Girl in a jacket" width="200" height="200" >
+     
       </div>
       <div class="col">
         
@@ -251,7 +248,7 @@ border-bottom-right-radius: 16px;
          <button class="btn btn-primary px-3 ms-2" style="margin-left: 30px" onclick="${contextPath}/api/auth/profile " >Add to cart</button>  
           </div>
 
-</script>
+
         
          
           <security:authorize access="isAuthenticated()" >
@@ -264,8 +261,8 @@ border-bottom-right-radius: 16px;
 <input type="hidden" name="clientEmail" value=${clientEmail} />
 <input type="hidden" name="userId" value=${userId} />
 <input type="hidden" name="price" value=${item.price} />
-<input type="hidden" name="itemName" value=${item.name} />
-
+<input type="hidden" name="itemName12" value="${item.name}" />
+<input type="hidden" name="image" value=${item.image} />
        
        
        </form>
