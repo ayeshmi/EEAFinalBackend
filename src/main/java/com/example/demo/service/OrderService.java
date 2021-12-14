@@ -16,6 +16,9 @@ public class OrderService {
 
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private FileStorageService fileStorageService;
 
 	@Autowired
 	private EmailSender emailSender;
@@ -34,6 +37,39 @@ public class OrderService {
 			order.setDate(date.toString());
 			order.setItemId(itemId);
 			order.setPrice(price);
+			
+			order.setQuantity(quantity);
+			order.setUserId(userId);
+			order.setType("cart");
+			order.setName(itemName);
+			order.setTotalPrice(Integer.toString(totalPrice));
+			order.setItemImage(image);
+
+			orderRepository.save(order);
+			message=new MessageResponse("Item is successfully added to the cart.");
+		}catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
+		return message;
+		
+
+	}
+	
+	public MessageResponse addToCartItemAPI(String clientEmail, Long userId, String price, String quantity, Long itemId,
+			LocalDate date, String itemName,String  image,String imageName) {
+		// TODO Auto-generated method stub
+		Order order = new Order();
+		int itemQuantity=Integer.parseInt(quantity);
+		int itemPrice=Integer.parseInt(price);
+		int totalPrice=itemQuantity*itemPrice;
+		
+		MessageResponse message=null;
+		try {
+			order.setClientEmail(clientEmail);
+			order.setDate(date.toString());
+			order.setItemId(itemId);
+			order.setPrice(price);
+			order.setImageName(imageName);
 			order.setQuantity(quantity);
 			order.setUserId(userId);
 			order.setType("cart");
@@ -55,6 +91,42 @@ public class OrderService {
 		List<Order> orders=null;
 		try {
 			orders = orderRepository.searchCartDetails(id);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+
+		return orders;
+	}
+	
+	public List<Order> viewPendingOrders(Long id) {
+		List<Order> orders=null;
+		try {
+			orders = orderRepository.searchProcessOrderDetails(id);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+
+		return orders;
+	}
+	
+	public List<Order> viewCancelOrders(Long id) {
+		List<Order> orders=null;
+		try {
+			orders = orderRepository.searchCancelOrderDetails(id);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+
+		return orders;
+	}
+	
+	public List<Order> viewComletedOrders(Long id) {
+		List<Order> orders=null;
+		try {
+			orders = orderRepository.searchComletedOrderDetails(id);
 		}catch(Exception e)
 		{
 			System.out.println("Error is" + e);

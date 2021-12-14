@@ -53,6 +53,9 @@ public class Order {
 	
 	@Size(max = 300)
 	private String itemImage;
+	
+	@Size(max = 300)
+	private String imageName;
 
 	public Order() {
 		
@@ -153,6 +156,15 @@ public class Order {
 	public void setItemImage(String itemImage) {
 		this.itemImage = itemImage;
 	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String itemName) {
+		this.imageName = itemName;
+	}
+	
 	
 	
 	

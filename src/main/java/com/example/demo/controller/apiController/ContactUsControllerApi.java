@@ -29,14 +29,13 @@ public class ContactUsControllerApi {
 	ContactUsService contactusService;
 	
 	@PostMapping("/contactusRA")
-	
 	public ResponseEntity<?> addNewContactusDetails(@ModelAttribute ContactUs contactus) {
 		
 		 contactusService.addNewContactusDetails(contactus);
 		return ResponseEntity.ok(new MessageResponse("Contact Details Succesfully Sent!"));
 	}
 	
-	@PreAuthorize("hasAuthority('ROLE_USER')")
+	
 	@GetMapping("/allConatctUsRA")
 	public List<ContactUs> getAllContactUsDetails(){
 		List<ContactUs> list=contactusService.getAllContactUsDetails();

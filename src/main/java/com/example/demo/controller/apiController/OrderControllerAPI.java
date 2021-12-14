@@ -1,10 +1,12 @@
 package com.example.demo.controller.apiController;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,11 +34,10 @@ public class OrderControllerAPI {
 	
 	@PostMapping("/addToCartRA")
 	public void addOrder(@RequestBody Order order){
-		//System.out.println("sdsd"+order.getClientEmail());
-		
-	//orderService.addToCartItem(order.getClientEmail(),order.getUserId(),order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getItemName());
-	System.out.println(java.time.LocalDate.now());  
-		System.out.println("Item is sucessfully added to cart");
+		System.out.println("sdsd123"+order.getItemImage());
+	
+	orderService.addToCartItemAPI(order.getClientEmail(),order.getUserId(),order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getName(),order.getItemImage(),order.getImageName());
+	
 		
 	}
 	
@@ -69,7 +70,7 @@ public class OrderControllerAPI {
 	
 	
 	@GetMapping("/viewCartRA/{id}")
-	public ModelAndView viewCartDetailsUser(@PathVariable Long id) {
+	public List<Order> viewCartDetailsUser(@PathVariable Long id) {
         List<Order> orders=orderService.viewCartDetailsUser(id);
         List<Item> itemList=new ArrayList<Item>();
         
@@ -85,44 +86,44 @@ public class OrderControllerAPI {
         itemList.add(item);
 			
 		}
-		ModelAndView modelAndView = new ModelAndView();
-        System.out.println("ff"+priceFullTotal);
-		modelAndView.addObject("orders", orders);
-		modelAndView.addObject("items", itemList);
-		modelAndView.addObject("totalPrice", priceFullTotal);
-		modelAndView.setViewName("ViewCart");
-
-		return modelAndView;
+		return orders;
+		
+	}
+	
+	@GetMapping("/viewCancelOrdersRA/{id}")
+	public List<Order> viewCancelOrders(@PathVariable Long id) {
+        List<Order> orders=orderService.viewCancelOrders(id);
+       
+		return orders;
+		
+	}
+	
+	@GetMapping("/viewCompletedOrdersRA/{id}")
+	public List<Order> viewCompletedOrders(@PathVariable Long id) {
+        List<Order> orders=orderService.viewComletedOrders(id);
+       
+		return orders;
+		
+	}
+	
+	@GetMapping("/viewPendingOrdersRA/{id}")
+	public List<Order> viewPendingOrders(@PathVariable Long id) {
+        List<Order> orders=orderService.viewPendingOrders(id);
+       
+		return orders;
 		
 	}
 	
 	@GetMapping("/viewOrderRA/{id}")
-	public ModelAndView viewOrderDetailsUser(@PathVariable Long id) {
+	public List<Order> viewOrderDetailsUser(@PathVariable Long id) {
         List<Order> orders1=orderService.viewOrderDetailsUser(id);
         System.out.println("size"+orders1.size());
-        List<Item> itemList1=new ArrayList<Item>();
+      
         
-        int totalPrice=0;
-        int priceFullTotal=0;
-        for(int i=0;i<orders1.size();i++) {
-        	Order order1=orders1.get(i);
-        Item item=	itemService.viewItemByID(order1.getItemId());
-        int itemPrice = Integer.parseInt(order1.getPrice());
-        int quantity = Integer.parseInt(order1.getQuantity());
-        totalPrice=itemPrice*quantity;
-        priceFullTotal=priceFullTotal+totalPrice;
-        itemList1.add(item);
-			
-		}
-        System.out.println("sdsdsddd"+itemList1.size());
-		ModelAndView modelAndView = new ModelAndView();
-        System.out.println("ff"+priceFullTotal);
-		modelAndView.addObject("ordersO", orders1);
-		//modelAndView.addObject("itemsO", itemList1);
-		modelAndView.addObject("totalPrice", priceFullTotal);
-		modelAndView.setViewName("OrderDetails");
+      
+        
 
-		return modelAndView;
+		return orders1;
 		
 	}
 	
@@ -143,7 +144,7 @@ public class OrderControllerAPI {
 	}
 	
 
-	@GetMapping("/deletecartItemRA/{id}")
+	@DeleteMapping("/deletecartItemRA/{id}")
 	public void deleteCartItem(@PathVariable Long id) {
 		orderService.deleteItem(id);
 

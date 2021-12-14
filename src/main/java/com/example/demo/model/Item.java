@@ -68,15 +68,13 @@ public class Item {
 	@Size(max = 750)
 	private String image;
 	
+	@Size(max = 250)
+	private String imageName;
+	
 	public Item()
 	{
 		
 	}
-	
-	
-
-
-
 
 
 	public Long getId() {
@@ -86,10 +84,6 @@ public class Item {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
-
-	
 
 	public String getName() {
 		return name;
@@ -179,16 +173,23 @@ public class Item {
 		this.image = image;
 	}
 
-
-
 	public String getItemType() {
 		return itemType;
 	}
 
-
 	public void setItemType(String itemType) {
 		this.itemType = itemType;
 	}
+
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	
 	
 	
 	

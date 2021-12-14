@@ -48,7 +48,7 @@ public class ItemControllerAPI {
 
 	}
 	
-	@DeleteMapping("/deleteItemRA")
+	@DeleteMapping("/deleteItemRA/{itemId}")
 	public ResponseEntity<?> deleteItem(@PathVariable("itemId") Long id) {
 		 System.out.println("Deletion");
 		itemService.deleteItem(id);
@@ -80,7 +80,7 @@ public class ItemControllerAPI {
 	
 	@GetMapping("/viewSelectedCategoryItemRA/{name}")
 	public List<Item> getSelectedCategoryItem(@PathVariable("name") String name) {
-
+        System.out.println("called789");
 		List<Item> items = itemService.getSelectedCategoryItem(name);
 		
 		return items;

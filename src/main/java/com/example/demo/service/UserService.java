@@ -171,6 +171,8 @@ public class UserService {
 		try {
 			User userU = userRepository.findByEmail(email);
 			String imagePath=imageUploader(file);
+			String fileName = fileStorageService.storeFile(file);
+			userU.setImageName(fileName);
 			userU.setImage(imagePath);
 			
 			userU.setBirthday(birthday);

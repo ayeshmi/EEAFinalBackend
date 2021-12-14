@@ -41,6 +41,9 @@ public class Pharmacient {
 	@NotBlank
 	@Size(max = 300)
 	private String image;
+	
+	@Size(max = 250)
+	private String imageName;
 
 	public Pharmacient() {
 		
@@ -116,6 +119,20 @@ public class Pharmacient {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+
+
+	public String getImageName() {
+		return imageName;
+	}
+
+
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}	
+	
+	
 
 }

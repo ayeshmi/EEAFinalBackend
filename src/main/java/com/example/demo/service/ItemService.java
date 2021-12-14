@@ -44,6 +44,8 @@ public class ItemService {
 		MessageResponse message=null;
 		try {
 			String imagePath=imageUploader(file);
+			String fileName = fileStorageService.storeFile(file);
+			p.setImageName(fileName);
 			p.setImage(imagePath);		
 	        p.setName(name);
 	        p.setPrice(price);

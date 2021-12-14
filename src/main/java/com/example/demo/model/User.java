@@ -41,6 +41,10 @@ public class User {
 	
 	@Size(max = 250)
 	private String image;
+	
+	@Size(max = 250)
+	private String imageName;
+    
 
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -141,6 +145,15 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
+	}
+	
 
 	
 

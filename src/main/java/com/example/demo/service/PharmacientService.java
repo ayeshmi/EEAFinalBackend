@@ -26,6 +26,8 @@ public class PharmacientService {
 		System.out.println("Called");
 		Pharmacient p = new Pharmacient();
 		String imagePath=imageUploader(file);
+		String fileName = fileStorageService.storeFile(file);
+		p.setImageName(fileName);
 		p.setImage(imagePath);
 		p.setFirstName(firstName);	
 		p.setAddress(address);
