@@ -1,6 +1,6 @@
 package com.example.demo.controller.apiController;
 
-import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +12,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Item;
 import com.example.demo.model.Order;
-import com.example.demo.service.ItemService;
-import com.example.demo.service.OrderService;
+import com.example.demo.service.ItemServiceImpl;
+import com.example.demo.service.OrderServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -27,16 +26,16 @@ import com.example.demo.service.OrderService;
 public class OrderControllerAPI {
 	
 	@Autowired
-	private OrderService orderService;
+	private OrderServiceImpl orderService;
 	
 	@Autowired
-	private ItemService itemService;
+	private ItemServiceImpl itemService;
 	
-	@PostMapping("/addToCartRA")
-	public void addOrder(@RequestBody Order order){
+	@PostMapping("/addToCartRA/{id}")
+	public void addOrder(@RequestBody Order order,@PathVariable("id") Long id){
 		System.out.println("sdsd123"+order.getItemImage());
 	
-	orderService.addToCartItemAPI(order.getClientEmail(),order.getUserId(),order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getName(),order.getItemImage(),order.getImageName());
+	orderService.addToCartItemAPI(order.getClientEmail(),id,order.getPrice(),order.getQuantity(),order.getItemId(),java.time.LocalDate.now(),order.getName(),order.getItemImage(),order.getImageName());
 	
 		
 	}

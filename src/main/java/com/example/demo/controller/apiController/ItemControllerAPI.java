@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.example.demo.model.Item;
-import com.example.demo.model.MessageResponse;
-import com.example.demo.service.ItemService;
+import com.example.demo.dto.MessageResponse;
+import com.example.demo.service.ItemServiceImpl;
 
 
 
@@ -28,7 +27,7 @@ import com.example.demo.service.ItemService;
 public class ItemControllerAPI {
 	
 	@Autowired
-	private ItemService itemService;
+	private ItemServiceImpl itemService;
 	
 	// adding new book
 	@PostMapping("/addItemRA")

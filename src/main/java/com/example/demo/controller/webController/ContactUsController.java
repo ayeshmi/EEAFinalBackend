@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.ContactUs;
-import com.example.demo.model.MessageResponse;
 import com.example.demo.repository.ContactUsRepository;
-import com.example.demo.service.ContactUsService;
+import com.example.demo.service.ContactUsServiceImpl;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -28,7 +29,7 @@ public class ContactUsController {
 	ContactUsRepository contactusRepository;
 	
 	@Autowired
-	ContactUsService contactusService;
+	ContactUsServiceImpl contactusService;
 	
 	@GetMapping("/allConatctUs")
 	public ModelAndView getAllContactUsDetails(){
@@ -75,6 +76,7 @@ public class ContactUsController {
 	}
 	
 	@GetMapping("/deleteContactUs/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView deleteContactUs(@PathVariable Long id){
 		contactusService.deleteContactUs(id);
 		ModelAndView modelAndView = getAllContactUsDetails();

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.service.PaymentService;
+import com.example.demo.service.PaymentServiceImpl;
 
 
 
@@ -19,7 +19,7 @@ import com.example.demo.service.PaymentService;
 public class PaymentController {
 	
 	@Autowired
-	private PaymentService paymentService;
+	private PaymentServiceImpl paymentService;
 	
 	@PostMapping("/addPayment")
 	public ModelAndView addPayment(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,

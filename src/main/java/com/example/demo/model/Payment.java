@@ -1,12 +1,19 @@
 package com.example.demo.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+
 
 @Entity
 @Table(name="payment")
@@ -15,6 +22,20 @@ public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
+	        , CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
+	        , CascadeType.DETACH, CascadeType.REFRESH})
+	@JoinColumn(name = "pharmacient_id")
+	private Pharmacient pharmacient;
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @JoinColumn(name = "order_id")
+    private Order order;
 	
 	@NotBlank
 	@Size(max = 200)
@@ -105,6 +126,25 @@ public class Payment {
 	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Pharmacient getPharmacient() {
+		return pharmacient;
+	}
+	public void setPharmacient(Pharmacient pharmacient) {
+		this.pharmacient = pharmacient;
+	}
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
 	
 	
 	

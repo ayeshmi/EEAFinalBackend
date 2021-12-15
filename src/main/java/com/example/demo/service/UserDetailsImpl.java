@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.example.demo.service;
 
 
 import java.util.Collection;
@@ -10,7 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-
+import com.example.demo.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -23,6 +23,8 @@ public class UserDetailsImpl implements UserDetails {
 	private String username;
 
 	private String email;
+	
+	private String profileImage;
 
 	@JsonIgnore
 	private String password;
@@ -30,37 +32,31 @@ public class UserDetailsImpl implements UserDetails {
 	private Collection<? extends GrantedAuthority> authorities;
 
 	public UserDetailsImpl(Long id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+			Collection<? extends GrantedAuthority> authorities,String profileImage) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.profileImage=profileImage;
 	}
 
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
-		if(authorities != null) {
-			System.out.println("fffxx"+authorities);
-			return new UserDetailsImpl(
-					user.getId(), 
-					user.getUsername(), 
-					user.getEmail(),
-					user.getPassword(), 
-					authorities);
-		}
-		else {
-			System.out.println("fff");
-			return null;
-		}
-		
+
+		return new UserDetailsImpl(
+				user.getId(), 
+				user.getUsername(), 
+				user.getEmail(),
+				user.getPassword(), 
+				authorities,
+				user.getImageName());
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		System.out.println("sdsdsdeeee");
 		return authorities;
 	}
 
@@ -111,4 +107,14 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+	
+	
 }

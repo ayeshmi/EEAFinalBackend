@@ -1,95 +1,51 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+public class Itemdto {
 
-
-@Entity
-@Table(name="items")
-public class Item {
-
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	
-	@Size(max = 60)
 	private String name;
 	
-	
-	
-	@Size(max = 20)
+
 	private String availability;
 	
-	@NotBlank
-	@Size(max = 50)
-	private String price;
 	
-	@NotBlank
-	@Size(max = 700)
+	private String price;
+
 	private String description;
 	
 
-	@Size(max = 700)
 	private String specifications;
 	
-	@NotBlank
-	@Size(max = 700)
+
 	private String suitableFor;
 	
-	@NotBlank
-	@Size(max = 700)
+	
 	private String howToUse;
 	
-	@NotBlank
-	@Size(max = 700)
+
 	private String ingredients;
 		
-	@Size(max = 50)
+	
 	private String delivery;
 		
-	@Size(max = 50)
+	
 	private String returnItem;
 		
-	@Size(max = 50)
+
 	private String itemType;
 	
-	@Size(max = 750)
+	
 	private String image;
 	
-	@Size(max = 250)
+
 	private String imageName;
+
 	
-	@OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.MERGE
-            , CascadeType.DETACH, CascadeType.REFRESH})
-	 private List<Comment> comments;
-	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.PERSIST, CascadeType.MERGE
-                    , CascadeType.DETACH, CascadeType.REFRESH})
-	@JoinTable(
-            name = "order_item",
-            joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "order_id")
-    )
-    private List<Order> orders;
-	
-	public Item()
+	public Itemdto()
 	{
 		
 	}
@@ -209,24 +165,6 @@ public class Item {
 	}
 
 
-	public List<Comment> getComments() {
-		return comments;
-	}
 
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public List<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(List<Order> orders) {
-		this.orders = orders;
-	}
-	
-	
-	
 	
 }

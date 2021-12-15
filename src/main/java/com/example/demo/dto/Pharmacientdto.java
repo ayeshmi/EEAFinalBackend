@@ -1,69 +1,32 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-
-@Entity
-@Table(name="Pharmacient")
-public class Pharmacient {
+public class Pharmacientdto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank
-	@Size(max = 60)
+
 	private String firstName;
-	
-	@NotBlank
-	@Size(max = 60)
+
 	private String lastName;
-	
-	@NotBlank
-	@Size(max = 15)
+
 	private String contactNumber;
 	
-	@NotBlank
-	@Email
-	@Size(max = 150)
+
 	private String email;
-	
-	@NotBlank
-	@Size(max = 150)
+
 	private String address;
 	
-	@NotBlank
-	@Size(max = 300)
+
 	private String image;
-	
-	@Size(max = 250)
+
 	private String imageName;
 	
-	@OneToMany(mappedBy = "pharmacist", cascade = {CascadeType.PERSIST, CascadeType.MERGE
-            , CascadeType.DETACH, CascadeType.REFRESH})
-	 private List<Order> order;
-	
-	@OneToMany(mappedBy = "pharmacient", cascade = {CascadeType.PERSIST, CascadeType.MERGE
-            , CascadeType.DETACH, CascadeType.REFRESH})
-	 private List<Payment> payment;
 
-	public Pharmacient() {
+	public Pharmacientdto() {
 		
 	}
 	
-	
-
-	public Pharmacient( String firstName,  String lastName,
+	public Pharmacientdto( String firstName,  String lastName,
 			 String contactNumber, String email,
 			 String address, String image) {
 		super();
@@ -133,35 +96,13 @@ public class Pharmacient {
 		this.image = image;
 	}
 
-
-
 	public String getImageName() {
 		return imageName;
 	}
-
-
 
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
 
-	public List<Order> getOrder() {
-		return order;
-	}
-
-	public void setOrder(List<Order> order) {
-		this.order = order;
-	}
-
-	public List<Payment> getPayment() {
-		return payment;
-	}
-
-	public void setPayment(List<Payment> payment) {
-		this.payment = payment;
-	}	
-	
-	
-	
 
 }

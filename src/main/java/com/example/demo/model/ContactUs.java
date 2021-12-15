@@ -1,9 +1,15 @@
 package com.example.demo.model;
 
+
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,6 +33,13 @@ private String message;
 
 @Size(max = 200)
 private String answer;
+
+@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
+        , CascadeType.DETACH, CascadeType.REFRESH})
+@JoinColumn(name = "user_id")
+private User user;
+
+
 
 
 public ContactUs(Long id,  String name,  String email, String message) {
@@ -85,6 +98,17 @@ public String getAnswer() {
 public void setAnswer(String answer) {
 	this.answer = answer;
 }
+
+public User getUser() {
+	return user;
+}
+
+public void setUser(User user) {
+	this.user = user;
+}
+
+
+
 
 
 }

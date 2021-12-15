@@ -1,42 +1,24 @@
-package com.example.demo.model;
+package com.example.demo.dto;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
-@Entity
-@Table(name="comment")
-public class Comment {
- 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+import com.example.demo.model.Item;
+
+public class Commentdto {
+	
 	private Long commentID;
-	@NotBlank
-	@Size(max = 60)
+	
 	private String username;
-	@NotBlank
-	@Size(max = 60)
+	
 	private String commentDetails;
-	@NotBlank
-	@Size(max = 60)
+	
 	private String date;
 
 	private Long itemID;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
-            , CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "item_id")
+	
     private Item item;
 
-	public Comment() {
+	public Commentdto() {
 		
 	}
 
@@ -102,7 +84,4 @@ public class Comment {
 		this.item = item;
 	}
 
-
-	
-	
 }

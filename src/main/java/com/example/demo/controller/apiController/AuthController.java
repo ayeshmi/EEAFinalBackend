@@ -7,19 +7,17 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.security.*;
-
-
-
 import com.example.demo.repository.UserRepository;
 import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.ContactUsRepository;
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 
@@ -37,7 +35,7 @@ public class AuthController {
 	UserRepository userRepository;
 	
 	@Autowired
-	UserService userService;
+	UserServiceImpl userService;
 
 	@Autowired
 	RoleRepository roleRepository;

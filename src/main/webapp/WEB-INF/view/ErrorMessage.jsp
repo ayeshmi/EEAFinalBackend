@@ -1,4 +1,4 @@
-<%@ page import="com.example.demo.model.MessageResponse" %>
+<%@ page import="com.example.demo.dto.MessageResponse" %>
 <%
 MessageResponse message = null;
     try{

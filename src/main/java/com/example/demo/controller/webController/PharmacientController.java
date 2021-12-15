@@ -18,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Pharmacient;
 import com.example.demo.model.SignupRequest;
-import com.example.demo.service.PharmacientService;
-import com.example.demo.service.UserService;
+import com.example.demo.service.PharmacientServiceImpl;
+import com.example.demo.service.UserServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
@@ -27,10 +27,10 @@ import com.example.demo.service.UserService;
 public class PharmacientController {
 	
 	@Autowired
-	private PharmacientService pharmacientService;
+	private PharmacientServiceImpl pharmacientService;
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	
 	@PostMapping("/addPharmacient")

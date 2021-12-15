@@ -6,9 +6,11 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 
-
+import com.example.demo.dto.LoginRequest;
+import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.*;
 import com.example.demo.security.*;
 import com.example.demo.service.*;
@@ -27,7 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class UserController {
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 	
 	@Autowired
 	private HomePageControllerFacade homeController;
@@ -179,6 +181,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/deleteUser")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ModelAndView deleteItem(@RequestParam("userId") Long id) {
 		userService.deleteUser(id);
 		List<User> users = userService.getAllUsers();

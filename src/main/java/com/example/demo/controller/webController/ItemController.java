@@ -21,10 +21,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.Item;
-import com.example.demo.model.MessageResponse;
-import com.example.demo.service.CommentService;
-import com.example.demo.service.FileStorageService;
-import com.example.demo.service.ItemService;
+import com.example.demo.dto.MessageResponse;
+import com.example.demo.service.CommentServiceImpl;
+import com.example.demo.service.FileStorageServiceImpl;
+import com.example.demo.service.ItemServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
@@ -32,13 +32,13 @@ import com.example.demo.service.ItemService;
 public class ItemController {
 
 	@Autowired
-	private ItemService itemService;
+	private ItemServiceImpl itemService;
 
 	@Autowired
-	private FileStorageService fileStorageService;
+	private FileStorageServiceImpl fileStorageService;
 
 	@Autowired
-	private CommentService commentService;
+	private CommentServiceImpl commentService;
 
 	@PostMapping("/addItem")
 	public ModelAndView AddItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,

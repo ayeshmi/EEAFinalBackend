@@ -1,12 +1,22 @@
 package com.example.demo.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name="orderTable")
@@ -16,6 +26,29 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
+            , CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "user_ids")
+    private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
+            , CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name = "pharmacist_id")
+    private Pharmacient pharmacist;
+	
+	 @OneToOne(mappedBy = "order",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	    private Payment payment;
+	 
+	 @ManyToMany(fetch = FetchType.LAZY,
+	            cascade = {CascadeType.PERSIST, CascadeType.MERGE
+	                    , CascadeType.DETACH, CascadeType.REFRESH})
+	 @JoinTable(
+	            name = "order_item",
+	            joinColumns = @JoinColumn(name = "order_id"),
+	            inverseJoinColumns = @JoinColumn(name = "item_id")
+	    )
+	    private List<Item> items;
+	
 	
 	private Long itemId;
 	
@@ -24,10 +57,7 @@ public class Order {
 	private String clientEmail;
 	
 	@Size(max = 60)
-	private String type;
-	
-	
-	private Long userId;
+	private String type;	
 	
 	@NotBlank
 	@Size(max = 15)
@@ -85,13 +115,7 @@ public class Order {
 		this.clientEmail = clientEmail;
 	}
 
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+	
 
 	public String getDate() {
 		return date;
@@ -163,6 +187,38 @@ public class Order {
 
 	public void setImageName(String itemName) {
 		this.imageName = itemName;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Pharmacient getPharmacist() {
+		return pharmacist;
+	}
+
+	public void setPharmacist(Pharmacient pharmacist) {
+		this.pharmacist = pharmacist;
+	}
+
+	public Payment getPayment() {
+		return payment;
+	}
+
+	public void setPayment(Payment payment) {
+		this.payment = payment;
+	}
+
+	public List<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 	
 	

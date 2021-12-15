@@ -1,11 +1,14 @@
 package com.example.demo.model;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+
 
 @Entity
 @Table(	name = "users", 
@@ -52,6 +55,18 @@ public class User {
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
+            , CascadeType.DETACH, CascadeType.REFRESH})
+	 private List<Order> orders;
+	
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
+            , CascadeType.DETACH, CascadeType.REFRESH})
+	 private List<ContactUs> contactUs;
+	
+	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
+            , CascadeType.DETACH, CascadeType.REFRESH})
+	 private List<Payment> payment;
     
 	public User() {
 	}
@@ -153,10 +168,30 @@ public class User {
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public List<ContactUs> getContactUs() {
+		return contactUs;
+	}
+
+	public void setContactUs(List<ContactUs> contactUs) {
+		this.contactUs = contactUs;
+	}
+
+	public List<Payment> getPayment() {
+		return payment;
+	}
+
+	public void setPayment(List<Payment> payment) {
+		this.payment = payment;
+	}
 	
-
-	
-
-
 	
 }

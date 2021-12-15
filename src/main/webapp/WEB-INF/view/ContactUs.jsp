@@ -115,7 +115,7 @@ border-radius: 55px;
     
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter your message"></textarea>
+            <textarea rows = "5" cols = "10" name = "message" class="form-control form-control-lg" placeholder="Enter your message"></textarea>
             <label class="form-label" for="form1Example23">Message</label>
           </div>
 

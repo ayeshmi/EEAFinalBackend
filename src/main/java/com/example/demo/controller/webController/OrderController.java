@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Item;
-import com.example.demo.model.MessageResponse;
+import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.Order;
-import com.example.demo.service.ItemService;
-import com.example.demo.service.OrderService;
+import com.example.demo.service.ItemServiceImpl;
+import com.example.demo.service.OrderServiceImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
@@ -24,10 +24,10 @@ import com.example.demo.service.OrderService;
 public class OrderController {
 
 	@Autowired
-	private OrderService orderService;
+	private OrderServiceImpl orderService;
 
 	@Autowired
-	private ItemService itemService;
+	private ItemServiceImpl itemService;
 
 	@PostMapping("/addToCart/{itemId}")
 	public ModelAndView addOrder(@RequestParam("clientEmail") String clientEmail,

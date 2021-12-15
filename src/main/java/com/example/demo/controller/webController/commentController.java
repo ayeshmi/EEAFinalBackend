@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Comment;
-import com.example.demo.service.CommentService;
+import com.example.demo.service.CommentServiceImpl;
 
 @Controller
 @RequestMapping("/api/auth")
 public class commentController {
 
 	@Autowired
-	private CommentService commentService;
+	private CommentServiceImpl commentService;
 	
 	//adding new book
 	@GetMapping("/addComment/{itemId}")
