@@ -44,6 +44,12 @@ public class ItemServiceImpl implements ItemService{
 		
 		MessageResponse message=null;
 		try {
+			
+			if (itemRepo.existsByName(name)) {
+				message = new MessageResponse("Error: Item name is already in use!");
+
+				return message;
+			}
 			String imagePath=imageUploader(file);
 			String fileName = fileStorageService.storeFile(file);
 			p.setImageName(fileName);
@@ -127,6 +133,18 @@ public class ItemServiceImpl implements ItemService{
 		return item;
 	}
 
+    public Item viewItemByName(String name) {
+		
+		Item item=null;
+		try {
+			 item=itemRepo.findByName(name);
+		}catch(Exception e)
+		{
+			System.out.println("Error is" + e);
+		}
+		
+		return item;
+	}
 	@Override
 	public List<Item> viewAllItems() {
 		List<Item> items=null;
@@ -194,6 +212,16 @@ public class ItemServiceImpl implements ItemService{
 		itemUpdate.setReturnItem(item.getReturnItem());
 		itemRepo.save(itemUpdate);
 		
+	}
+
+	public List<Item> advanceItemSearch(String search) {
+		List<Item> items=null;
+	     try {
+	    	 items=itemRepo.search(search);
+	     }catch(Exception e) {
+	    	 System.out.println("Error is" + e);
+	     }
+		return items;
 	}
 	
         

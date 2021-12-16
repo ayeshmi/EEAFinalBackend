@@ -53,14 +53,14 @@ public class Payment {
 	@Size(max = 200)
 	private String cardHolderName;
 	
-	@NotBlank
+	
 	private Long cardNumber;
 	
 	@NotBlank
 	@Size(max = 200)
 	private String expiration;
 	
-	@NotBlank
+	
 	private Long cvv;
 	
 	@NotBlank

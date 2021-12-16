@@ -1,6 +1,7 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 	<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+	<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -209,7 +210,15 @@ border-bottom-right-radius: 16px;
   align-items: center;
   box-shadow: 0 4px 30px rgba(0,0,0,.05);
 }
-
+.main-title{
+    text-align: center;
+}
+.main-title h1{
+    padding: 16px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
 </style>
 <body>
@@ -313,11 +322,15 @@ border-bottom-right-radius: 16px;
     <div class="card mb-4">
 
             </div>
+             <sec:authorize access="isAuthenticated()" >
+			 <sec:authentication property="principal.profileImage" var="profileImage"/> 
+             </sec:authorize>
     <section class="row2">
+   
     <h2>Add your comment here.</h2>
     <form action="/api/auth/addComment/${item.id}" method="get">
     <input type="hidden" name="clientEmail" value=${clientEmail} />
-  <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/KLeobJk.jpg" width="38"><input type="text" name="commentDetail" class="form-control mr-3" placeholder="Add comment" style="height: 60px;width: 400px;"/><button  class="btn btn-primary" id="ayeshmi">Comment</button></div>
+  <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src=${profileImage} width="38"><input type="text" name="commentDetail" class="form-control mr-3" placeholder="Add comment" style="height: 60px;width: 400px;"/><button  class="btn btn-primary" id="ayeshmi">Comment</button></div>
   </form>
   
   <h5>Recent Comments</h5>
@@ -325,6 +338,7 @@ border-bottom-right-radius: 16px;
  <li class="list-group-item">
   <div class="row">
       <div class="col-xs-2 col-md-1">
+      
           <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" /></div>
       <div class="col-xs-10 col-md-11">
           <div>

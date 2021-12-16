@@ -44,32 +44,17 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent" style="font-size: 18px;">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
-					<span class="sr-only">(current)</span></a></li>
-					<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+			
 			<li class="nav-item"><a class="nav-link" href="${contextPath}/api/auth/aboutUs"><b>About
 						Us</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-			<li class="nav-item"><a class="nav-link" href="${contextPath}/api/auth/profil"><b>Contact
+			<li class="nav-item"><a class="nav-link" href="${contextPath}/api/auth/contactUs"><b>Contact
 						Us</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <b>Profile</b>
-			</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <sec:authorize access="isAuthenticated()" >
-                <sec:authentication property="principal.id" var="id"/> 
-                </sec:authorize>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserByID/${id}">View Profile Details</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserUpdate/${id}">Update Profile Details</a>
-				</div></li>
+			
+				
 				<li class="nav-item"><a class="nav-link" href="#"></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
@@ -86,6 +71,14 @@
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
 				 <sec:authorize access="hasAuthority('ROLE_USER')">
+				 <li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
+					<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
         <li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -98,19 +91,7 @@
 					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllItem">View Items with categories</a>
 				</div></li>
 				
-				
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-				
-				
-				
-				
-				
-				
+							
 				<li class="nav-item"><a class="nav-link" href="#"></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
@@ -155,11 +136,63 @@
 					<div class="dropdown-divider"></div>
 					
 				</div></li>
+				<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>	
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>	
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
 				
     </sec:authorize>
     
     
     <sec:authorize access="hasAuthority('ROLE_PHARMACIST')">
+    <li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
+					<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
         <li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -242,6 +275,10 @@
     </sec:authorize>
     
      <sec:authorize access="hasAuthority('ROLE_ADMIN')">
+     <li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
+					<span class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
         <li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -346,7 +383,56 @@
 				</div></li>
 				
     </sec:authorize>
-			
+    <li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>	
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>	
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item dropdown">
+						<sec:authorize access="isAuthenticated()" >
+						<sec:authentication property="principal.profileImage" var="profileImage"/> 
+                        </sec:authorize>
+						<img class="rounded-circle article-img" style="width:50px;height:50px;" src=${profileImage}  href="#" id="navbarDropdown"
+				role="button" data-toggle="dropdown" aria-haspopup="true"
+				aria-expanded="false"> 
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		<sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserByID/${id}">View Profile Details</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewUserUpdate/${id}">Update Profile Details</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/logout">Log Out</a>
+					<div class="dropdown-divider"></div>
+					
+				</div></li>
 		</ul>
 		
 	</div>

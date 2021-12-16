@@ -85,7 +85,7 @@ img{
     row-gap: 32px;
 }
 .item{
-    background-color: #fff;
+    background-color: #e8e8e8;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 4px 0 rgba(15, 4, 4, 0.05);

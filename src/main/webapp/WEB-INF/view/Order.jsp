@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +22,15 @@
 height: 100vh !important;
 }
 }
-
+.main-title{
+    text-align: center;
+}
+.main-title h1{
+    padding: 16px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
 </style>
 <body>
@@ -30,8 +38,10 @@ height: 100vh !important;
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
   <div class="container">
-   
-    <section class="h-100 h-custom" style="background-color: #eee;">
+    <div class = "main-title">
+                <h1>CheckOut</h1>
+            </div>
+    <section class="h-100 h-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col">
@@ -83,13 +93,13 @@ height: 100vh !important;
                       
                         <div class="form-outline form-white mb-4">
                           <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                            placeholder="Cardholder's Name" />
+                            placeholder="Cardholder's Name" name="cardHolderName"/>
                           <label class="form-label" for="typeName">Cardholder's Name</label>
                         </div>
   
                         <div class="form-outline form-white mb-4">
                           <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                            placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" />
+                            placeholder="1234 5678 9012 3457" minlength="19" maxlength="19" name="cardNumber"/>
                           <label class="form-label" for="typeText">Card Number</label>
                         </div>
   
@@ -97,26 +107,26 @@ height: 100vh !important;
                           <div class="col-md-6">
                             <div class="form-outline form-white">
                               <input type="text" id="typeExp" class="form-control form-control-lg"
-                                placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" />
+                                placeholder="MM/YYYY" size="7" id="exp" minlength="7" maxlength="7" name="expiration"/>
                               <label class="form-label" for="typeExp">Expiration</label>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-outline form-white">
                               <input type="password" id="typeText" class="form-control form-control-lg"
-                                placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
+                                placeholder="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" name="cvv"/>
                               <label class="form-label" for="typeText">Cvv</label>
                             </div>
                           </div>
                         </div>
   
-                      </form>
+                     
   
                       <hr class="my-4">
   
                       <div class="d-flex justify-content-between">
                           <p class="mb-2">Subtotal</p>
-                          <p class="mb-2">Rs.${totalPrice }.00</p>
+                          <p class="mb-2" name="totalPrice">Rs.${totalPrice }.00</p>
                         </div>
     
                         <div class="d-flex justify-content-between">
@@ -132,22 +142,20 @@ height: 100vh !important;
      <security:authentication property="principal.email" var="email"/> 
 </security:authorize>
     
-    <a type="button" class="btn btn-primary btn-lg btn-block" href = "${contextPath}/api/auth/addOrder/${email}">
+    <a type="button" class="btn btn-primary btn-lg btn-block" href = "${contextPath}/api/auth/addPayment">
                   <div class="d-flex justify-content-between">
                             <span>${totalFee }</span>
                             <span>Order <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                           </div>
                 </a>
-                        <button type="button" class="btn btn-info btn-block btn-lg">
-                          
-                        </button>
+                        
                     </div>
                   </div>
   
                 </div>
   
               </div>
-  
+            </form>
             </div>
           </div>
         </div>

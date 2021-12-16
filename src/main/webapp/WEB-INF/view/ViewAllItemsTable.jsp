@@ -36,17 +36,57 @@
   cursor: pointer;
   transition: opacity 0.25s ease-out;
 }
+.form-img22{
+    width: 100px;
+    height: 100px;
+}
+.input{
+  width: 500px;
+  height: 50px;
+  align-content: center;
+  border-radius: 55px;
+  position: absolute;
+  top:15%;
+  left: 30%;
+  font-size: 1.5rem;
+  background: rgb(234, 235, 240);
+  background: linear-gradient(135deg, rgb(213, 210, 221) 0%,     rgb(77, 143, 209) 100%);
+  padding-left: 1.5rem;
+  border: none;
+}
+.button{
+  width: 150px;
+  height: 50px;
+  position: absolute;
+  top:15%;
+  right: 26%;
+  border-radius: 55px;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 700;
+  background: rgb(234, 235, 240);
+  background: linear-gradient(135deg, rgb(122, 97, 180) 0%,     rgb(77, 143, 209) 100%);
+  border: 0px;
+  cursor: pointer;
+  transition: opacity 0.25s ease-out;
+}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
 <%@include file="ViewAllError.jsp" %>
+<%@include file="AdvanceSearchItem.jsp" %>
+
+<br></br>
+<br></br>
+
     <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">Item Name</th>
             <th scope="col">Category</th>
+            <th scope="col">Image</th>
             <th scope="col">Availability</th>
             <th scope="col">Update</th>
             <th scope="col">Delete</th>
@@ -57,6 +97,7 @@
           <tr>
             
             <td>${item.name}</td>
+            <td><img class='form-img22'  src=${item.image} alt='image' /></td>
             <td>${item.specifications}</td>
             <td>${item.availability}</td>
             <td><a href = "${contextPath}/api/auth/viewItemUpdateByItem/${item.id}" class = "item-name">Update</a></td>

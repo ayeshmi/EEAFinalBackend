@@ -32,6 +32,7 @@ public class ContactUsController {
 	ContactUsServiceImpl contactusService;
 	
 	@GetMapping("/allConatctUs")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView getAllContactUsDetails(){
 		List<ContactUs> list=contactusService.getAllContactUsDetails();
 		
@@ -46,14 +47,24 @@ public class ContactUsController {
 
 	//create contactus details rest api
 	@PostMapping("/contactusW")
-	
-	public ResponseEntity<?> addNewContactusDetails(@ModelAttribute ContactUs contactus) {
-		
-		 contactusService.addNewContactusDetails(contactus);
-		return ResponseEntity.ok(new MessageResponse("Contact Details Succesfully Sent!"));
+	public ModelAndView addNewContactusDetails(@ModelAttribute ContactUs contactus) {
+		ModelAndView modelAndView = new ModelAndView();
+		MessageResponse message=contactusService.addNewContactusDetails(contactus);
+		if(message != null) {
+			modelAndView.addObject("contactError", message);
+			modelAndView.setViewName("ContactUs");
+		}
+		else {
+			MessageResponse	messageResponse=new MessageResponse("Something went wrong, try again.");
+			modelAndView.addObject("contactError",messageResponse);
+			modelAndView.setViewName("ContactUs");
+		}
+		 
+		return modelAndView;
 	}
 	
 	@GetMapping("/contactus/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView getContactUsDetailsById(@PathVariable String id){
 		
 		ContactUs contactUs=contactusService.getContactUsDetailsById(id);
@@ -69,6 +80,7 @@ public class ContactUsController {
 	//update employee rest api
 	
 	@PostMapping("/contactus/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ResponseEntity<ContactUs> replyContactUs(@PathVariable Long id,@ModelAttribute ContactUs contactUs){
 		System.out.println("sdsd");
 	ContactUs updateConatctUS=contactusService.upadateContactUSDetails(id,contactUs.getAnswer(),contactUs.getEmail() );

@@ -124,7 +124,7 @@ label{
 <%@include file="ViewAllError.jsp" %>
 <div >
         <form class="row1 form12" action="/api/auth/updateUser" method="POST" enctype="multipart/form-data">
-            <h1 id="headerTitle1"><b>View User Details.</b></h1>
+            <h1 id="headerTitle1"><b>Update User Details.</b></h1>
             <br></br>
             <img class='form-img22'  src=${user.image} alt='register' />
                 <label for="inputAddress">Username</label>
@@ -137,7 +137,7 @@ label{
                 <input type="date" class="form-control" id="inputAddress" placeholder="BirthDay" name="birthday" value=${user.birthday}>
 
                 <label for="inputAddress">Address</label>
-                <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="address" value=${user.address}>
+                <input type="text" class="form-control"  placeholder="Address" name="address" value=${user.address}>
                 
                 <label for="inputAddress">Item image</label>
           

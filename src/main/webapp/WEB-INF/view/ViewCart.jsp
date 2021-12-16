@@ -50,6 +50,15 @@ border-bottom-left-radius: 16px;
 border-bottom-right-radius: 16px;
 }
 }
+.main-title{
+    text-align: center;
+}
+.main-title h1{
+    padding: 16px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
@@ -61,7 +70,9 @@ border-bottom-right-radius: 16px;
     
     <section class="h-100 gradient-custom">
       <div class="container py-5">
-      
+      <div class = "main-title">
+                <h1>Cart Details</h1>
+            </div>
         <div class="row d-flex justify-content-center my-4">
           <div class="col-md-8">
           
@@ -97,9 +108,11 @@ border-bottom-right-radius: 16px;
                    <input type="hidden" name="id" value=${item.id} /> 
                     <p><strong></strong></p>
                     <a href="${contextPath}/api/auth/viewItemByItem/${cart.itemId}">${cart.name}</a>
-                   
+                   <sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
                     <p>Order By:${cart.clientEmail}</p>
-                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}/${cart.userId}"
+                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}/${id}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
                       
@@ -170,11 +183,7 @@ border-bottom-right-radius: 16px;
               </div>
               <div class="card-body">
                 <ul class="list-group list-group-flush">
-                  <li
-                    class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                    Products
-                    <span>$53.98</span>
-                  </li>
+                
                  
                   <li
                     class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">

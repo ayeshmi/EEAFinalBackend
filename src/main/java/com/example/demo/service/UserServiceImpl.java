@@ -57,16 +57,16 @@ public class UserServiceImpl implements UserService{
 		try {
 			Authentication authentication = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
-			System.out.println("Hello");
+			
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 			String jwt = jwtUtils.generateJwtToken(authentication);
 
 			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 			List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 					.collect(Collectors.toList());
-
+            
 			jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),
-					roles);
+					roles,userDetails.getProfileImage());
 
 		} catch (Exception e) {
 			System.out.println("error is " + e);
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService{
 				.collect(Collectors.toList());
 
 		JwtResponse jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-				userDetails.getEmail(), roles);
+				userDetails.getEmail(), roles,userDetails.getProfileImage());
 
 		return jwtResponse;
 	}
@@ -107,8 +107,7 @@ public class UserServiceImpl implements UserService{
 	
 
 	public MessageResponse registerUser(SignupRequest signUpRequest) {
-		System.out.println("hello" + signUpRequest.getUsername());
-		System.out.println("hello" + signUpRequest.getPassword());
+		
 		MessageResponse message = null;
 		try {
 			if (userRepository.existsByEmail(signUpRequest.getEmail())) {
@@ -116,6 +115,12 @@ public class UserServiceImpl implements UserService{
 
 				return message;
 			}
+			if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+				message = new MessageResponse("Error: Username is already in use!");
+
+				return message;
+			}
+			
 
 			// Create new user's account
 			User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),

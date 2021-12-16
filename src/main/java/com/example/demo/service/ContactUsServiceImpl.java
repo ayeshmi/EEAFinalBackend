@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.ContactUs;
 import com.example.demo.model.EmailSender;
 import com.example.demo.repository.ContactUsRepository;
@@ -26,8 +27,16 @@ public class ContactUsServiceImpl implements ContactUsService {
 	}
 	
 	@Override
-	public ContactUs addNewContactusDetails(ContactUs contactus) {
-		return contactusRepository.save(contactus);
+	public MessageResponse addNewContactusDetails(ContactUs contactus) {
+		MessageResponse messageResponse=null;
+		try {
+			contactusRepository.save(contactus);
+			messageResponse=new MessageResponse("Your contactUs request is successfully added.");
+		}catch(Exception e) {
+			System.out.println("Error is "+e);
+		}
+		
+		return messageResponse;
 	}
 	
 	@Override

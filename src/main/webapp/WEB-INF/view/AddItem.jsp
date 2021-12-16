@@ -191,7 +191,7 @@ label {
 			<option value="Equipment">Equipment</option>
 
 
-		</select> <label for="inputAddress">Price</label> <input type="number"
+		</select> <label for="inputAddress">Price (Rs.)</label> <input type="number"
 			class="form-control" id="inputAddress" placeholder="Enter item price"
 			name="price" required> <label for="inputAddress">Description</label>
 		<textarea rows="5" cols="50" name="description"
@@ -235,13 +235,13 @@ label {
 		<label for="inputAddress">Delivery</label> <select name="delivery"
 			id="pet-select" required>
 			<option value="">--Please choose an option--</option>
-			<option value="yes">Yes</option>
-			<option value="no">No</option>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
 		</select> <label for="inputAddress">Return</label> <select name="returnItem"
 			id="pet-select" required>
 			<option value="">--Please choose an option--</option>
-			<option value="yes">Yes</option>
-			<option value="no">No</option>
+			<option value="Yes">Yes</option>
+			<option value="No">No</option>
 		</select> <label for="inputAddress">Item image</label> <input type="file"
 			name="image" id="customFile"
 			value="Click the above button to upload the image"

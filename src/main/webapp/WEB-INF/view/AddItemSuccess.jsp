@@ -165,20 +165,20 @@ label{
        </jsp:include> 
        <%@include file="ViewAllError.jsp" %>
       <form class="row1 form12" action="/api/auth/updateItem" method="post" enctype="multipart/form-data" >
-        <h1 id="headerTitle1"><b>Update Item Details.</b></h1>
+        <h1 id="headerTitle1"><b>Item Details.</b></h1>
         <br></br>
         <img class='form-img22'  src=${item.image} alt='image' />
             <label for="inputAddress">Item name</label>
             <input type="text" class="form-control" id="inputAddress" placeholder="Enter item name"  name="name" value="${item.name}" disabled>
           
             <label for="inputAddress">Price</label>
-            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" >
+            <input type="text" class="form-control" id="inputAddress" placeholder="Enter item price" name="price" value="${item.price}" disabled>
 
             <label for="inputAddress">Description</label>
-            <textarea rows = "5" cols = "50" name = "description"  class="form-control form-control-lg" placeholder="Enter item description" value="${item.description}">${item.description}</textarea>
+            <textarea rows = "5" cols = "50" name = "description"  class="form-control form-control-lg" placeholder="Enter item description" value="${item.description}" disabled>${item.description}</textarea>
 
             <label for="inputAddress">Category</label>
-            <select name="specifications" id="pet-select" >
+            <select name="specifications" id="pet-select" disabled>
               <option value="">${item.specifications}</option>
               <option value="WomanHealth">Woman Health</option>
               <option value="AnimalCare">Animal Care</option>
@@ -198,18 +198,18 @@ label{
           </select>
 
             <label for="inputAddress">Suitable for</label>
-            <textarea rows = "5" cols = "60" name = "suitableFor" class="form-control form-control-lg" placeholder="Enter suitable persons">${item.suitableFor}</textarea>
+            <textarea rows = "5" cols = "60" name = "suitableFor" class="form-control form-control-lg" placeholder="Enter suitable persons" disabled>${item.suitableFor}</textarea>
 
             <label for="inputAddress">How to use</label>
-            <textarea rows = "5" cols = "10" name = "howToUse" class="form-control form-control-lg" placeholder="Enter how to use this item">${item.howToUse}</textarea>
+            <textarea rows = "5" cols = "10" name = "howToUse" class="form-control form-control-lg" placeholder="Enter how to use this item" disabled>${item.howToUse}</textarea>
 
 
             <label for="inputAddress">Ingredients</label>
-            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter item ingredients">${item.ingredients}</textarea>
+            <textarea rows = "5" cols = "10" name = "ingredients" class="form-control form-control-lg" placeholder="Enter item ingredients" disabled>${item.ingredients}</textarea>
 
             <label for="inputAddress">Delivery</label>
             
-             <select name="delivery" id="pet-select">
+             <select name="delivery" id="pet-select" disabled>
               <option value="">${item.delivery}</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
@@ -217,26 +217,19 @@ label{
           
           <label for="inputAddress">Availability</label>
             
-            <select name="returnItem" id="pet-select">
+            <select name="returnItem" id="pet-select" disabled>
               <option value="">${item.availability}</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
             <label for="inputAddress">Return</label>
             
-            <select name="returnItem" id="pet-select">
+            <select name="returnItem" id="pet-select" disabled>
               <option value="">${item.returnItem}</option>
               <option value="yes">Yes</option>
               <option value="no">No</option>
           </select>
-            <label for="inputAddress">Item image</label>
-          
-              <input type="file" name="image" 
-                id="customFile" value="Click the above button to upload the image" style="height: 100px;">
-          
-        <br></br>
-        <button type="file">Submit</button>
-        <br></br>
+            <br></br>
       </form>
        
     </body>

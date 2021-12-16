@@ -17,19 +17,19 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 	List<Order> findByClientEmail(String clientEmail);
 	
 	//@Query(value="select * from order_Table where user_id=110 AND type='order'")
-	@Query(value="select * from order_Table where user_id=:keyword AND type='order'", nativeQuery = true)
+	@Query(value="select * from order_Table where user_ids=:keyword AND type='order'", nativeQuery = true)
 	List<Order> search(@Param("keyword")Long userId);
 	
-	@Query(value="select * from order_Table where user_id=:keyword AND type='cart'", nativeQuery = true)
-	List<Order> searchCartDetails(@Param("keyword")Long userId);
+	@Query(value="select * from order_Table where user_ids=:keyword AND type='cart'", nativeQuery = true)
+	List<Order> searchCartDetails(@Param("keyword")Long a);
 	
-	@Query(value="select * from order_Table where user_id=:keyword AND type='order' AND status='processing'", nativeQuery = true)
-	List<Order> searchProcessOrderDetails(@Param("keyword")Long userId);
+	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='processing'", nativeQuery = true)
+	List<Order> searchProcessOrderDetails(@Param("keyword")Long a);
 	
-	@Query(value="select * from order_Table where user_id=:keyword AND type='order' AND status='Cancel'", nativeQuery = true)
+	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='Cancel'", nativeQuery = true)
 	List<Order> searchCancelOrderDetails(@Param("keyword")Long userId);
 	
-	@Query(value="select * from order_Table where user_id=:keyword AND type='order' AND status='Completed'", nativeQuery = true)
+	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='Completed'", nativeQuery = true)
 	List<Order> searchComletedOrderDetails(@Param("keyword")Long userId);
 	
 	

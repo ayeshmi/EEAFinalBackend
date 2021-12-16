@@ -48,47 +48,10 @@ border-radius: 55px;
 }
 </style>
 <body>
-<nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0"
-		style="background-color: #000080;">
-		<div class="container">
-			<a class="navbar-brand" href="#">DOMSEL</a>
-			<button class="navbar-toggler ps-0" type="button"
-				data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-				aria-controls="navbarExample01" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="d-flex justify-content-start align-items-center">
-					<i class="fas fa-bars"></i>
-				</span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarExample01">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Login</b></a>
-					</li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Register</b></a>
-					</li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>About
-								Us</b></a></li>
-					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Contact
-								Us</b></a></li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Home</b></a>
-					</li>
-				</ul>
-
-				<ul class="navbar-nav flex-row">
-					<li class="nav-item"><a class="nav-link pe-3" href="#!"> <i
-							class="fab fa-youtube"></i>
-					</a></li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"> <i
-							class="fab fa-facebook-f"></i>
-					</a></li>
-					<li class="nav-item"><a class="nav-link ps-3" href="#!"> <i
-							class="fab fa-instagram"></i>
-					</a></li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-
+<jsp:include page="Navbar.jsp">
+    <jsp:param name="page2" value="home2"/>
+</jsp:include>
+<%@include file="ContactUsError.jsp"%>
 		<br><br>
 	
 	<section class="vh-100">
@@ -103,40 +66,26 @@ border-radius: 55px;
         <h2>Contact Us</h2>
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form1Example13" class="form-control form-control-lg" name="name" placeholder="Enter your name" />
+            <input type="text" id="form1Example13" class="form-control form-control-lg" name="name" placeholder="Enter your name" style="width:400px" required/>
             <label class="form-label" for="form1Example13">Name</label>
           </div>
           
           <!-- Email input -->
           <div class="form-outline mb-4">
-            <input type="text" id="form1Example13" class="form-control form-control-lg" name="email" placeholder="Enter your email" />
+            <input type="text" id="form1Example13" class="form-control form-control-lg" name="email" placeholder="Enter your email" style="width:400px" required/>
             <label class="form-label" for="form1Example13">Email</label>
           </div>
     
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <textarea rows = "5" cols = "10" name = "message" class="form-control form-control-lg" placeholder="Enter your message"></textarea>
+            <textarea rows = "5" cols = "10" name = "message" class="form-control form-control-lg" placeholder="Enter your message" style="width:400px" required></textarea>
             <label class="form-label" for="form1Example23">Message</label>
           </div>
 
-          <div class="d-flex justify-content-around align-items-center mb-4">
-            <!-- Checkbox -->
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value=""
-                id="form1Example3"
-                
-                checked
-              />
-              <label class="form-check-label" for="form1Example3"> Remember me </label>
-            </div>
-            <a href="#!" class="passworda">Forgot password?</a>
-          </div>
+       
 
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+          <button type="submit" class="btn btn-primary btn-lg btn-block" style="width:400px">Submit</button>
 
          
 

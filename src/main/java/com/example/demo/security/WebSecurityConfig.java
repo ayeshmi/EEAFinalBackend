@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.demo.service.UserDetailsServiceImpl;
 
@@ -57,7 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		 .antMatchers("/api/auth/**").permitAll()
          .antMatchers("/css/**").permitAll()
          .anyRequest().authenticated().and()
-         .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+         .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+         .logout().logoutRequestMatcher(new AntPathRequestMatcher("/api/auth/logout")).logoutSuccessUrl("/api/auth/login");
          
 		
 			

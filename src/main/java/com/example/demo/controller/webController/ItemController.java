@@ -55,9 +55,18 @@ public class ItemController {
 		ModelAndView modelAndView = new ModelAndView();
 		 System.out.println("order is added");
 		if (message != null) {
-
-			modelAndView.setViewName("AddItem");
-			modelAndView.addObject("ErrorMessage", message);
+			if(message.getMessage().equals("Error: Item name is already in use!")) {
+				modelAndView.addObject("ErrorMessage", message);
+	    		modelAndView.setViewName("AddItem");	
+			}
+			else {
+				 Item item=itemService.viewItemByName(name);
+		            modelAndView.addObject("item", item);
+		            modelAndView.addObject("ErrorMessage", message);
+		    		modelAndView.setViewName("AddItemSuccess");	
+			}
+           
+			
 		} else {
 			modelAndView.setViewName("AddItem");
 			MessageResponse response =new MessageResponse("Check user inputs and try again.");
@@ -110,6 +119,22 @@ public class ItemController {
 		modelAndView.addObject("item", item);
 		modelAndView.addObject("comments", viewComments);
 		modelAndView.setViewName("ViewSelectedItemDetails");
+
+		return modelAndView;
+
+	}
+	
+	@GetMapping("/advanceItemSearch")
+	public ModelAndView advanceItemSearch(@RequestParam("search") String search) {
+		// System.out.println("get item details"+file);
+		System.out.println("Called12345");
+		List<Item> items = itemService.advanceItemSearch(search);
+		
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("items", items);
+		modelAndView.setViewName("ViewAllItemsTable");
+		
 
 		return modelAndView;
 

@@ -52,6 +52,15 @@ border-bottom-left-radius: 16px;
 border-bottom-right-radius: 16px;
 }
 }
+.main-title{
+    text-align: center;
+}
+.main-title h1{
+    padding: 16px 0;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
@@ -62,6 +71,10 @@ border-bottom-right-radius: 16px;
     
     <section class="h-100 gradient-custom">
       <div class="container py-5">
+       <div class = "main-title">
+                <h1>Order Details</h1>
+            </div>
+       
         <div class="row d-flex justify-content-center my-4">
           <div class="col-md-8">
           
@@ -117,10 +130,12 @@ border-bottom-right-radius: 16px;
                     <p class="text-start text-md-center">
                       <strong>Rs.${cart.totalPrice}.00</strong>
                     </p>
-                    
-                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}/${cart.userId}" class="button1"  >CONFIRM ORDER RECEIVED</a>
+                    <sec:authorize access="isAuthenticated()" >
+                    <sec:authentication property="principal.id" var="id"/> 
+                    </sec:authorize>
+                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}/${id}" class="button1"  >CONFIRM ORDER RECEIVED</a>
                     <br></br>
-                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}/${cart.userId}" >CANCEL ORDER</a>
+                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}/${id}" >CANCEL ORDER</a>
                     <!-- Price -->
                   </div>
                 </div>
