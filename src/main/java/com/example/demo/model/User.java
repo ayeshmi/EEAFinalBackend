@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
@@ -49,21 +49,24 @@ public class User {
 	private String imageName;
     
 
-
+	@JsonBackReference
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(	name = "user_roles", 
 				joinColumns = @JoinColumn(name = "user_id"), 
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<Order> orders;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<ContactUs> contactUs;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<Payment> payment;

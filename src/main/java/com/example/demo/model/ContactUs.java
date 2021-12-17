@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="contactUs")
@@ -34,6 +36,7 @@ private String message;
 @Size(max = 200)
 private String answer;
 
+@JsonIgnore
 @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
         , CascadeType.DETACH, CascadeType.REFRESH})
 @JoinColumn(name = "user_id")

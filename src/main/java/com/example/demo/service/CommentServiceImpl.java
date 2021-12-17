@@ -53,7 +53,7 @@ public class CommentServiceImpl implements CommentService{
 		comment.setDate(date.toString());
 		comment.setItemID(id);
 		comment.setUsername(clientEmail);
-		comment.setItem(item);
+		//comment.setItem(item);
 		commentRepository.save(comment);
 		System.out.println("Comment is sucessfully added");
 		

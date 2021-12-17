@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 
 import com.example.demo.dto.MessageResponse;
@@ -14,5 +16,6 @@ public interface ContactUsService {
 	public ContactUs getContactUsDetailsById(String id);
 	public ContactUs getContactUsDetailsByIdAPI(Long id);
 	public ContactUs upadateContactUSDetails( Long id, String answer,String email);
-	public ResponseEntity<Map<String,Boolean>> deleteContactUs(Long id);
+	public MessageResponse deleteContactUs(Long id);
+	public MessageResponse addNewContactusDetailswithUser(@Valid ContactUs contactus, Long id);
 }

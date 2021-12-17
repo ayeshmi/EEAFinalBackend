@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="comment")
@@ -35,6 +36,7 @@ public class Comment {
             , CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "item_id")
     private Item item;
+  
 
 	public Comment() {
 		
@@ -101,6 +103,9 @@ public class Comment {
 	public void setItem(Item item) {
 		this.item = item;
 	}
+
+
+
 
 
 	

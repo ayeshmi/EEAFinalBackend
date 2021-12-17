@@ -1,15 +1,19 @@
 package com.example.demo.controller.apiController;
 
 
+import java.io.File;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.security.*;
 import com.example.demo.repository.UserRepository;
@@ -17,6 +21,7 @@ import com.example.demo.repository.RoleRepository;
 import com.example.demo.repository.ContactUsRepository;
 import com.example.demo.dto.LoginRequest;
 import com.example.demo.dto.MessageResponse;
+import com.example.demo.dto.Userdto;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 
@@ -26,7 +31,7 @@ import com.example.demo.service.*;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
-public class AuthController {
+public class UserControllerAPI {
 	@Autowired
 	AuthenticationManager authenticationManager;
 
@@ -53,12 +58,12 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+	public ResponseEntity<Object> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 		JwtResponse jwtResponse = userService.loginServiceRestApi(loginRequest);
 		if (jwtResponse != null) {
 			return ResponseEntity.ok(jwtResponse);
 		} else {
-			return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
+			return ResponseEntity.badRequest().body(new MessageResponse("Check username and password"));
 		}
 	}
 	@GetMapping("/employees12")
@@ -70,9 +75,16 @@ public class AuthController {
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
-		userService.registerUser(signUpRequest);
-		//ResponseEntity<?> message=userService.registerUser(signUpRequest);
-		return null;
+		MessageResponse message = null;
+		message= userService.registerUser(signUpRequest);
+		if(message != null) {
+			return new ResponseEntity<>(message,HttpStatus.OK);
+		}
+		else {
+			MessageResponse messageError = new MessageResponse("Incorrect format for email, try again.");
+			return new ResponseEntity<>(messageError,HttpStatus.OK);
+		}
+		
 		
 	}
 	
@@ -102,6 +114,28 @@ public class AuthController {
 		
 		return user;
 
+	}
+	
+	@PutMapping("/updateUserRA")
+	public ModelAndView Update(@RequestBody Userdto user) {
+		File file=new File("app.jsp");      
+		MessageResponse message=userService.updateProfile(user.getEmail(),user.getAddress(),user.getBirthday(),(MultipartFile) file);
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(message != null) {
+			User userR=userService.viewItemByEmail(user.getEmail());
+			modelAndView.addObject("user",userR);
+			modelAndView.addObject("ErrorMessage",message);
+			modelAndView.setViewName("UpdateProfile");
+		}
+		else {
+			modelAndView.addObject("ErrorMessage","Update is failed.");
+			modelAndView.setViewName("UpdateProfile");	
+		}
+		
+		//homeController.directUserToHomePage(jwtResponse);
+		return modelAndView;
+		
 	}
 	
 	

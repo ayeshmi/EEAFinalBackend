@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name="Pharmacient")
@@ -49,10 +50,12 @@ public class Pharmacient {
 	@Size(max = 250)
 	private String imageName;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "pharmacist", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<Order> order;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "pharmacient", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<Payment> payment;

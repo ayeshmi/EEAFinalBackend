@@ -50,8 +50,8 @@
             <th scope="col">User Name</th>
             <th scope="col">Email</th>
             <th scope="col">Problem</th>
-            <th scope="col">Reply</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Answer</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -61,8 +61,8 @@
             <td>${list.name}</td>
             <td>${list.email}</td>
             <td>${list.message}</td>
-            <td><a href = "${contextPath}/api/auth/contactus/${list.id}" class = "item-name">Reply</a></td>
-            <td><a href = "${contextPath}/api/auth/deleteContactUs/${list.id}" class = "item-name">Delete</a></td>
+            <td>${list.answer}</td>
+           
             
           </tr>
           </c:forEach>

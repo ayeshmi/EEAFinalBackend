@@ -69,26 +69,32 @@ public class UserServiceImpl implements UserService{
 					roles,userDetails.getProfileImage());
 
 		} catch (Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 		return jwtResponse;
 
 	}
 
 	public JwtResponse loginServiceRestApi(LoginRequest loginRequest) {
+		JwtResponse jwtResponse = null;
+		try {
+			Authentication authentication = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getPassword(), loginRequest.getUsername()));
 
-		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getPassword(), loginRequest.getUsername()));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			String jwt = jwtUtils.generateJwtToken(authentication);
 
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		String jwt = jwtUtils.generateJwtToken(authentication);
+			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+			List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+					.collect(Collectors.toList());
 
-		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-				.collect(Collectors.toList());
+			jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
+					userDetails.getEmail(), roles,userDetails.getProfileImage());
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 
-		JwtResponse jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-				userDetails.getEmail(), roles,userDetails.getProfileImage());
+		
 
 		return jwtResponse;
 	}
@@ -98,7 +104,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			users = userRepository.findAll();
 		} catch (Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 
 		return users;
@@ -163,7 +169,7 @@ public class UserServiceImpl implements UserService{
 			emailSender.sendEmail();
 			message = new MessageResponse("User registered successfully!");
 		} catch (Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 
 		return message;
@@ -187,7 +193,7 @@ public class UserServiceImpl implements UserService{
 			message=new MessageResponse("User details are successfully updated.");
 		}
 		catch(Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 		
 		return message;
@@ -203,7 +209,7 @@ public class UserServiceImpl implements UserService{
 					.path(fileName)
 					.toUriString();
 		}catch(Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 		
 		
@@ -216,7 +222,7 @@ public class UserServiceImpl implements UserService{
 			userRepository.delete(item);
 			System.out.println("user is deleted");
 		} catch (Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 
 	}
@@ -226,7 +232,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			 user = userRepository.findById(id).orElseThrow();
 		}catch(Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 		
 		return user;
@@ -237,7 +243,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			 user = userRepository.findByEmail(email);
 		}catch(Exception e) {
-			System.out.println("error is " + e);
+			e.printStackTrace();
 		}
 		
 		return user;

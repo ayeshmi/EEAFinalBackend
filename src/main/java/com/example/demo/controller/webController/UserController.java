@@ -127,7 +127,7 @@ public class UserController {
 		else {
 			System.out.println("Error is calling");
 			modelAndView.setViewName("signup");	
-			MessageResponse messageError=new MessageResponse("Something went wrong, try again!");
+			MessageResponse messageError=new MessageResponse("Incorrect email format!");
 			modelAndView.addObject("loginError",messageError);
 		}
 		
@@ -228,8 +228,14 @@ public class UserController {
 	}
 	@RequestMapping("/contactUs")
 	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String home123() {
+	public String contactUspageLoggegUSer() {
 		return "ContactUs";
+	}
+	
+	@RequestMapping("/AllContactUs")
+	//@PreAuthorize("hasAuthority('ROLE_USER')")
+	public String contactUspageAllUser() {
+		return "AllUserContactUs";
 	}
 	@RequestMapping("/profile")
 	//@PreAuthorize("hasAuthority('ROLE_USER')")

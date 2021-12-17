@@ -2,7 +2,8 @@
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 
@@ -61,7 +62,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarExample01">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Login</b></a>
+					<li class="nav-item active"><a class="nav-link px-3" href="${contextPath}/api/auth/AllContactUs"><b>Login</b></a>
 					</li>
 					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Register</b></a>
 					</li>

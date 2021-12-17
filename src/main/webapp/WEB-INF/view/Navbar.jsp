@@ -104,9 +104,11 @@
 				aria-expanded="false"> <b>Contact Us</b>
 			</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-
+<sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/allConatctUs">My Contact Us Details</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/allUserConatctUsPerUser/${id}">My Contact Us Details</a>
 					<div class="dropdown-divider"></div>
 					
 					

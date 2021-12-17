@@ -2,12 +2,14 @@ package com.example.demo.controller.apiController;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,21 +29,52 @@ public class ContactUsControllerApi {
 	@Autowired
 	ContactUsServiceImpl contactusService;
 	
-	@PostMapping("/contactusRA")
-	public ResponseEntity<?> addNewContactusDetails(@ModelAttribute ContactUs contactus) {
+	@PostMapping("/contactusRA/{Id}")
+	public ResponseEntity<Object> addNewContactusDetails(@Valid @RequestBody ContactUs contactus,@PathVariable("Id") Long id) {
+		MessageResponse message = null;
+		message= contactusService.addNewContactusDetailswithUser(contactus,id);
 		
-		 contactusService.addNewContactusDetails(contactus);
-		return ResponseEntity.ok(new MessageResponse("Contact Details Succesfully Sent!"));
+		if(message != null) {
+			return new ResponseEntity<>(message,HttpStatus.OK);
+		}
+		else {
+			MessageResponse messageError = new MessageResponse("Someting went wrong, try again.");
+			return new ResponseEntity<>(messageError,HttpStatus.OK);
+		}
+		
 	}
 	
 	
 	@GetMapping("/allConatctUsRA")
-	public List<ContactUs> getAllContactUsDetails(){
+	public ResponseEntity<Object> getAllContactUsDetails(){
 		List<ContactUs> list=contactusService.getAllContactUsDetails();
+		if(list.size() != 0) {
+			
+			return new ResponseEntity<>(list,HttpStatus.OK);
+		}
+		else {
+			System.out.println("list is empty");
+			return new ResponseEntity<>(list,HttpStatus.BAD_REQUEST);
+		}
 		
-
-		return list;
+		
 	}
+	
+	@GetMapping("/allUserConatctUsPerUserRA/{Id}")
+	public ResponseEntity<Object> getAllContactUsDetailsPerUser(@PathVariable("Id") Long id){
+		List<ContactUs> list=contactusService.viewContactUsForUser(id);
+          if(list.size() != 0) {
+			
+			return new ResponseEntity<>(list,HttpStatus.OK);
+		}
+		else {
+			System.out.println("list is empty");
+			return new ResponseEntity<>(list,HttpStatus.BAD_REQUEST);
+		}
+
+		
+	}
+	
 	
 	@DeleteMapping("/deleteContactUsRA/{id}")
 	public ResponseEntity<?> deleteContactUs(@PathVariable Long id){

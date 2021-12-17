@@ -35,21 +35,52 @@ public class ContactUsController {
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView getAllContactUsDetails(){
 		List<ContactUs> list=contactusService.getAllContactUsDetails();
-		
 		ModelAndView modelAndView = new ModelAndView();
+		if(list.size() != 0) {
+			modelAndView.addObject("list", list);
+			modelAndView.setViewName("ViewAllContactUs");	
+		}
+		else {
+			MessageResponse	messageResponse=new MessageResponse("No Records.");
+			modelAndView.addObject("ErrorMessage", messageResponse);
+			modelAndView.setViewName("ViewAllContactUs");	
+		}
 
-		modelAndView.addObject("list", list);
-		modelAndView.setViewName("ViewAllContactUs");
+		
 
 		return modelAndView;
 	}
 	
+	@GetMapping("/allUserConatctUsPerUser/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
+	public ModelAndView getAllContactUsDetailsPerUser(@PathVariable("id") Long id){
+		List<ContactUs> list=contactusService.viewContactUsForUser(id);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		if(list.size() != 0) {
+			modelAndView.addObject("list", list);
+			modelAndView.setViewName("ViewAllContactUsPerUser");	
+		}
+		else {
+			MessageResponse	messageResponse=new MessageResponse("No Records.");
+			modelAndView.addObject("ErrorMessage", messageResponse);
+			modelAndView.setViewName("ViewAllContactUsPerUser");	
+		}
+
+		
+
+		return modelAndView;
+		
+
+	}
+	
 
 	//create contactus details rest api
-	@PostMapping("/contactusW")
-	public ModelAndView addNewContactusDetails(@ModelAttribute ContactUs contactus) {
+	@PostMapping("/contactusW/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
+	public ModelAndView addNewContactusDetails(@ModelAttribute ContactUs contactus,@PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView();
-		MessageResponse message=contactusService.addNewContactusDetails(contactus);
+		MessageResponse message=contactusService.addNewContactusDetailswithUser(contactus,id);
 		if(message != null) {
 			modelAndView.addObject("contactError", message);
 			modelAndView.setViewName("ContactUs");
@@ -58,6 +89,23 @@ public class ContactUsController {
 			MessageResponse	messageResponse=new MessageResponse("Something went wrong, try again.");
 			modelAndView.addObject("contactError",messageResponse);
 			modelAndView.setViewName("ContactUs");
+		}
+		 
+		return modelAndView;
+	}
+	
+	@PostMapping("/CommoncContactus")
+	public ModelAndView addNewContactusDetailsAll(@ModelAttribute ContactUs contactus) {
+		ModelAndView modelAndView = new ModelAndView();
+		MessageResponse message=contactusService.addNewContactusDetails(contactus);
+		if(message != null) {
+			modelAndView.addObject("contactError", message);
+			modelAndView.setViewName("AllUserContactUs");
+		}
+		else {
+			MessageResponse	messageResponse=new MessageResponse("Something went wrong, try again.");
+			modelAndView.addObject("contactError",messageResponse);
+			modelAndView.setViewName("AllUserContactUs");
 		}
 		 
 		return modelAndView;

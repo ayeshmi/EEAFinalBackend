@@ -3,6 +3,11 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -75,10 +80,12 @@ public class Item {
 	@Size(max = 250)
 	private String imageName;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "item", cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
 	 private List<Comment> comments;
 	
+	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {CascadeType.PERSIST, CascadeType.MERGE
                     , CascadeType.DETACH, CascadeType.REFRESH})
@@ -209,14 +216,7 @@ public class Item {
 	}
 
 
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+	
 
 	public List<Order> getOrders() {
 		return orders;
@@ -224,6 +224,16 @@ public class Item {
 
 	public void setOrders(List<Order> orders) {
 		this.orders = orders;
+	}
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 	
 	

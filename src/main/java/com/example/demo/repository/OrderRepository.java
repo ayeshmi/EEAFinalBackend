@@ -27,10 +27,10 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 	List<Order> searchProcessOrderDetails(@Param("keyword")Long a);
 	
 	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='Cancel'", nativeQuery = true)
-	List<Order> searchCancelOrderDetails(@Param("keyword")Long userId);
+	List<Order> searchCancelOrderDetails(@Param("keyword")Long a);
 	
 	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='Completed'", nativeQuery = true)
-	List<Order> searchComletedOrderDetails(@Param("keyword")Long userId);
+	List<Order> searchComletedOrderDetails(@Param("keyword")Long a);
 	
 	
 }
