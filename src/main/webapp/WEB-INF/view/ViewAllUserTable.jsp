@@ -36,6 +36,10 @@
   cursor: pointer;
   transition: opacity 0.25s ease-out;
 }
+.form-img22{
+    width: 100px;
+    height: 100px;
+}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
@@ -54,6 +58,7 @@
           <tr>
             <th scope="col">User ID</th>
             <th scope="col">Username</th>
+            <th scope="col">Image</th>
             <th scope="col">Email</th>
             <th scope="col">View</th>
             <th scope="col">Delete</th>
@@ -64,6 +69,7 @@
           <tr>
             
             <td>${user.username}</td>
+            <td><img class='form-img22'  src=${user.image} alt='image' /></td>
             <td>${user.email}</td>
             <td>${user.email}</td>
             <td><a href = "${contextPath}/api/auth/viewUserByID/${user.id}" class = "item-name1">View</a></td>

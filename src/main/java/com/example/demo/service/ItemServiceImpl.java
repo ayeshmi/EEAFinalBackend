@@ -1,7 +1,6 @@
 package com.example.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -11,9 +10,9 @@ import com.example.demo.repository.ItemRepository;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -26,21 +25,31 @@ public class ItemServiceImpl implements ItemService{
 	private FileStorageServiceImpl fileStorageService;
 	
 	@Override
-	public void addItem(Item item) {
+	public MessageResponse addItem(Item item) {
+		
+		MessageResponse message=null;
 		try {
-			itemRepo.save(item);
+			if (itemRepo.existsByName(item.getName())) {
+				message = new MessageResponse("Error: Item name is already in use!");
+				
+			}
+			else {
+				message = new MessageResponse("Item is successfully added.");
+				item.setAvailability("Available");
+				itemRepo.save(item);
+				
+			}
+			
 		}catch(Exception e)
 		{
 			System.out.println("Error is" + e);
 		}
-	
+		return message;
 	}
 
 	@Override
 	public MessageResponse addItem(MultipartFile file, String name, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,String itemType) {
-		
-		Item p = new Item();
 		
 		MessageResponse message=null;
 		try {
@@ -50,24 +59,29 @@ public class ItemServiceImpl implements ItemService{
 
 				return message;
 			}
-			String imagePath=imageUploader(file);
-			String fileName = fileStorageService.storeFile(file);
-			p.setImageName(fileName);
-			p.setImage(imagePath);		
-	        p.setName(name);
-	        p.setPrice(price);
-	        p.setDelivery(delivery);
-	        p.setDescription(description);
-	        p.setHowToUse(howToUse);
-	        p.setIngredients(ingredients);
-	        p.setAvailability("Available");
-	        p.setSpecifications(specifications);
-	        p.setSuitableFor(suitableFor);
-	        p.setReturnItem(returnItem);
-	        p.setItemType(itemType);
-	        
-	        itemRepo.save(p);
-	        message=new MessageResponse("Item is successfully Added.");
+			else {
+				Item p = new Item();
+				String imagePath=imageUploader(file);
+				String fileName = fileStorageService.storeFile(file);
+				p.setImageName(fileName);
+				p.setImage(imagePath);	
+		        p.setAvailability("Available"); 
+		        p.setName(name);
+		        p.setPrice(price);
+		        p.setDelivery(delivery);
+		        p.setDescription(description);
+		        p.setHowToUse(howToUse);
+		        p.setIngredients(ingredients);
+
+		        p.setSpecifications(specifications);
+		        p.setSuitableFor(suitableFor);
+		        p.setReturnItem(returnItem);
+		        p.setItemType(itemType);
+		        
+		        itemRepo.save(p);
+		        message=new MessageResponse("Item is successfully Added.");
+			}
+		
 		}catch(Exception e) {
 			System.out.println("Error is" + e);
 		}
@@ -160,13 +174,19 @@ public class ItemServiceImpl implements ItemService{
 	}
 
 	@Override
-	public ResponseEntity<Map<String,Boolean>> deleteItem(Long id) {
-		Item item=itemRepo.findById(id)
-				.orElseThrow();
-		itemRepo.delete(item);
-		Map<String,Boolean> response=new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return ResponseEntity.ok(response);
+	public MessageResponse deleteItem(Long id) {
+		MessageResponse message=null;
+		try {
+			Item item=itemRepo.findById(id)
+					.orElseThrow();
+			itemRepo.delete(item);
+			message=new MessageResponse("Item is successfully deleted."); 
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return message;
 	}
 
 	@Override
@@ -191,27 +211,34 @@ public class ItemServiceImpl implements ItemService{
 	        message=new MessageResponse("Item is successfully Updated."); 
 		}
 		catch(Exception e) {
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		return message;
 	}
 
 	@Override
-	public void updateItembyID(Item item, Long id) {
-		Item itemUpdate=itemRepo.findById(id)
-				.orElseThrow();
-		itemUpdate.setImage(item.getImage());
-		itemUpdate.setPrice(item.getPrice());
-		itemUpdate.setDelivery(item.getDelivery());
-		itemUpdate.setDescription(item.getDescription());
-		itemUpdate.setHowToUse(item.getHowToUse());
-		itemUpdate.setIngredients(item.getIngredients());
-		//itemUpdate.setAvailability("Available");
-		itemUpdate.setSpecifications(item.getSpecifications());
-		itemUpdate.setSuitableFor(item.getSuitableFor());
-		itemUpdate.setReturnItem(item.getReturnItem());
-		itemRepo.save(itemUpdate);
-		
+	public MessageResponse updateItembyID(Item item, Long id) {
+		MessageResponse message=null;
+		try {
+			Item itemUpdate=itemRepo.findById(id)
+					.orElseThrow();
+			itemUpdate.setImage(item.getImage());
+			itemUpdate.setPrice(item.getPrice());
+			itemUpdate.setDelivery(item.getDelivery());
+			itemUpdate.setDescription(item.getDescription());
+			itemUpdate.setHowToUse(item.getHowToUse());
+			itemUpdate.setIngredients(item.getIngredients());
+			//itemUpdate.setAvailability("Available");
+			itemUpdate.setSpecifications(item.getSpecifications());
+			itemUpdate.setSuitableFor(item.getSuitableFor());
+			itemUpdate.setReturnItem(item.getReturnItem());
+			itemRepo.save(itemUpdate);
+			message=new MessageResponse("Item details are successfully updated.");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return message;
 	}
 
 	public List<Item> advanceItemSearch(String search) {

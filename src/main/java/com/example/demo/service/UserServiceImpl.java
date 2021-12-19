@@ -52,6 +52,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private FileStorageServiceImpl fileStorageService;
 
+	@Override
 	public JwtResponse loginService(LoginRequest loginRequest) {
 		JwtResponse jwtResponse = null;
 		try {
@@ -75,6 +76,7 @@ public class UserServiceImpl implements UserService{
 
 	}
 
+	@Override
 	public JwtResponse loginServiceRestApi(LoginRequest loginRequest) {
 		JwtResponse jwtResponse = null;
 		try {
@@ -99,6 +101,7 @@ public class UserServiceImpl implements UserService{
 		return jwtResponse;
 	}
 
+	@Override
 	public List<User> getAllUsers() {
 		List<User> users = null;
 		try {
@@ -111,7 +114,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	
-
+	@Override
 	public MessageResponse registerUser(SignupRequest signUpRequest) {
 		
 		MessageResponse message = null;
@@ -176,6 +179,7 @@ public class UserServiceImpl implements UserService{
 
 	}
 
+	@Override
 	public  MessageResponse updateProfile(String email,String address,String birthday,MultipartFile file) {
 		
 		MessageResponse message = null;
@@ -200,6 +204,7 @@ public class UserServiceImpl implements UserService{
 
 	}
 	
+	@Override
 	public String imageUploader(MultipartFile file) {
 		String fileDownloadUri=null;
 		try {
@@ -216,6 +221,7 @@ public class UserServiceImpl implements UserService{
 		return fileDownloadUri;
 	}
 
+	@Override
 	public void deleteUser(Long id) {
 		try {
 			User item = userRepository.findById(id).orElseThrow();
@@ -227,7 +233,8 @@ public class UserServiceImpl implements UserService{
 
 	}
 
-	public User viewItemByID(Long id) {
+	@Override
+	public User viewUserByID(Long id) {
 		User user=null;
 		try {
 			 user = userRepository.findById(id).orElseThrow();
@@ -238,7 +245,8 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	public User viewItemByEmail(String email) {
+	@Override
+	public User viewUserByEmail(String email) {
 		User user=null;
 		try {
 			 user = userRepository.findByEmail(email);
@@ -247,6 +255,24 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return user;
+	}
+
+	public MessageResponse updateProfileRA(String email, String address, String birthday) {
+		MessageResponse message = null;
+		try {
+			User userU = userRepository.findByEmail(email);
+			
+			userU.setBirthday(birthday);
+
+			userU.setAddress(address);
+			userRepository.save(userU);
+			message=new MessageResponse("User details are successfully updated.");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
 	}
 
 }

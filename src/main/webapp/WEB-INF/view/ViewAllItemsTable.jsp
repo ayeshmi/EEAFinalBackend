@@ -101,11 +101,23 @@
             <td>${item.specifications}</td>
             <td>${item.availability}</td>
             <td><a href = "${contextPath}/api/auth/viewItemUpdateByItem/${item.id}" class = "item-name">Update</a></td>
-            <td><a href = "${contextPath}/api/auth/deleteItem/${item.id}" class = "item-name">Delete</a></td>
-            
+            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal" onclick="getID(${item.id})"
+                       style="margin-left: 5px;"><b>Delete</b></a></td>
           </tr>
           </c:forEach>
         </tbody>
       </table>  
 </body>
+
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function getID(value) {
+
+        document.getElementById("deleteId").value = value;
+        console.log(document.getElementById("deleteId").value);
+    }
+
+</script>
+
+<%@ include file="DeleteItem.jsp" %>
 </html>

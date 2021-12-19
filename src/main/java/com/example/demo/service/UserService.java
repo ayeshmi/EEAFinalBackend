@@ -18,6 +18,6 @@ public interface UserService {
 	public  MessageResponse updateProfile(String email,String address,String birthday,MultipartFile file);
 	public String imageUploader(MultipartFile file);
 	public void deleteUser(Long id);
-	public User viewItemByID(Long id);
-	public User viewItemByEmail(String email);
+	public User viewUserByID(Long id);
+	public User viewUserByEmail(String email);
 }

@@ -84,6 +84,7 @@ public class ContactUsControllerApi {
 		return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 		
 	}
+	
 	@GetMapping("/contactusDetailsRA/{id}")
 	public ContactUs getContactUsDetailsById(@PathVariable("id") Long id){
 		System.out.println("Hello method is called");

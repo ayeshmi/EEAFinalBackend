@@ -22,7 +22,7 @@ MessageResponse message1 = null;
     font-size: 1.5rem;
     text-align: center;
     position: absolute;
-    top: 15%;
+    top: 25%;
     left: 30%;
    
    
@@ -42,13 +42,17 @@ MessageResponse message1 = null;
   .closebtn:hover {
     color: black;
   }
-  .button{
+  .button1{
+  position: absolute;
+    top: 40%;
+    left: 40%;
     border-radius: 25px;
   width: 20%;
   height: 30px;
   font-size: 1.0rem;
   color: white;
-  font-weight: 700;
+  font-weight: 1000;
+  text-align:center;
   background: rgb(234, 235, 240);
   background: linear-gradient(135deg, rgb(78, 98, 121) 0%,     rgb(66, 170, 173) 100%);
   border: 0px;
@@ -56,12 +60,12 @@ MessageResponse message1 = null;
   transition: opacity 0.25s ease-out;
   }
   </style>
-<div class="alert" style="align-content: center;">
+<div class="alert" >
   
   <strong > <%= message1.getMessage() %></strong> 
  
 <br></br>
-                        <button onclick="this.parentElement.style.display='none';" class="button" >Ok</button>
+                        <button onclick="this.parentElement.style.display='none';" class="button1" >Ok</button>
                     
 </div>
 <br></br>

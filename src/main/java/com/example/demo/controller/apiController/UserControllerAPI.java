@@ -74,7 +74,7 @@ public class UserControllerAPI {
 
 	
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
+	public ResponseEntity<Object> registerUser(@RequestBody SignupRequest signUpRequest) {
 		MessageResponse message = null;
 		message= userService.registerUser(signUpRequest);
 		if(message != null) {
@@ -82,14 +82,15 @@ public class UserControllerAPI {
 		}
 		else {
 			MessageResponse messageError = new MessageResponse("Incorrect format for email, try again.");
-			return new ResponseEntity<>(messageError,HttpStatus.OK);
+			return new ResponseEntity<>(messageError,HttpStatus.BAD_REQUEST);
 		}
 		
 		
 	}
 	
 	@DeleteMapping("/deleteUser/{id}")
-	public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+	public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
+		MessageResponse message = null;
 		userService.deleteUser(id);
 
 		return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
@@ -97,44 +98,50 @@ public class UserControllerAPI {
 	}
 	
 	@GetMapping("/viewUserByIDRA/{id}")
-	public User viewUserByID(@PathVariable("id") Long id) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called1234");
-		User user = userService.viewItemByID(id);
-		
-		return user;
+	public ResponseEntity<Object> viewUserByID(@PathVariable("id") Long id) {
+	
+		User user = userService.viewUserByID(id);
+		if(user!= null) {
+			return new ResponseEntity<>(user,HttpStatus.OK);
+			
+		}
+		else {
+			return new ResponseEntity<>(user,HttpStatus.BAD_REQUEST);
+		}
+	
 
 	}
 	
 	@GetMapping("/viewUserByEmailRA/{email}")
-	public User viewUserByID(@PathVariable("email") String email) {
+	public ResponseEntity<Object> viewUserByID(@PathVariable("email") String email) {
 		// System.out.println("get item details"+file);
 		System.out.println("Called1234");
-		User user = userService.viewItemByEmail(email);
-		
-		return user;
+		User user = userService.viewUserByEmail(email);
+		if(user!= null) {
+			return new ResponseEntity<>(user,HttpStatus.OK);
+			
+		}
+		else {
+			return new ResponseEntity<>(user,HttpStatus.BAD_REQUEST);
+		}
 
 	}
 	
 	@PutMapping("/updateUserRA")
-	public ModelAndView Update(@RequestBody Userdto user) {
-		File file=new File("app.jsp");      
-		MessageResponse message=userService.updateProfile(user.getEmail(),user.getAddress(),user.getBirthday(),(MultipartFile) file);
-		ModelAndView modelAndView = new ModelAndView();
+	public ResponseEntity<Object> Update(@RequestBody Userdto user) {
+		
+		MessageResponse message=userService.updateProfileRA(user.getEmail(),user.getAddress(),user.getBirthday());
+		
 		
 		if(message != null) {
-			User userR=userService.viewItemByEmail(user.getEmail());
-			modelAndView.addObject("user",userR);
-			modelAndView.addObject("ErrorMessage",message);
-			modelAndView.setViewName("UpdateProfile");
+			return new ResponseEntity<>(message,HttpStatus.OK);
 		}
 		else {
-			modelAndView.addObject("ErrorMessage","Update is failed.");
-			modelAndView.setViewName("UpdateProfile");	
+			MessageResponse messageError = new MessageResponse("Check inputs and try again.");
+			return new ResponseEntity<>(messageError,HttpStatus.BAD_REQUEST);
 		}
 		
-		//homeController.directUserToHomePage(jwtResponse);
-		return modelAndView;
+		
 		
 	}
 	

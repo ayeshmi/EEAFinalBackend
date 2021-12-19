@@ -69,7 +69,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		if(message != null) {
-			User user=userService.viewItemByEmail(email);
+			User user=userService.viewUserByEmail(email);
 			modelAndView.addObject("user",user);
 			modelAndView.addObject("ErrorMessage",message);
 			modelAndView.setViewName("UpdateProfile");
@@ -140,7 +140,7 @@ public class UserController {
 	@GetMapping("/viewUserByID/{id}")
 	public ModelAndView viewUserByID(@PathVariable("id") Long id) {
 		
-		User user = userService.viewItemByID(id);
+		User user = userService.viewUserByID(id);
 		ModelAndView modelAndView = new ModelAndView();
 		if(user != null) {
 			modelAndView.addObject("user", user);
@@ -161,7 +161,7 @@ public class UserController {
 	
 	@GetMapping("/viewUserUpdate/{id}")
 	public ModelAndView viewUserByIDUpdate(@PathVariable("id") Long id) {
-		User user = userService.viewItemByID(id);
+		User user = userService.viewUserByID(id);
 		ModelAndView modelAndView = new ModelAndView();
 		if(user != null) {
 			modelAndView.addObject("user", user);
@@ -182,7 +182,7 @@ public class UserController {
 	
 	@GetMapping("/deleteUser")
 	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public ModelAndView deleteItem(@RequestParam("userId") Long id) {
+	public ModelAndView deleteUser(@RequestParam("userId") Long id) {
 		userService.deleteUser(id);
 		List<User> users = userService.getAllUsers();
 		ModelAndView modelAndView = new ModelAndView();

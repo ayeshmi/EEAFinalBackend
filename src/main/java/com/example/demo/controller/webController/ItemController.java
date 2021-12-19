@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.Item;
+import com.example.demo.model.User;
 import com.example.demo.dto.MessageResponse;
 import com.example.demo.service.CommentServiceImpl;
 import com.example.demo.service.FileStorageServiceImpl;
@@ -220,11 +221,32 @@ public class ItemController {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
 	}
 
-	@GetMapping("/deleteItem/{id}")
-	public void deleteItem(@PathVariable Long id) {
-		itemService.deleteItem(id);
-
-		// return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+	@GetMapping("/deleteItem")
+	public ModelAndView deleteItem(@RequestParam("itemId") Long id) {
+		
+		MessageResponse response =itemService.deleteItem(id);
+		List<Item> items = itemService.viewAllItems();	
+		ModelAndView modelAndView = new ModelAndView();
+		if(items.size() !=0) {
+			MessageResponse message=new MessageResponse("Item is successfully deleted.");
+		       //modelAndView = getLectures(lecture.getScheduledDate());
+		       modelAndView.addObject("ErrorMessage",message);
+		       modelAndView.addObject("items", items);
+		       modelAndView.setViewName("ViewAllItemsTable");
+		}
+		
+		
+		else {
+			MessageResponse message=new MessageResponse("Something went wrong, try again!");
+			modelAndView.setViewName("ViewAllItemsTable");
+		       modelAndView.addObject("ErrorMessage",message);
+		}
+      
+		
+		
+     
+	   
+       return  modelAndView;
 
 	}
 

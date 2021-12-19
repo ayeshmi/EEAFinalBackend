@@ -3,6 +3,7 @@ package com.example.demo.controller.apiController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,45 +33,75 @@ public class ItemControllerAPI {
 	// adding new book
 	@PostMapping("/addItemRA")
 	public ResponseEntity<?> addItem(@RequestBody Item item) {
-		System.out.println("Hello Book" + item.getDelivery());
-		// bookService.addbook(book);
-		itemService.addItem(item);
-		return ResponseEntity.badRequest().body(new MessageResponse("Item is added successfully"));
+		MessageResponse message = null;
+		message=itemService.addItem(item);
+		
+		if(message != null) {
+			return ResponseEntity.ok(message);
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("Check input valus and try again!"));
+		
+		}
+			
 	}
 	
 	@GetMapping("/viewAllItemRA")
-	public List<Item> getAllItems() {
-		// System.out.println("get item details"+file);
-		//List<Item> items = itemService.getAllItems();
+	public ResponseEntity<Object> getAllItems() {
+		 List<Item> items=itemService.getAllItems();
 		
-		return itemService.getAllItems();
+		if(items.size() != 0) {
+			return new ResponseEntity<>(items,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(items,HttpStatus.BAD_REQUEST);
+		}
 
 	}
 	
 	@DeleteMapping("/deleteItemRA/{itemId}")
 	public ResponseEntity<?> deleteItem(@PathVariable("itemId") Long id) {
-		 System.out.println("Deletion");
-		itemService.deleteItem(id);
-        System.out.println("Deletion");
-		return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+		MessageResponse message = null;
+		message=itemService.deleteItem(id);
+        
+		if(message != null) {
+			return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+		}
+		else {
+			return ResponseEntity.badRequest().body(new MessageResponse("No Record found!"));
+		}
 
 	}
 	
 	@GetMapping("/viewItemUpdateByItemRA/{id}")
-	public Item viewItemUpdateByID(@PathVariable("id") Long id) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called1234");
+	public ResponseEntity<Object> viewItemUpdateByID(@PathVariable("id") Long id) {
 		Item item = itemService.viewItemByID(id);
 		
-		return item;
+		if(item != null) {
+			return new ResponseEntity<>(item,HttpStatus.OK);
+			
+		}
+		else {
+			return new ResponseEntity<>(item,HttpStatus.BAD_REQUEST);
+		}
 
 	}
 	
 	@PutMapping("/updateItem/{itemId}")
-	public void UpdateItem(@RequestBody Item item,@PathVariable("itemId") Long id) {
+	public ResponseEntity<Object> UpdateItem(@RequestBody Item item,@PathVariable("itemId") Long id) {
 		// System.out.println("get item details"+file);
-		itemService.updateItembyID(item,id);
-		System.out.println("Function is updated");
+		MessageResponse message = null;
+		message=itemService.updateItembyID(item,id);
+		
+		if(message != null) {
+			
+			return new ResponseEntity<>(message,HttpStatus.OK);
+		}
+		else {
+			message=new MessageResponse("Check inputs and try again.");
+			return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+			
+		}
 
 	
 
@@ -78,11 +109,16 @@ public class ItemControllerAPI {
 	}
 	
 	@GetMapping("/viewSelectedCategoryItemRA/{name}")
-	public List<Item> getSelectedCategoryItem(@PathVariable("name") String name) {
-        System.out.println("called789");
+	public ResponseEntity<Object> getSelectedCategoryItem(@PathVariable("name") String name) {
+       
 		List<Item> items = itemService.getSelectedCategoryItem(name);
+		if(items.size() != 0) {
+			return new ResponseEntity<>(items,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(items,HttpStatus.BAD_REQUEST);
+		}
 		
-		return items;
 
 	}
 
