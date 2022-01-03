@@ -53,12 +53,18 @@ public class Order {
 	            inverseJoinColumns = @JoinColumn(name = "item_id")
 	    )
 	    private List<Item> items;
+	@Size(max = 20)
+	private String cancellationDate;
 	
+	@Size(max = 20)
+	private String completedDate;
+	@Size(max = 200)
+	private String reason;
 	
 	private Long itemId;
 	
 	@NotBlank
-	@Size(max = 200)
+	
 	private String clientEmail;
 	
 	@Size(max = 60)
@@ -224,6 +230,30 @@ public class Order {
 
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getCancellationDate() {
+		return cancellationDate;
+	}
+
+	public void setCancellationDate(String cancellationDate) {
+		this.cancellationDate = cancellationDate;
+	}
+
+	public String getCompletedDate() {
+		return completedDate;
+	}
+
+	public void setCompletedDate(String completedDate) {
+		this.completedDate = completedDate;
 	}
 	
 	

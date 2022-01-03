@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Furniture Product List</title>
+    <title>User List</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -40,77 +40,48 @@
     width: 100px;
     height: 100px;
 }
-.input{
-  width: 500px;
-  height: 50px;
-  align-content: center;
-  border-radius: 55px;
-  position: absolute;
-  top:15%;
-  left: 30%;
-  font-size: 1.5rem;
-  background: rgb(234, 235, 240);
-  background: linear-gradient(135deg, rgb(213, 210, 221) 0%,     rgb(77, 143, 209) 100%);
-  padding-left: 1.5rem;
-  border: none;
-}
-.button{
-  width: 150px;
-  height: 50px;
-  position: absolute;
-  top:15%;
-  right: 26%;
-  border-radius: 55px;
-  font-size: 1.5rem;
-  color: white;
-  font-weight: 700;
-  background: rgb(234, 235, 240);
-  background: linear-gradient(135deg, rgb(122, 97, 180) 0%,     rgb(77, 143, 209) 100%);
-  border: 0px;
-  cursor: pointer;
-  transition: opacity 0.25s ease-out;
-}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
-<%@include file="ViewAllError.jsp" %>
-<%@include file="AdvanceSearchItem.jsp" %>
+
+
 
 <br></br>
-<br></br>
-
+ <%@include file="Message.jsp" %>
+ <%@include file="ErrorMessage.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
+<h1>Cancel Orders</h1>
     <table class="table table-striped">
         <thead>
           <tr>
-          <th scope="col">Item ID</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Cancellation Reason</th>
+            <th scope="col">Cancellation Date</th>
             <th scope="col">Item Name</th>
-            <th scope="col">Image</th>
-            <th scope="col">Category</th>
-            <th scope="col">Availability</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Price (Rs.)</th>
+           
           </tr>
         </thead>
         <tbody>
-        <c:forEach var="item" items="${items}">
+        <c:forEach var="user" items="${items}">
           <tr>
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td><img class='form-img22'  src=${item.image} alt='image' /></td>
-            <td>${item.specifications}</td>
-            <td>${item.availability}</td>
-            <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewItemUpdateByItem/${item.id}"
-                       style="margin-left: 5px;"><b>Update</b></a></td>
-           
-            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal" onclick="getID(${item.id})"
-                       style="margin-left: 5px;"><b>Delete</b></a></td>
+             <td>${user.id}</td>
+            <td>${user.reason}</td>
+             <td>${user.cancellationDate}</td>
+            <td>${user.name}</td>
+            
+            <td>${user.price}</td>
+            
+            
           </tr>
           </c:forEach>
         </tbody>
       </table>  
+      <h1>${message}</h1>
 </body>
+
 
 <script>
     //Script used to change the ID hidden input field inside the confirm delete modal
@@ -121,6 +92,8 @@
     }
 
 </script>
+   <%@ include file="DeleteUser12.jsp" %>
 
-<%@ include file="DeleteItem.jsp" %>
+
+
 </html>

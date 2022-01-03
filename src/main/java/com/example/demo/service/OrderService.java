@@ -19,6 +19,6 @@ public interface OrderService {
 	public MessageResponse deleteItem(Long id);
 	public List<Order> viewOrderDetailsUser(Long id);
 	public MessageResponse orderCompleted(Long itemId);
-	public MessageResponse orderCancelation(Long itemId);
+	public MessageResponse orderCancelation(Long itemId,String reason);
 
 }

@@ -144,7 +144,7 @@ label{
 .row1 button{
   border-radius: 25px;
   width: 50%;
-  height: 80px;
+  height: 100px;
   font-size: 1.3rem;
   color: white;
   font-weight: 700;
@@ -186,7 +186,7 @@ label{
               <option value="EyeCare">Eye Care</option>
               <option value="BabyCare">Baby Care</option>
               <option value="SkinCare">Skin Care</option>
-              <option value="HareCare">Hare Care</option>
+              <option value="HairCare">Hair Care</option>
               <option value="SmokeCessation">Smoke Cessation</option>
               <option value="SexualLife">Sexual Life</option>
               <option value="Cosmetics">Cosmetics</option>
@@ -217,10 +217,10 @@ label{
           
           <label for="inputAddress">Availability</label>
             
-            <select name="returnItem" id="pet-select">
+            <select name="availability" id="pet-select">
               <option value="">${item.availability}</option>
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
+              <option value="Available">Available</option>
+              <option value="Unavailable">Unavailable</option>
             </select>
             <label for="inputAddress">Return</label>
             
@@ -232,8 +232,8 @@ label{
             <label for="inputAddress">Item image</label>
           
               <input type="file" name="image" 
-                id="customFile" value="Click the above button to upload the image" style="height: 100px;">
-          
+                id="customFile" value="${item.image}" style="height: 100px;">
+           <input type="hidden" name="name11" value=${item.id} />
         <br></br>
         <button type="file">Submit</button>
         <br></br>

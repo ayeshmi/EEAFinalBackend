@@ -52,30 +52,26 @@
  <%@include file="Message.jsp" %>
  <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
-<h1>User List</h1>
+<h1>Processing Orders</h1>
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">User ID</th>
-            <th scope="col">Username</th>
-            <th scope="col">Image</th>
-            <th scope="col">Email</th>
-            <th scope="col">View</th>
-            <th scope="col">Delete</th>
+            <th scope="col">Order ID</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Request Date</th>
+            <th scope="col">Price (Rs.)</th>
+        
           </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${Users}">
+        <c:forEach var="user" items="${items}">
           <tr>
              <td>${user.id}</td>
-            <td>${user.username}</td>
-            <td><img class='form-img22'  src=${user.image} alt='image' /></td>
-            <td>${user.email}</td>
-            <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewUserByID/${user.id}"
-                       style="margin-left: 5px;"><b>View</b></a></td>
+             <td>${user.name}</td>
+             <td>${user.date}</td>
+             <td>${user.price}</td>
+
             
-            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
-                       style="margin-left: 5px;"><b>Delete</b></a></td>
             
           </tr>
           </c:forEach>
@@ -83,19 +79,6 @@
       </table>  
       <h1>${message}</h1>
 </body>
-
-
-<script>
-    //Script used to change the ID hidden input field inside the confirm delete modal
-    function getID(value) {
-
-        document.getElementById("deleteId").value = value;
-        console.log(document.getElementById("deleteId").value);
-    }
-
-</script>
-   <%@ include file="DeleteUser12.jsp" %>
-
 
 
 </html>

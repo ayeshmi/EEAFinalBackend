@@ -301,8 +301,7 @@
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+						
 				<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -312,8 +311,6 @@
 
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllUserPage">View All Users</a>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/addItemTable">View All Items</a>
 					
 				</div></li>
 				
@@ -335,7 +332,8 @@
 					<a class="dropdown-item" href="${contextPath}/api/auth/addPharmacientPage">Add Pharmacist</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/viewAllPharmacient">View All Pharmacist</a>
-					
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/assignOrders">Assign Orders</a>
 				</div></li>
 				
 				
@@ -376,11 +374,13 @@
      <sec:authentication property="principal.id" var="id"/> 
 </sec:authorize>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/viewCart/${id}">View Cart</a>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewCancelOrders">View Cancel Orders</a>
+					
 					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewCompletedOrders">View Completed Orders</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="${contextPath}/api/auth/viewOrder/${id}">View Order Details</a>
-					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewPendingOrders">View Pending Orders</a>
+					
 					
 				</div></li>
 				

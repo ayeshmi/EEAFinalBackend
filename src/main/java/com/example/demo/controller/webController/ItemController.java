@@ -21,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Comment;
 import com.example.demo.model.Item;
-import com.example.demo.model.User;
 import com.example.demo.dto.MessageResponse;
 import com.example.demo.service.CommentServiceImpl;
 import com.example.demo.service.FileStorageServiceImpl;
@@ -160,15 +159,19 @@ public class ItemController {
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
 			@RequestParam("delivery") String delivery, @RequestParam("suitableFor") String suitableFor,
-			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem) {
-	
+			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem,@RequestParam("name11") Long name,@RequestParam("availability") String availability) {
+	System.out.println("Calleddddddd"+name);
 		MessageResponse message = null;
 		message=itemService.updateItem(file, description, specifications, price, ingredients, delivery, suitableFor, howToUse,
-				returnItem);
+				returnItem,name,availability);
+		System.out.println("updated123");
 		ModelAndView modelAndView = new ModelAndView();
 		if(message !=null) {
-			
-			modelAndView.setViewName("Home");
+			List<Item> items = itemService.getAllItems();
+			modelAndView.addObject("items", items);
+			MessageResponse response =new MessageResponse("Item details are Successfully updated.");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("ViewAllItemsTable");
 		}
 		else {
 			MessageResponse response =new MessageResponse("Item list is empty.");

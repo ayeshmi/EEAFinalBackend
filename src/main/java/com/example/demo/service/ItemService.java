@@ -18,6 +18,6 @@ public interface ItemService {
 	public List<Item> viewAllItems();
 	public MessageResponse deleteItem(Long id);
 	public MessageResponse updateItem(MultipartFile file, String description, String specifications, String price,
-			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem);
+			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,Long id,String availability);
 	public MessageResponse updateItembyID(Item item, Long id);
 }

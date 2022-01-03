@@ -49,12 +49,14 @@ height: 100vh !important;
             <div class="card-body p-4">
   
               <div class="row">
-  
+    <form class="mt-4" action="/api/auth/addPayment"
+							method="POST">
                 <div class="col-lg-7">
 
-                  <form class="mt-4">
+                  
                     <h5 class="mb-0">Customer details</h5>
                     <br></br>
+                  
                     <div class="form-outline form-white mb-4">
                       <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
                         placeholder="Customer Name" />
@@ -142,20 +144,20 @@ height: 100vh !important;
      <security:authentication property="principal.email" var="email"/> 
 </security:authorize>
     
-    <a type="button" class="btn btn-primary btn-lg btn-block" href = "${contextPath}/api/auth/addPayment">
+    <button type="button" class="btn btn-primary btn-lg btn-block">
                   <div class="d-flex justify-content-between">
                             <span>${totalFee }</span>
                             <span>Order <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                           </div>
-                </a>
+                </button>
                         
                     </div>
                   </div>
   
                 </div>
-  
+  </form>
               </div>
-            </form>
+            
             </div>
           </div>
         </div>

@@ -39,7 +39,7 @@ header .carousel-inner .item {
 	margin: 25px 0;
 }
 .navbar-inverse .navbar-nav>li>a {
-	color: rgb(17, 9, 9);
+	color:#000057;
 	text-transform: uppercase;
 	font-size: 25px;
 }
@@ -156,7 +156,7 @@ header .carousel-inner .item {
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <div class="banner" style="background-image: url(https://wwwassets.rand.org/content/rand/pubs/technical_reports/TR686/jcr:content/par/teaser.aspectfit.0x1200.jpg/1395180152458.jpg);"></div>
+                    <div class="banner" style="background-image: url(https://www.idafoundation.org/media/ncds/default/NCDS_intro_1.jpg);"></div>
                     <div class="carousel-caption">
                         <h2 class="animated bounceInRight" style="animation-delay: 1s">We Have <span>Good Medicines</span></h2>
                         <h3 class="animated bounceInLeft" style="animation-delay: 2s">DOMSEL Pharmacy Management System</h3>
@@ -174,7 +174,7 @@ header .carousel-inner .item {
                 <div class="item">
                     <div class="banner" style="background-image: url(https://assets.entrepreneur.com/content/3x2/2000/20160427194746-customer-service-online-shopping-ecommerce-trust.jpeg);"></div>
                     <div class="carousel-caption">
-                        <h2 class="animated zoomIn" style="animation-delay: 1s">We Have <span>Customers</span></h2>
+                        <h2 class="animated zoomIn" style="animation-delay: 1s">We Have <span>Good Customers</span></h2>
                         <h3 class="animated fadeInLeft" style="animation-delay: 2s">DOMSEL Pharmacy Management System</h3>
                         <p class="animated zoomIn" style="animation-delay: 3s"><a href="${contextPath}/api/auth/login">GET START</a></p>
                     </div>

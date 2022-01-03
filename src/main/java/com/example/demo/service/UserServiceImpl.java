@@ -225,8 +225,11 @@ public class UserServiceImpl implements UserService{
 	public void deleteUser(Long id) {
 		try {
 			User item = userRepository.findById(id).orElseThrow();
+			System.out.println("user is deletedss");
+			userRepository.foreigKeyProblem();
+			System.out.println("user is deletedss");
 			userRepository.delete(item);
-			System.out.println("user is deleted");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -133,9 +133,11 @@ border-bottom-right-radius: 16px;
                     <sec:authorize access="isAuthenticated()" >
                     <sec:authentication property="principal.id" var="id"/> 
                     </sec:authorize>
-                    <a type="button" href="${contextPath}/api/auth/OrderCompleted/${cart.id}/${id}" class="button1"  >CONFIRM ORDER RECEIVED</a>
+                    <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${cart.id},${id})"
+                       style="margin-left: 5px;"><b>Cancel Order</b></a>
                     <br></br>
-                    <a type="button" href="${contextPath}/api/auth/OrderCancelation/${cart.id}/${id}" >CANCEL ORDER</a>
+                    <a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/OrderCompleted/${cart.id}/${id}"
+                       style="margin-left: 5px;"><b>CONFIRM ORDER RECEIVED</b></a>
                     <!-- Price -->
                   </div>
                 </div>
@@ -173,5 +175,22 @@ border-bottom-right-radius: 16px;
       </div>
     </section>
   </div>
+  
+
+  
 </body>
+
+  <script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function getID(value1,value2) {
+
+        document.getElementById("deleteId").value = value1;
+        console.log(document.getElementById("deleteId").value);
+        document.getElementById("userId").value = value2;
+        console.log(document.getElementById("userId").value);
+        
+    }
+
+</script>
+   <%@ include file="CancelOrder.jsp" %>
 </html>

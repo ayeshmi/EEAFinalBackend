@@ -32,5 +32,18 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 	@Query(value="select * from order_Table where user_ids=:keyword AND type='order' AND status='Completed'", nativeQuery = true)
 	List<Order> searchComletedOrderDetails(@Param("keyword")Long a);
 	
+	@Query(value="select * from order_Table where type='order' AND status='Cancel'", nativeQuery = true)
+	List<Order> getCancelOrders();
+	
+	@Query(value="select * from order_Table where type='order' AND status='Completed'", nativeQuery = true)
+	List<Order> getCompletedOrders();
+	
+	@Query(value="select * from order_Table where type='order' AND status='processing'", nativeQuery = true)
+	List<Order> getProcessingOrders();
+	
+	@Query(value="select *  from order_table where date  in (select  DISTINCT date FROM order_table where type='order' and status='processing' ) GROUP BY date;", nativeQuery = true)
+	List<Order> viewOrders();
+	
+	
 	
 }

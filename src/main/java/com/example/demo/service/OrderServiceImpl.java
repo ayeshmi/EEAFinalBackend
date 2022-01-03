@@ -130,6 +130,7 @@ public class OrderServiceImpl implements OrderService{
 		List<Order> orders=null;
 		try {
 			orders = orderRepository.searchCancelOrderDetails(id);
+			System.out.println("array size ishhh"+orders.size());
 		}catch(Exception e)
 		{
 			System.out.println("Error is" + e);
@@ -208,6 +209,7 @@ public class OrderServiceImpl implements OrderService{
         	order = orderRepository.findById(itemId).orElseThrow();
         	order.setStatus("Completed");
     		orderRepository.save(order);
+    		order.setCompletedDate(java.time.LocalDate.now().toString());
     		emailSender.sendEmailOrderCompleted();
     		message=new MessageResponse("We are happy, Order is successfully completed.");
         }catch(Exception e) {
@@ -218,12 +220,14 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public MessageResponse orderCancelation(Long itemId) {
+	public MessageResponse orderCancelation(Long itemId,String reason) {
 		Order order=null;
 		MessageResponse message=null;
 		try {
 			order = orderRepository.findById(itemId).orElseThrow();
 			order.setStatus("Cancel");
+			order.setReason(reason);
+			order.setCancellationDate(java.time.LocalDate.now().toString());
 			orderRepository.save(order);
 			emailSender.sendEmailOrderCancelation();
 			message=new MessageResponse("Order is canceled.");
@@ -234,7 +238,50 @@ public class OrderServiceImpl implements OrderService{
 	}
 		return message;
 	}
+
+	public List<Order> getAllCancelOrders() {
+		List<Order> orders=null;
+		try {
+			orders=orderRepository.getCancelOrders();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
 	
+	public List<Order> getAllCompletedOrders() {
+		List<Order> orders=null;
+		try {
+			orders=orderRepository.getCompletedOrders();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
+	
+	public List<Order> getAllProcessingOrders() {
+		List<Order> orders=null;
+		try {
+			orders=orderRepository.getProcessingOrders();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
+
+	public List<Order> viewOrders() {
+		List<Order> orders=null;
+		try {
+			orders=orderRepository.viewOrders();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return orders;
+	}
 
 	
 

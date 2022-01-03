@@ -41,33 +41,33 @@ public class Payment {
     @JoinColumn(name = "order_id")
     private Order order;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String customerName;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String customerNumber;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String address;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String cardHolderName;
 	
 	
 	private Long cardNumber;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String expiration;
 	
 	
 	private Long cvv;
 	
-	@NotBlank
+	
 	@Size(max = 200)
 	private String totalPrice;
 	

@@ -7,8 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-
+import com.example.demo.model.Attendence;
 import com.example.demo.model.Pharmacient;
+import com.example.demo.repository.AttendenceRepository;
 import com.example.demo.repository.PharmacientRepository;
 
 @Service
@@ -16,6 +17,9 @@ public class PharmacientServiceImpl implements PharmacientService{
 	
 	@Autowired
 	private PharmacientRepository pharmacientRepository;
+	
+	@Autowired
+	private AttendenceRepository attendenceRepository;
 	
 	@Autowired
 	private FileStorageServiceImpl fileStorageService;
@@ -80,5 +84,23 @@ public class PharmacientServiceImpl implements PharmacientService{
 		pharmacientRepository.save(pharmacient);
 		
 	}
+
+	public void addAttendence(String email, String startTime, String endTime,String username) {
+		Attendence attendence=new Attendence();
+		attendence.setEmail(email);
+		attendence.setLastTime(endTime);
+		attendence.setStartTime(startTime);
+		attendence.setUsername(username);
+		attendence.setDate(java.time.LocalDate.now().toString());
+		attendenceRepository.save(attendence);	
+		
+	}
+	
+	public List<Attendence> getAvailablePharmacist(String date){
+		List<Attendence> attendence=attendenceRepository.findByDate(date);
+		return attendence;
+	}
+
+
 
 }

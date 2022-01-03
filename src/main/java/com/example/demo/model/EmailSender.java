@@ -2,13 +2,20 @@ package com.example.demo.model;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
 
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import java.io.File;
 import java.io.IOException;
 
 @Component
@@ -16,6 +23,7 @@ public class EmailSender {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
+
 	
 	 public void sendEmail() {
 
@@ -67,33 +75,32 @@ public class EmailSender {
 
 	    }
 
-    void sendEmailWithAttachment() throws MessagingException, IOException {
+	 
 
-        MimeMessage msg = javaMailSender.createMimeMessage();
+	 public void sendMailWithAttachment(String to, String subject, String body, String fileToAttach)
+	 {
+	 	MimeMessagePreparator preparator = new MimeMessagePreparator()
+	 	{
+	         public void prepare(MimeMessage mimeMessage) throws Exception
+	         {
+	             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+	             mimeMessage.setFrom(new InternetAddress("domsellanka@gmail.com"));
+	             mimeMessage.setSubject(subject);
+	             mimeMessage.setText(body);
 
-        // true = multipart message
-        MimeMessageHelper helper = new MimeMessageHelper(msg, true);
-        helper.setTo("1@gmail.com");
+	             FileSystemResource file = new FileSystemResource(new File("C:\\Users\\ayesh\\a.txt"));
+	             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
+	             helper.addAttachment("logo.jpg", file);
+	         }
+	     };
 
-        helper.setSubject("Testing from Spring Boot");
-
-        // default = text/plain
-        //helper.setText("Check attachment for image!");
-
-        // true = text/html
-        helper.setText("<h1>Check attachment for image!</h1>", true);
-
-        //FileSystemResource file = new FileSystemResource(new File("classpath:android.png"));
-
-        //Resource resource = new ClassPathResource("android.png");
-        //InputStream input = resource.getInputStream();
-
-        //ResourceUtils.getFile("classpath:android.png");
-
-       // helper.addAttachment("my_photo.png", new ClassPathResource("android.png"));
-
-        javaMailSender.send(msg);
-
-    }
+	     try {
+	    	 javaMailSender.send(preparator);
+	     }
+	     catch (MailException ex) {
+	         // simply log it and go on...
+	         System.err.println(ex.getMessage());
+	     }
+	 }
 
 }

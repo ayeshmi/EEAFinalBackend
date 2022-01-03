@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.example.demo.model.Attendence;
 import com.example.demo.model.Pharmacient;
 import com.example.demo.model.SignupRequest;
 import com.example.demo.service.PharmacientServiceImpl;
@@ -25,21 +25,21 @@ import com.example.demo.service.UserServiceImpl;
 @Controller
 @RequestMapping("/api/auth")
 public class PharmacientController {
-	
+
 	@Autowired
 	private PharmacientServiceImpl pharmacientService;
-	
+
 	@Autowired
 	private UserServiceImpl userService;
 
-	
 	@PostMapping("/addPharmacient")
 	public void addPharmacient(@RequestParam("image") MultipartFile file, @RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName, @RequestParam("contactNumber") String contactNumber,
-			@RequestParam("email") String email, @RequestParam("address") String address,@RequestParam("role") String role) {
+			@RequestParam("email") String email, @RequestParam("address") String address,
+			@RequestParam("role") String role) {
 		// System.out.println("get item details"+file);
-		pharmacientService.addPharmacient(file,firstName,lastName,contactNumber,email,address);
-		SignupRequest request=new SignupRequest();
+		pharmacientService.addPharmacient(file, firstName, lastName, contactNumber, email, address);
+		SignupRequest request = new SignupRequest();
 		request.setUsername(firstName);
 		request.setEmail(email);
 		request.setPassword(firstName);
@@ -54,20 +54,33 @@ public class PharmacientController {
 		// return modelAndView;
 
 	}
-	
+
+	@PostMapping("/addAttendence")
+	public ModelAndView addAttendence(@RequestParam("email") String email, @RequestParam("startTime") String startTime,
+			@RequestParam("endTime") String endTime,@RequestParam("username") String username) {
+		System.out.println("get item details" + username);
+		System.out.println("get item details" + startTime);
+		System.out.println("get item details" + endTime);
+		pharmacientService.addAttendence(email, startTime, endTime,username);
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.setViewName("Attendence");
+		return modelAndView;
+	}
+
 	@GetMapping("/viewAllPharmacient")
 	public ModelAndView getAllPharmacients() {
 		// System.out.println("get item details"+file);
 		List<Pharmacient> pharmacients = pharmacientService.getAllPharmacient();
 		ModelAndView modelAndView = new ModelAndView();
-
+        
 		modelAndView.addObject("pharmacients", pharmacients);
 		modelAndView.setViewName("ViewAllPharmacient");
 
 		return modelAndView;
 
 	}
-	
+
 	@GetMapping("/viewPharmacientByItem/{id}")
 	public ModelAndView viewPharmacientByID(@PathVariable("id") Long id) {
 		// System.out.println("get item details"+file);
@@ -81,18 +94,18 @@ public class PharmacientController {
 		return modelAndView;
 
 	}
-	
+
 	@GetMapping("/deletePharmacient/{id}")
 	public void deletePharmacient(@PathVariable Long id) {
 		pharmacientService.deleteItem(id);
 
-		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+		// return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 
 	}
-	
+
 	@RequestMapping("/addPharmacientPage")
 	public String addItemPage() {
 		return "AddPharmacient";
 	}
-	
+
 }

@@ -191,10 +191,12 @@ public class ItemServiceImpl implements ItemService{
 
 	@Override
 	public MessageResponse updateItem(MultipartFile file, String description, String specifications, String price,
-			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem) {
+			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,Long id,String availability) {
 		MessageResponse message=null;
 		try {
-			Item p = new Item();
+			Item p =itemRepo.findById(id)
+					.orElseThrow();
+			System.out.println("dsdsds"+p);
 			String imagePath=imageUploader(file);
 			p.setImage(imagePath);
 	        p.setPrice(price);
@@ -202,7 +204,7 @@ public class ItemServiceImpl implements ItemService{
 	        p.setDescription(description);
 	        p.setHowToUse(howToUse);
 	        p.setIngredients(ingredients);
-	        p.setAvailability("Available");
+	        p.setAvailability(availability);
 	        p.setSpecifications(specifications);
 	        p.setSuitableFor(suitableFor);
 	        p.setReturnItem(returnItem);
@@ -233,6 +235,7 @@ public class ItemServiceImpl implements ItemService{
 			itemUpdate.setSuitableFor(item.getSuitableFor());
 			itemUpdate.setReturnItem(item.getReturnItem());
 			itemRepo.save(itemUpdate);
+			System.out.println("updated123");
 			message=new MessageResponse("Item details are successfully updated.");
 		}
 		catch(Exception e) {

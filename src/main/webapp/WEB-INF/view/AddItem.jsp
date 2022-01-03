@@ -207,7 +207,7 @@ label {
 			<option value="EyeCare">Eye Care</option>
 			<option value="BabyCare">Baby Care</option>
 			<option value="SkinCare">Skin Care</option>
-			<option value="HareCare">Hare Care</option>
+			<option value="HairCare">Hair Care</option>
 			<option value="SmokeCessation">Smoke Cessation</option>
 			<option value="SexualLife">Sexual Life</option>
 			<option value="Cosmetics">Cosmetics</option>

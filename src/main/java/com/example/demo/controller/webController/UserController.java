@@ -249,6 +249,12 @@ public class UserController {
 		return "UpdateProfile";
 	}
 	
+	@RequestMapping("/attendence")
+	//@PreAuthorize("hasAuthority('ROLE_USER')")
+	public String attenence() {
+		return "Attendence";
+	}
+	
 	@RequestMapping("/deleteUserPage")
 	//@PreAuthorize("hasAuthority('ROLE_USER')")
 	public String DeleteUserPage() {
