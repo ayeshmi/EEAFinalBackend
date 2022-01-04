@@ -36,7 +36,7 @@ public class Order {
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "pharmacist_id")
+    @JoinColumn(name = "pharmacist_ids")
     private Pharmacient pharmacist;
 	
 	@JsonBackReference
@@ -97,6 +97,8 @@ public class Order {
 	
 	@Size(max = 300)
 	private String imageName;
+	
+	private String phramacistConfirmation;
 
 	public Order() {
 		
@@ -254,6 +256,14 @@ public class Order {
 
 	public void setCompletedDate(String completedDate) {
 		this.completedDate = completedDate;
+	}
+
+	public String getPhramacistConfirmation() {
+		return phramacistConfirmation;
+	}
+
+	public void setPhramacistConfirmation(String phramacistConfirmation) {
+		this.phramacistConfirmation = phramacistConfirmation;
 	}
 	
 	

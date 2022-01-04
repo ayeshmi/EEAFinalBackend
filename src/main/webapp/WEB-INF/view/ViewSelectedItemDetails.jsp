@@ -377,10 +377,14 @@ border-bottom-right-radius: 16px;
             </div>
 <div class="row2">
 <h2>Rate from here.</h2>
+<form action="/api/auth/rating" method="post">
  <div class="feedback">
+ 
       <div class="rating row2">
       
       <br></br>
+      
+
         <input type="radio" name="rating" id="rating-5" value="5">
         <label for="rating-5"></label>
         <input type="radio" name="rating" id="rating-4" value="4">
@@ -391,7 +395,7 @@ border-bottom-right-radius: 16px;
         <label for="rating-2"></label>
         <input type="radio" name="rating" id="rating-1" value="1">
         <label for="rating-1"></label>
-        
+       
         <div class="emoji-wrapper">
           <div class="emoji ">
             <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -479,8 +483,11 @@ border-bottom-right-radius: 16px;
           </svg>
           </div>
         </div>
+       
       </div>
+    
     </div>
+      </form>
     </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

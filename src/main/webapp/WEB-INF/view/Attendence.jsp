@@ -1,5 +1,4 @@
-
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -9,7 +8,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -84,9 +82,13 @@ height:200px;
 <security:authorize access="isAuthenticated()" >
      <security:authentication property="principal.username" var="username"/> 
 </security:authorize>
+<security:authorize access="isAuthenticated()" >
+     <security:authentication property="principal.id" var="id"/> 
+</security:authorize>
 <jsp:include page="Navbar.jsp">
 		<jsp:param name="page2" value="home2" />
 	</jsp:include>
+	
 	<%@include file="ViewAllError.jsp" %>
 	<form class="row1 form12" action="/api/auth/addAttendence" method="post"
 		enctype="multipart/form-data" id="ayeshmi">
@@ -95,6 +97,7 @@ height:200px;
 		</h1>
 		<input hidden value=${email} name="email">
 		<input hidden value=${username} name="username">
+		<input hidden value=${id} name="id">
 		<label for="appt">Select start time:</label>
   <input type="time" id="appt" name="startTime" class="inputs">
    <br></br>

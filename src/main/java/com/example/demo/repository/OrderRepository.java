@@ -14,9 +14,9 @@ import com.example.demo.model.Order;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecificationExecutor<Order>{
 	List<Order> findByUserId(Long userId);
-	List<Order> findByClientEmail(String clientEmail);
 	
-	//@Query(value="select * from order_Table where user_id=110 AND type='order'")
+	List<Order> findByClientEmail(String clientEmail);
+
 	@Query(value="select * from order_Table where user_ids=:keyword AND type='order'", nativeQuery = true)
 	List<Order> search(@Param("keyword")Long userId);
 	
@@ -41,8 +41,16 @@ public interface OrderRepository extends JpaRepository<Order, Long>, JpaSpecific
 	@Query(value="select * from order_Table where type='order' AND status='processing'", nativeQuery = true)
 	List<Order> getProcessingOrders();
 	
-	@Query(value="select *  from order_table where date  in (select  DISTINCT date FROM order_table where type='order' and status='processing' ) GROUP BY date;", nativeQuery = true)
+	@Query(value="select *  from order_table where date  in (select  DISTINCT date FROM order_table where type='order' and status='processing' and pharmacist_ids is null ) GROUP BY date;", nativeQuery = true)
 	List<Order> viewOrders();
+	
+	List<Order> findByDate(String date);
+	
+	@Query(value="select *  from order_table where date  in (select  DISTINCT date FROM order_table where type='order' and status='processing' and pharmacist_ids=:keyword and phramacist_confirmation is null) GROUP BY date;", nativeQuery = true)
+	List<Order> viewOrdersPharmacist(@Param("keyword")Long a);
+	
+	@Query(value="select * from order_table where date=:keyword and type='order' and status='processing' and phramacist_confirmation is null;", nativeQuery = true)
+	List<Order> itemListOfOrder(@Param("keyword")String a);
 	
 	
 	

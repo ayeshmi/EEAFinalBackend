@@ -28,6 +28,8 @@ public class Attendence {
 	
 	@Size(max = 20)
 	private String username;
+	
+	private long pharmacistID;
 
 	public Attendence() {
 		
@@ -79,6 +81,14 @@ public class Attendence {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public long getPharmacistID() {
+		return pharmacistID;
+	}
+
+	public void setPharmacistID(long pharmacistID) {
+		this.pharmacistID = pharmacistID;
 	}
 	
 	

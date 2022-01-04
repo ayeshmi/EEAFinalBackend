@@ -1,6 +1,6 @@
 package com.example.demo.controller.webController;
 
-import java.time.LocalDateTime;
+
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
@@ -332,6 +332,70 @@ public class OrderController {
 		return modelAndView;
 	}
 	
+	@PostMapping("/assignOrderToPharmacist")
+	public ModelAndView assignOrderToPharmacist(@RequestParam("name") String name,@RequestParam("deleteId") Long id) {
+		System.out.println("sdsd"+name);
+		System.out.println("sdsdfff"+id);
+		MessageResponse message=orderService.assignOrderToPharmacist(name,id);
+		ModelAndView modelAndView = new ModelAndView();
+		List<Order> orders = orderService.viewOrders();
+		List<Attendence> pharmacist=pharmacientService.getAvailablePharmacist(java.time.LocalDate.now().toString());
+		
+		System.out.println(" array size is"+orders);
+		if(orders.size()!=0) {
+			modelAndView.addObject("items", orders);
+			modelAndView.addObject("pharmacist", pharmacist);
+			modelAndView.setViewName("AssignOrders");	
+		}else {
+			MessageResponse response =new MessageResponse("Item list is empty.");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("AssignOrders");
+		}
+		modelAndView.addObject("ErrorMessage", message);
+		modelAndView.setViewName("AssignOrders");
+		return modelAndView;
+	}
+	
+	@GetMapping("/assignOrders/{date}")
+	public ModelAndView viewItemsForOrder(@PathVariable("date") String date) {
+		
+		List<Order> orders = orderService.viewItemsForOrder(date);
+		
+		ModelAndView modelAndView = new ModelAndView();
+		System.out.println(" array size is"+orders);
+		if(orders.size()!=0) {
+			modelAndView.addObject("orders", orders);
+			
+			modelAndView.setViewName("viewItemsForOrder");	
+		}else {
+			MessageResponse response =new MessageResponse("Item list is empty.");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("viewItemsForOrder");
+		}
+		
+		return modelAndView;
+	}
+	
+	
+	@GetMapping("/pharmacistConfirmation/{id}/{date}")
+	public ModelAndView pharmacistConfirmation(@PathVariable("id") Long id,@PathVariable("date") String date) {
+
+		MessageResponse message = orderService.pharmacistConfirmation(id);
+		List<Order> orders = orderService.viewItemsForOrder(date);
+		ModelAndView modelAndView = new ModelAndView();
+		if (message != null) {
+			modelAndView.addObject("ErrorMessage", message);
+			modelAndView.addObject("orders", orders);
+			modelAndView.setViewName("viewItemsForOrder");
+		} else {
+			MessageResponse messageError = new MessageResponse("Something went wrong, try again.");
+			modelAndView.addObject("ErrorMessage", messageError);
+			modelAndView.addObject("orders", orders);
+			modelAndView.setViewName("viewItemsForOrder");
+		}
+
+		return modelAndView;
+	}
 	
 
 }

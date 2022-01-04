@@ -130,10 +130,7 @@ public class UserController {
 			MessageResponse messageError=new MessageResponse("Incorrect email format!");
 			modelAndView.addObject("loginError",messageError);
 		}
-		
-		
-		
-		return modelAndView;
+	return modelAndView;
 		
 	}
 	
@@ -152,10 +149,7 @@ public class UserController {
 			modelAndView.addObject("ErrorMessage",message);
 			modelAndView.setViewName("ViewAllUserTable");
 		}
-		
- 
-		
-		return modelAndView;
+	return modelAndView;
 
 	}
 	
@@ -197,15 +191,25 @@ public class UserController {
 		     
 		       modelAndView.addObject("success",message);
 		}
-      
-		
+	
 		modelAndView.setViewName("ViewAllUserTable");
-     
-	   
+   
        return  modelAndView;
+	}
+	
+	@GetMapping("/advanceUserSearch")
+	public ModelAndView advanceItemSearch(@RequestParam("search") String search) {
+		// System.out.println("get item details"+file);
+		System.out.println("Called12345wwww"+search);
+		List<User> users = userService.advanceItemSearch(search);
+		System.out.println("xxxxxxxx"+users.size());
+		ModelAndView modelAndView = new ModelAndView();
 
+		modelAndView.addObject("Users", users);
+		modelAndView.setViewName("ViewAllUserTable");
 		
-		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
+
+		return modelAndView;
 
 	}
 	
@@ -264,6 +268,11 @@ public class UserController {
 	@RequestMapping("/aboutUs")
 	public String aboutUs() {
 		return "AboutUs";
+	}
+	
+	@RequestMapping("/pharmacistHomePage")
+	public String pharmacistHomePage() {
+		return "PharmacientHomePage";
 	}
 	
 	

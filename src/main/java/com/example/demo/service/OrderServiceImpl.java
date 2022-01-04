@@ -6,11 +6,15 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.Attendence;
 import com.example.demo.model.EmailSender;
 import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.Order;
+import com.example.demo.model.Pharmacient;
 import com.example.demo.model.User;
+import com.example.demo.repository.AttendenceRepository;
 import com.example.demo.repository.OrderRepository;
+import com.example.demo.repository.PharmacientRepository;
 import com.example.demo.repository.UserRepository;
 
 @Service
@@ -21,7 +25,8 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Autowired
 	private UserRepository userRepository;
-	
+	@Autowired
+	private PharmacientRepository pharmacientRepository;
 	
 
 	@Autowired
@@ -281,6 +286,47 @@ public class OrderServiceImpl implements OrderService{
 			e.printStackTrace();
 		}
 		return orders;
+	}
+
+	public MessageResponse assignOrderToPharmacist(String name, Long id) {
+		MessageResponse message=null;
+		Order order=orderRepository.findById(id).orElseThrow();
+		
+		Pharmacient pharmacient=pharmacientRepository.findByFirstName(name);
+		List<Order> orders=orderRepository.findByDate(order.getDate());
+		message=new MessageResponse("Order is assigned to phramacist");
+		System.out.println("orders"+pharmacient.getId());
+		for(int i=0;i<orders.size();i++) {
+			
+			orders.get(i).setPharmacist(pharmacient);
+			orderRepository.save(orders.get(i));
+			System.out.println("hellooo");
+			
+			
+		}
+		return message;
+		
+		
+	}
+
+	public List<Order> viewItemsForOrder(String date) {
+		List<Order> orders=null;
+		try {
+			orders=orderRepository.itemListOfOrder(date);	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		return orders;
+	}
+	
+	public MessageResponse pharmacistConfirmation(Long id) {
+		MessageResponse message=new MessageResponse("Order is marked as completed");
+		Order order=orderRepository.findById(id).orElseThrow();
+		order.setPhramacistConfirmation("Confirm");
+		orderRepository.save(order);
+		return message;
 	}
 
 	

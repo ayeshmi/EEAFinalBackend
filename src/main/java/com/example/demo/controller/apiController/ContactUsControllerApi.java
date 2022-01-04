@@ -96,8 +96,8 @@ public class ContactUsControllerApi {
 	@PutMapping("/contactusReplyRA/{id}")
 	public ResponseEntity<ContactUs> replyContactUs(@PathVariable Long id,@RequestBody ContactUs contactUs){
 		System.out.println("sdsd");
-	ContactUs updateConatctUS=contactusService.upadateContactUSDetails(id,contactUs.getAnswer(),contactUs.getEmail() );
-		return ResponseEntity.ok(updateConatctUS);
+	//ContactUs updateConatctUS=contactusService.upadateContactUSDetails(id,contactUs.getAnswer(),contactUs.getEmail() );
+		return null;
 	}
 
 }

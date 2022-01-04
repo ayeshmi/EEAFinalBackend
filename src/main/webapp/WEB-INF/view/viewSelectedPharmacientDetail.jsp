@@ -7,11 +7,11 @@
 <html>
     <style>
         .form12{
-background: rgb(103, 173, 57);
+background: #eee;
 width:750px;
 border-radius: 55px;
   margin: 80px auto;
-  height:1450px;
+  height:750px;
 }
 #headerTitle1{
   text-align: center;
@@ -37,7 +37,7 @@ border-radius: 55px;
 }
 .row1 input{
   width: 500px;
-  height:100px;
+  height:50px;
   box-sizing: border-box;
   border: none;
   font-size: 17px;

@@ -191,9 +191,43 @@
     
     
     <sec:authorize access="hasAuthority('ROLE_PHARMACIST')">
-    <li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
+    	<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+    <li class="nav-item active"><a class="nav-link" href="${contextPath}/api/auth/pharmacistHomePage"><b>Home</b>
 					<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
         <li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
@@ -211,12 +245,7 @@
 				</div></li>
 				
 				
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+			
 				
 				
 				
@@ -226,15 +255,7 @@
 						<li class="nav-item"><a class="nav-link" href="#"></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-				
-				
-				
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+						
 				<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -271,8 +292,18 @@
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="${contextPath}/api/auth/viewOrder/${id}">View Order Details</a>
 					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="${contextPath}/api/auth/viewPharmacientOrders/${id}">View Orders</a>
+					<div class="dropdown-divider"></div>
 					
-				</div></li>
+				</div></li><li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+				
+				 <li class="nav-item active"><a class="nav-link" href="${contextPath}/api/auth/attendence"><b>Attendance</b>
+					</a></li>
 				
     </sec:authorize>
     

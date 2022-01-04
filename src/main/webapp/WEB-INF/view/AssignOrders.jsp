@@ -73,8 +73,8 @@
 				<tr>
 					<td>${user.id}</td>
 					<td>${user.clientEmail}</td>
-					<td>${user.date}</td>
-					<td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id},${pharmacist})"
+					<td>${user.date}${user.id}</td>
+					<td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
                        style="margin-left: 5px;"><b>Delete</b></a></td>
 
 
@@ -88,12 +88,11 @@
 
 <script>
 	//Script used to change the ID hidden input field inside the confirm delete modal
-	function getID(value,value2) {
+	function getID(value1,value2) {
 
-		document.getElementById("deleteId").value = value;
+		document.getElementById("deleteId").value = value1;
 		console.log(document.getElementById("deleteId").value);
-		document.getElementById("pharmacist").value = value2;
-		console.log(document.getElementById("pharmacist").value);
+		
 	}
 </script>
 <%@ include file="AssignPharmacist.jsp"%>

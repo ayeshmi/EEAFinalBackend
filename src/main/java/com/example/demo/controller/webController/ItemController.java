@@ -243,14 +243,16 @@ public class ItemController {
 			MessageResponse message=new MessageResponse("Something went wrong, try again!");
 			modelAndView.setViewName("ViewAllItemsTable");
 		       modelAndView.addObject("ErrorMessage",message);
-		}
-      
-		
-		
-     
-	   
+		}	   
        return  modelAndView;
 
+	}
+	
+	@PostMapping("/rating")
+	public void rating(@RequestParam("rating") String number) {
+		System.out.println("number is "+number);
+		
+		
 	}
 
 }

@@ -36,18 +36,28 @@
   cursor: pointer;
   transition: opacity 0.25s ease-out;
 }
+.form-img22{
+    width: 100px;
+    height: 100px;
+}
 </style>
 <body>
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
 <br><br>
-<h1>User List</h1>
+ <%@include file="Message.jsp" %>
+ <%@include file="ErrorMessage.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
+
+<%@include file="AdvanceSerachPharmacist.jsp" %>
+<br></br>
     <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
+            <th scope="col">Image</th>
             <th scope="col">Email</th>
             <th scope="col">Contact Number</th>
             <th scope="col">Address</th>
@@ -61,15 +71,30 @@
             
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
+            <td><img class='form-img22'  src=${user.image} alt='image' /></td>
             <td>${user.email}</td>
             <td>${user.contactNumber}</td>
             <td>${user.address}</td>
-            <td><a href = "${contextPath}/api/auth/viewPharmacientByItem/${user.id}" class = "item-name">View</a></td>
-            <td><a href = "${contextPath}/api/auth/deletePharmacient/${user.id}" class = "item-name">Delete</a></td>
+            <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewPharmacientByItem/${user.id}"
+                       style="margin-left: 5px;"><b>View</b></a></td>
+            
+            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
+                       style="margin-left: 5px;"><b>Delete</b></a></td>
+            
             
           </tr>
           </c:forEach>
         </tbody>
       </table>  
 </body>
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function getID(value) {
+
+        document.getElementById("deleteId").value = value;
+        console.log(document.getElementById("deleteId").value);
+    }
+
+</script>
+   <%@ include file="DeletePharamacist.jsp" %>
 </html>

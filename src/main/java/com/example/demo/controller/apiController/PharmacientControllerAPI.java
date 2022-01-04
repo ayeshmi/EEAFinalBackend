@@ -60,7 +60,7 @@ public class PharmacientControllerAPI {
 	
 	@DeleteMapping("/deletePharmacientRA/{id}")
 	public void deletePharmacient(@PathVariable Long id) {
-		pharmacientService.deleteItem(id);
+		//pharmacientService.deleteItem(id);
 
 		//return ResponseEntity.ok(new MessageResponse("Successfully Deleted!"));
 

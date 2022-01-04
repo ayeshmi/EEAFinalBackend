@@ -39,40 +39,65 @@
 	cursor: pointer;
 	transition: opacity 0.25s ease-out;
 }
+
+.form-img22 {
+	width: 100px;
+	height: 100px;
+}
 </style>
 <body>
 	<jsp:include page="Navbar.jsp">
 		<jsp:param name="page2" value="home2" />
 	</jsp:include>
+
+
+
+	<br></br>
 	<%@include file="Message.jsp"%>
 	<%@include file="ErrorMessage.jsp"%>
 	<%@include file="ViewAllError.jsp"%>
-	<br>
-	<br>
-	<h1>Contact Us List</h1>
+	<h1>My Orders</h1>
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th scope="col">User Name</th>
-				<th scope="col">Email</th>
-				<th scope="col">Problem</th>
-				<th scope="col">Answer</th>
+				<th scope="col">Order ID</th>
+				<th scope="col">Customer Email</th>
+				<th scope="col">Ordered Date</th>
+				<th scope="col">ViewOrder</th>
+
 
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="list" items="${list}">
+			<c:forEach var="user" items="${items}">
 				<tr>
+					<td>${user.id}</td>
+					<td>${user.clientEmail}</td>
+					<td>${user.date}</td>
 
-					<td>${list.name}</td>
-					<td>${list.email}</td>
-					<td>${list.message}</td>
-					<td>${list.answer}</td>
-
+					<td><a type="button" class="btn btn btn-warning"
+						href="${contextPath}/api/auth/assignOrders/${user.date}"
+						style="margin-left: 5px;"><b>View</b></a></td>
 
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+	<h1>${message}</h1>
 </body>
+
+
+<script>
+	//Script used to change the ID hidden input field inside the confirm delete modal
+	function getID(value1, value2) {
+
+		document.getElementById("deleteId").value = value1;
+		console.log(document.getElementById("deleteId").value);
+
+	}
+</script>
+
+
+
+
 </html>

@@ -278,4 +278,14 @@ public class UserServiceImpl implements UserService{
 		return message;
 	}
 
+	public List<User> advanceItemSearch(String search) {
+		List<User> users=null;
+		try {
+			users=userRepository.search(search);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return users;
+	}
+
 }

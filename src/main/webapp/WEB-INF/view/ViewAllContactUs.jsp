@@ -16,7 +16,6 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-</head>
 <style>
     .button1{
   display: flex;
@@ -41,7 +40,9 @@
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
-<%@include file="ViewAllError.jsp" %>
+ <%@include file="Message.jsp" %>
+ <%@include file="ErrorMessage.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
 <br><br>
 <h1>Contact Us List</h1>
     <table class="table table-striped">
@@ -61,12 +62,29 @@
             <td>${list.name}</td>
             <td>${list.email}</td>
             <td>${list.message}</td>
-            <td><a href = "${contextPath}/api/auth/contactus/${list.id}" class = "item-name">Reply</a></td>
-            <td><a href = "${contextPath}/api/auth/deleteContactUs/${list.id}" class = "item-name">Delete</a></td>
+             <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/contactus/${list.id}"
+                       style="margin-left: 5px;"><b>View</b></a></td>
+            
+            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${list.id})"
+                       style="margin-left: 5px;"><b>Delete</b></a></td>
+            
             
           </tr>
           </c:forEach>
         </tbody>
       </table>  
 </body>
+
+<script>
+    //Script used to change the ID hidden input field inside the confirm delete modal
+    function getID(value) {
+
+        document.getElementById("deleteId").value = value;
+        console.log(document.getElementById("deleteId").value);
+    }
+
+</script>
+  <%@ include file="ContactUsDelete.jsp" %>
+   
+
 </html>

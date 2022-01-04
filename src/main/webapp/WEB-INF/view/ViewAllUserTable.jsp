@@ -52,7 +52,11 @@
  <%@include file="Message.jsp" %>
  <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
-<h1>User List</h1>
+
+<%@include file="AdvanceSearchUser.jsp" %>
+
+<br></br>
+<br></br>
     <table class="table table-striped">
         <thead>
           <tr>

@@ -71,18 +71,21 @@ public class ContactUsServiceImpl implements ContactUsService {
 	}
 
 	@Override
-	public ContactUs upadateContactUSDetails(Long id, String answer, String email) {
-		ContactUs updateContact = null;
+	public MessageResponse upadateContactUSDetails(Long id, String answer, String email) {
+		
+		MessageResponse messageResponse = null;
 		try {
 			ContactUs contactUs = contactusRepository.findById(id).orElseThrow();
 			contactUs.setAnswer(answer);
-			updateContact = contactusRepository.save(contactUs);
+			contactusRepository.save(contactUs);
+			messageResponse = new MessageResponse("Your reply is successfully sent to customer.");
 			emailSender.sendEmailContactUs(email, answer);
+			
 		} catch (Exception e) {
 			System.out.println("Error is " + e);
 		}
 
-		return updateContact;
+		return messageResponse;
 	}
 
 	@Override
