@@ -1,7 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Payment;
+import com.example.demo.dto.MessageResponse;
+
 
 public interface PaymentService {
-	public void addPayment(Payment payment);
+	public MessageResponse addPayment(int price, String email, int deliveryFee, int totalFee);
 }

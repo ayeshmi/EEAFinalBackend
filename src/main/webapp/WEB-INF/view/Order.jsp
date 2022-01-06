@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -41,16 +42,16 @@ height: 100vh !important;
     <div class = "main-title">
                 <h1>CheckOut</h1>
             </div>
+              
     <section class="h-100 h-custom">
     <div class="container py-5 h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col">
           <div class="card">
             <div class="card-body p-4">
-  
+
               <div class="row">
-    <form class="mt-4" action="/api/auth/addPayment"
-							method="POST">
+    
                 <div class="col-lg-7">
 
                   
@@ -74,7 +75,8 @@ height: 100vh !important;
                     </div>
                 </div>
                 <div class="col-lg-5">
-  
+  <form class="mt-4" action="/api/auth/addPayment"
+							method="post">
                   <div class="card bg-primary text-white rounded-3">
                     <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-4">
@@ -140,22 +142,22 @@ height: 100vh !important;
                           <p class="mb-2">Total(with Delivery Fee)</p>
                           <p class="mb-2">Rs.${totalFee }.00</p>
                         </div>
-    <security:authorize access="isAuthenticated()" >
-     <security:authentication property="principal.email" var="email"/> 
-</security:authorize>
+    <sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.email" var="email"/> 
+</sec:authorize>
     
-    <button type="button" class="btn btn-primary btn-lg btn-block">
+    <a type="button" class="btn btn-primary btn-lg btn-block"  href = "${contextPath}/api/auth/addPayment/${totalPrice}/${deliveryFee}/${totalFee}/${email}">
                   <div class="d-flex justify-content-between">
                             <span>${totalFee }</span>
                             <span>Order <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                           </div>
-                </button>
+                </a>
                         
                     </div>
                   </div>
-  
+   </form>
                 </div>
-  </form>
+
               </div>
             
             </div>
@@ -164,7 +166,7 @@ height: 100vh !important;
       </div>
     </div>
   </section>
-  
+   
   </div>
 </body>
 </html>

@@ -41,119 +41,82 @@ public class Payment {
     @JoinColumn(name = "order_id")
     private Order order;
 	
-	
 	@Size(max = 200)
-	private String customerName;
+	private String email;
 	
+	private int price;
 	
-	@Size(max = 200)
-	private String customerNumber;
+	private int deliveryFee;
 	
-	
-	@Size(max = 200)
-	private String address;
-	
-	
-	@Size(max = 200)
-	private String cardHolderName;
-	
-	
-	private Long cardNumber;
-	
-	
-	@Size(max = 200)
-	private String expiration;
-	
-	
-	private Long cvv;
-	
-	
-	@Size(max = 200)
-	private String totalPrice;
-	
-	
-	
+	private int totalFee;
+
 	public Payment() {
-		
+
 	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getCustomerName() {
-		return customerName;
-	}
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
-	}
-	public String getCustomerNumber() {
-		return customerNumber;
-	}
-	public void setCustomerNumber(String customerNumber) {
-		this.customerNumber = customerNumber;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getCardHolderName() {
-		return cardHolderName;
-	}
-	public void setCardHolderName(String cardHolderName) {
-		this.cardHolderName = cardHolderName;
-	}
-	public Long getCardNumber() {
-		return cardNumber;
-	}
-	public void setCardNumber(Long cardNumber) {
-		this.cardNumber = cardNumber;
-	}
-	public String getExpiration() {
-		return expiration;
-	}
-	public void setExpiration(String expiration) {
-		this.expiration = expiration;
-	}
-	public Long getCvv() {
-		return cvv;
-	}
-	public void setCvv(Long cvv) {
-		this.cvv = cvv;
-	}
-	public String getTotalPrice() {
-		return totalPrice;
-	}
-	public void setTotalPrice(String totalPrice) {
-		this.totalPrice = totalPrice;
-	}
+
 	public User getUser() {
 		return user;
 	}
+
 	public void setUser(User user) {
 		this.user = user;
 	}
+
 	public Pharmacient getPharmacient() {
 		return pharmacient;
 	}
+
 	public void setPharmacient(Pharmacient pharmacient) {
 		this.pharmacient = pharmacient;
 	}
+
 	public Order getOrder() {
 		return order;
 	}
+
 	public void setOrder(Order order) {
 		this.order = order;
 	}
-	
-	
-	
-	
-	
-	
-	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getDeliveryFee() {
+		return deliveryFee;
+	}
+
+	public void setDeliveryFee(int deliveryFee) {
+		this.deliveryFee = deliveryFee;
+	}
+
+	public int getTotalFee() {
+		return totalFee;
+	}
+
+	public void setTotalFee(int totalFee) {
+		this.totalFee = totalFee;
+	}
+		
 
 }

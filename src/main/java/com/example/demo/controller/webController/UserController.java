@@ -3,7 +3,7 @@ package com.example.demo.controller.webController;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,9 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/api/auth")
@@ -35,29 +32,25 @@ public class UserController {
 	private HomePageControllerFacade homeController;
 
 	@PostMapping("/signinW")
-	public ModelAndView Login(@ModelAttribute LoginRequest loginRequest) {
+	public ModelAndView Login(@Valid @ModelAttribute LoginRequest loginRequest) {
 		
 		JwtResponse jwtResponse = userService.loginService(loginRequest);
 		ModelAndView modelAndView = new ModelAndView();
 		if(jwtResponse != null) {
-			String page=homeController.directUserToHomePage(jwtResponse);
-			
+			String page=homeController.directUserToHomePage(jwtResponse);		
 			List<JwtResponse> lectures = new ArrayList<>();
 			lectures.add(jwtResponse);
 			modelAndView.setViewName(page);	
 			modelAndView.addObject("user",lectures );
-		}
-		
+		}	
 		else {
 			MessageResponse message=new MessageResponse("Invalid username and password, Check again.");
 			System.out.println("hello wrong");
 			modelAndView.setViewName("login");	
 			modelAndView.addObject("error",message);
 		}
-		
-		
-		return modelAndView;
-		
+	
+		return modelAndView;	
 	}
 	
 	
@@ -110,7 +103,7 @@ public class UserController {
 	
 	
 	@PostMapping("/register")
-	public ModelAndView registerUser(@ModelAttribute SignupRequest signUpRequest) {
+	public ModelAndView registerUser(@Valid @ModelAttribute SignupRequest signUpRequest) {
 		MessageResponse message= userService.registerUser(signUpRequest);
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -213,77 +206,8 @@ public class UserController {
 
 	}
 	
-	@RequestMapping("/home")
-	public String Hello() {
-		return "Home";
-	}
 	
-	@RequestMapping("/welcome")
-	public String welcome() {
-		return "Register";
-	}
-	@RequestMapping("/register")
-	public String home() {
-		return "signup";
-	}
-	@RequestMapping("/login")
-	public String home12() {
-		return "login";
-	}
-	@RequestMapping("/contactUs")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String contactUspageLoggegUSer() {
-		return "ContactUs";
-	}
-	
-	@RequestMapping("/AllContactUs")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String contactUspageAllUser() {
-		return "AllUserContactUs";
-	}
-	@RequestMapping("/profile")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String profilePage() {
-		return "ViewProfile";
-	}
-	
-	@RequestMapping("/updateProfile")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String UpdateProfilePage() {
-		return "UpdateProfile";
-	}
-	
-	@RequestMapping("/attendence")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String attenence() {
-		return "Attendence";
-	}
-	
-	@RequestMapping("/deleteUserPage")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String DeleteUserPage() {
-		return "DeleteUser";
-	}
-	
-	@RequestMapping("/aboutUs")
-	public String aboutUs() {
-		return "AboutUs";
-	}
-	
-	@RequestMapping("/pharmacistHomePage")
-	public String pharmacistHomePage() {
-		return "PharmacientHomePage";
-	}
-	
-	
-	
-	
-	@ResponseBody
-	@RequestMapping("/1")
-	//@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String home123oo() {
-		return "Hello";
-	}
+
 	
 	
 }

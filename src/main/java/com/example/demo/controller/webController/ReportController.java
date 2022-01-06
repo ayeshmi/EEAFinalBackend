@@ -1,10 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.controller.webController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -21,49 +22,37 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.example.demo.dto.MessageResponse;
-import com.example.demo.model.Payment;
-import com.example.demo.repository.PaymentRepository;
+import com.example.demo.model.User;
+import com.example.demo.service.UserServiceImpl;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
-@Service
-public class PaymentServiceImpl implements PaymentService{
-	@Autowired
-	private PaymentRepository paymentRepo;
+
+@CrossOrigin(origins = "*", maxAge = 3600)
+@Controller
+@RequestMapping("/api/auth")
+public class ReportController {
 	
 	@Autowired
 	private JavaMailSender javaMailSender;
-
-	@Override
-	public MessageResponse addPayment(int price, String email, int deliveryFee, int totalFee) {
-		MessageResponse message=null;
-		try {
-			Payment payment=new Payment();
-			payment.setEmail(email);
-			payment.setDeliveryFee(deliveryFee);
-			payment.setTotalFee(totalFee);
-			payment.setPrice(price);
-			
-			paymentRepo.save(payment);
-			
-			sendReport(price,email,deliveryFee,totalFee);
-			
-			message=new MessageResponse("Payment is successfully completed."); 
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		return message;
-	}
 	
-	public void sendReport(int price, String email, int deliveryFee, int totalFee) {
+	@Autowired
+	private UserServiceImpl userService;
+	
+	@PostMapping("/genpdf")
+	public ResponseEntity<Object> createPdf() throws IOException {
+
+		
 		/* first, get and initialize an engine */
 		VelocityEngine ve = new VelocityEngine();
 
@@ -75,11 +64,13 @@ public class PaymentServiceImpl implements PaymentService{
 		Template t = ve.getTemplate("templates/home.jsp");
 		/* create a context and add data */
 		VelocityContext context = new VelocityContext();
-		context.put("email", email);	
-		context.put("orderPrice", price);	
-		context.put("deliveryPrice",deliveryFee);
-		context.put("totalPrice", totalFee);
-		context.put("date", LocalDateTime.now().toString());
+		
+		List<User> orders= userService.getAllUsers();
+		System.out.println("Array size is 111"+orders.size());
+		context.put("Users", orders);	
+
+		
+		//context.put("date", LocalDateTime.now().toString());
 		
 		/* now render the template into a StringWriter */
 		StringWriter writer = new StringWriter();
@@ -92,21 +83,12 @@ public class PaymentServiceImpl implements PaymentService{
 		baos = generatePdf(writer.toString());
 	
 		String filename = "C:\\Users\\ayesh\\eclipse-workspace\\EEAassignmentFinal\\src\\main\\resources\\myfile.pdf";
-		try {
-			FileOutputStream output = new FileOutputStream(filename);
-			output.write(baos.toByteArray());
-			output.close();
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		attachReportToEmail();
-		
-	}
-	
-	public void attachReportToEmail() {
-MimeMessage msg = javaMailSender.createMimeMessage();
+		FileOutputStream output = new FileOutputStream(filename);
+		output.write(baos.toByteArray());
+		output.close();
+		MimeMessage msg = javaMailSender.createMimeMessage();
 
-        
+        // true = multipart message
         MimeMessageHelper helper;
 		try {
 			helper = new MimeMessageHelper(msg, true);
@@ -131,8 +113,13 @@ MimeMessage msg = javaMailSender.createMimeMessage();
         messageBodyPart.setDataHandler(new DataHandler(source));
         messageBodyPart.setFileName(fileName);
         multipart.addBodyPart(messageBodyPart);
+
         msg.setContent(multipart);
- 
+
+        System.out.println("Sending");
+
+        
+        
         javaMailSender.send(msg);
         
         
@@ -140,7 +127,9 @@ MimeMessage msg = javaMailSender.createMimeMessage();
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		//email.sendMailWithAttachment("domsellanaka@gmail.com", "Heart Prediction Report", "Your Report is attached.", "dsdsdsd");
+		System.out.println("Email is sent");
+		return ResponseEntity.ok("Task is successfully completed.");
 	}
 	
 	public ByteArrayOutputStream generatePdf(String html) {
@@ -183,6 +172,4 @@ MimeMessage msg = javaMailSender.createMimeMessage();
 
 	}
 	
-	
-
 }

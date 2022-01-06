@@ -2,8 +2,9 @@ package com.example.demo.controller.webController;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -68,7 +69,7 @@ public class ContactUsController {
 	// create contactus details rest api
 	@PostMapping("/contactusW/{id}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
-	public ModelAndView addNewContactusDetails(@ModelAttribute ContactUs contactus, @PathVariable("id") Long id) {
+	public ModelAndView addNewContactusDetails(@Valid@ModelAttribute ContactUs contactus, @PathVariable("id") Long id) {
 		ModelAndView modelAndView = new ModelAndView();
 		MessageResponse message = contactusService.addNewContactusDetailswithUser(contactus, id);
 		if (message != null) {
@@ -116,7 +117,7 @@ public class ContactUsController {
 
 	@PostMapping("/contactus/{id}")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
-	public ModelAndView replyContactUs(@PathVariable Long id, @ModelAttribute ContactUs contactUs) {
+	public ModelAndView replyContactUs(@PathVariable Long id, @Valid@ModelAttribute ContactUs contactUs) {
 		MessageResponse response = contactusService.upadateContactUSDetails(id, contactUs.getAnswer(),
 				contactUs.getEmail());
 		System.out.println("helooo buddy"+response);

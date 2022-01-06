@@ -1,7 +1,5 @@
 package com.example.demo.controller.webController;
 
-
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +39,6 @@ public class OrderController {
 			@RequestParam("price") String price, @RequestParam("quantity") String quantity, @PathVariable Long itemId,
 			@RequestParam("itemName12") String itemName, @RequestParam("image") String image) {
 		MessageResponse response = null;
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		      
 		response = orderService.addToCartItem(clientEmail, userId, price, quantity, itemId, java.time.LocalDate.now(),
 				itemName, image);

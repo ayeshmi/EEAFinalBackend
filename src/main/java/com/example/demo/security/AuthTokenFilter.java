@@ -20,11 +20,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.example.demo.service.UserDetailsServiceImpl;
 
 
-
-
-
-
-
 public class AuthTokenFilter extends OncePerRequestFilter{
 	@Autowired
 	private JwtUtils jwtUtils;
