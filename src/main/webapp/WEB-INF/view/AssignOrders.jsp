@@ -53,17 +53,23 @@
 
 
 	<br></br>
+	<%@include file="Error12.jsp" %>
 	<%@include file="Message.jsp"%>
-	<%@include file="ErrorMessage.jsp"%>
 	<%@include file="ViewAllError.jsp"%>
-	<h1>Cancel Orders</h1>
+	
+
+
+<h1 style="text-align: center;"><b>NEW ORDERS</b></h1>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 				<th scope="col">Order ID</th>
-				<th scope="col">Cancellation Reason</th>
+				<th scope="col">Customer Email</th>
+				<th scope="col">Order Status</th>
 				<th scope="col">Ordered Date</th>
-				<th scope="col">Assign</th>
+				<th scope="col" class="border-left">Assign</th>
 
 
 			</tr>
@@ -73,9 +79,10 @@
 				<tr>
 					<td>${user.id}</td>
 					<td>${user.clientEmail}</td>
-					<td>${user.date}${user.id}</td>
-					<td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
-                       style="margin-left: 5px;"><b>Delete</b></a></td>
+					<td>${user.status}</td>
+					<td>${user.date}</td>
+					<td class="border-left"><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
+                       style="margin-left: 5px;"><b>Assign</b></a></td>
 
 
 				</tr>

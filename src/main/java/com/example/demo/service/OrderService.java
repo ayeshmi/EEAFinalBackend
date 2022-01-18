@@ -3,6 +3,8 @@ package com.example.demo.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.Order;
 
@@ -20,5 +22,13 @@ public interface OrderService {
 	public List<Order> viewOrderDetailsUser(Long id);
 	public MessageResponse orderCompleted(Long itemId);
 	public MessageResponse orderCancelation(Long itemId,String reason);
+	public List<Order> getAllCancelOrders();
+	public List<Order> getAllCompletedOrders();
+	public List<Order> getAllProcessingOrders();
+	public List<Order> viewOrders();
+	public MessageResponse assignOrderToPharmacist(String name, Long id);
+	public List<Order> viewItemsForOrder(String date);
+	public MessageResponse pharmacistConfirmation(Long id);
+	String imageUploader(MultipartFile file);
 
 }

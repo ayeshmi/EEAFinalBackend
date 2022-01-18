@@ -55,7 +55,7 @@ public class PaymentServiceImpl implements PaymentService{
 			
 			sendReport(price,email,deliveryFee,totalFee);
 			
-			message=new MessageResponse("Payment is successfully completed."); 
+			message=new MessageResponse("Payment process is successfully completed."); 
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

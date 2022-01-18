@@ -85,7 +85,9 @@ img{
     row-gap: 32px;
 }
 .item{
-    background-color: #e8e8e8;
+    background: rgb(87, 121, 173);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 4px 0 rgba(15, 4, 4, 0.05);
@@ -256,7 +258,7 @@ img{
                         <img src = "https://remede.com.au/wp-content/uploads/2016/11/iStock-472537538-Women-Health.jpg">
                     </div>
                     <div class = "item-detail">
-                        <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/WomanHealth" class = "item-name" >Woman Health</a>
+                        <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/WomanHealth" class = "item-name" ><b>Woman Health</b></a>
                         
                         <p> Women's Health is your go-to destination for new workouts, legit nutrition advice and weight loss tips, the latest health news, healthy recipes, and more.</p>
                         
@@ -268,7 +270,7 @@ img{
                       <img src = "http://www.concordiapetcare.com/wp-content/uploads/2020/07/ConcordiaPetCareMay2020_04-e1596177725294.jpg">
                   </div>
                   <div class = "item-detail">
-                      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/AnimalCare" class = "item-name">Animal Care</a>
+                      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/AnimalCare" class = "item-name"><b>Animal Care</b></a>
                       
                       <p> Protect your animal is very important thing. Because your animal is your best friend. In this section you can see what are the medicines available for animal care.</p>
                       
@@ -280,7 +282,7 @@ img{
                     <img src = "https://content.instructables.com/ORIG/FR9/CTJG/I0R0W0Z6/FR9CTJGI0R0W0Z6.jpg?frame=1&width=2100">
                 </div>
                 <div class = "item-detail">
-                    <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/FirstAid" class = "item-name">First Aid</a>
+                    <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/FirstAid" class = "item-name"><b>First Aid</b></a>
                     
                     <p> First aid is the first and immediate assistance given to any person suffering from either a minor or serious illness or injury, with care provided to preserve life, prevent the condition from worsening, or to promote recovery.</p>
                     
@@ -292,7 +294,7 @@ img{
                   <img src = "https://valleyeyecareaz.com/wp-content/uploads/2018/02/eye-care-11.jpg">
               </div>
               <div class = "item-detail">
-                  <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/EyeCare" class = "item-name">Eye Care</a>
+                  <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/EyeCare" class = "item-name"><b>Eye Care</b></a>
                   
                   <p> Your eye care provider examines your eyes using a special magnifying lens. This provides a clear view of important tissues at the back of your eye, including the retina, macula, and optic nerve.</p>
                   
@@ -304,7 +306,7 @@ img{
                 <img src = "https://va.gapitc.org/wp-content/uploads/2019/12/Beyond-the-Basics-Responsibilities-of-a-Child-Care-Provider.jpg">
             </div>
             <div class = "item-detail">
-                <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/BabyCare" class = "item-name">Baby Care</a>
+                <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/BabyCare" class = "item-name"><b>Baby Care</b></a>
                 
                 <p> The baby care market is composed of different segments and products, such as toys, feeding accessories, wipes, disposable diapers, body care products and soothers, to name a few.</p>
                 
@@ -316,7 +318,7 @@ img{
               <img src = "https://1stchoiceacupuncture.com/wp-content/uploads/2019/08/Smoking-Cessation-specialty.jpg">
           </div>
           <div class = "item-detail">
-              <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SmokeCessation" class = "item-name">Smoke Cessation</a>
+              <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SmokeCessation" class = "item-name"><b>Smoke Cessation</b></a>
               
               <p> Smoking cessation, usually called quitting smoking or stopping smoking, is the process of discontinuing tobacco smoking. Tobacco smoke contains nicotine, which is addictive and can cause dependence. Nicotine withdrawal often makes the process of quitting difficult.</p>
               
@@ -328,7 +330,7 @@ img{
             <img src = "https://rdcnewsadvice.wpengine.com/wp-content/uploads/2018/03/bedroom-ruining-sex-life.jpg">
         </div>
         <div class = "item-detail">
-            <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SexualLife" class = "item-name">Sexual Life</a>
+            <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SexualLife" class = "item-name"><b>Sexual Life</b></a>
             
             <p> sexual life 'The directions and manifestations of the sexual drive that contribute to a person's life-style, sometimes confined to genital activity and sometimes referring to all of the manifestations of libidinal energy in the subject's personality and relationships'. Cf Sex life.</p>
             
@@ -339,7 +341,7 @@ img{
           <img src = "https://media.allure.com/photos/5b7b367d5e0d3a1ac06b3f61/16:9/w_1280,c_limit/fenty-primark-social.jpg">
       </div>
       <div class = "item-detail">
-          <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/Cosmetics" class = "item-name">Cosmetics</a>
+          <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/Cosmetics" class = "item-name"><b>Cosmetics</b></a>
           
           <p> Cosmetics are constituted mixtures of chemical compounds derived from either natural sources, or synthetically created ones. Cosmetics have various purposes. Those designed for personal care and skin care can be used to cleanse or protect the body or skin.</p>
           
@@ -350,7 +352,7 @@ img{
         <img src = "https://cdn.shopify.com/s/files/1/2315/0541/products/38197_image2_1400x.jpg?v=1548937212">
     </div>
     <div class = "item-detail">
-        <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SupportandBandages" class = "item-name">Support and Bandages</a>
+        <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/SupportandBandages" class = "item-name"><b>Support and Bandages</b></a>
         
         <p> A support bandage is a form of bandage that assists the healing of injured muscles and bones, helps slow the bleeding of a wound, or provides support to prevent injuries from occurring. There are many different kinds of supportive bandages, including many types of pressure or compression bandages, typically made of materials such as cloth or elastic .</p>
         
@@ -361,7 +363,7 @@ img{
       <img src = "https://wallpapersmug.com/download/1024x768/eef3e3/beautiful-woman-sweater-bokeh.jpg">
   </div>
   <div class = "item-detail">
-      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/Beauty" class = "item-name">Beauty</a>
+      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/Beauty" class = "item-name"><b>Beauty</b></a>
       
       <p> Women's Health is your go-to destination for new workouts, legit nutrition advice and weight loss tips, the latest health news, healthy recipes, and more.</p>
       
@@ -372,7 +374,7 @@ img{
       <img src = "https://s3.amazonaws.com/images.ecwid.com/images/17811251/1390924730.jpg">
   </div>
   <div class = "item-detail">
-      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/EarCare" class = "item-name">Ear Care</a>
+      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/EarCare" class = "item-name"><b>Ear Care</b></a>
       
       <p> Human ear, organ of hearing and equilibrium that detects and analyzes sound by transduction (or the conversion of sound waves into electrochemical impulses) and maintains the sense of balance (equilibrium).</p>
       
@@ -383,7 +385,7 @@ img{
       <img src = "https://forthemommas.com/wp-content/uploads/2014/11/dove-hair-care.jpg">
   </div>
   <div class = "item-detail">
-      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/HairCare" class = "item-name">Hair Care</a>
+      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/HairCare" class = "item-name"><b>Hair Care</b></a>
       
       <p> 
         Hair care is an overall term for hygiene and cosmetology involving the hair which grows from the human scalp, and to a lesser extent facial, pubic and other body hair. Hair care routines differ according to an individual's culture and the physical characteristics of one's hair. Hair may be colored, trimmed, shaved, plucked or otherwise removed with treatments such as waxing, sugaring and threading</p>
@@ -395,7 +397,7 @@ img{
       <img src = "https://treatheadaches.com/wp-content/uploads/2018/04/headache-and_fever.jpg">
   </div>
   <div class = "item-detail">
-      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/FeverandPainRelief" class = "item-name">Fever and Pain Relief</a>
+      <a href = "${contextPath}/api/auth/viewSelectedCategoryItem/FeverandPainRelief" class = "item-name"><b>Fever and Pain Relief</b></a>
       
       <p> If you’re looking for relief from the symptoms of a cold, fever, or the flu, you’ll find many over-the-counter (OTC) options at your local pharmacy. The pain and fever-reducing ingredients often found in these medicines</p>
       

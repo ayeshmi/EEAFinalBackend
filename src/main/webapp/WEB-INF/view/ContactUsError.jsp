@@ -13,17 +13,18 @@ MessageResponse message1 = null;
 
 <style>
   .alert {
-    width:600px;
-    height: 100px;
-    background: rgb(76, 26, 194);
-  background: linear-gradient(135deg, rgb(71, 169, 194) 0%,     rgb(19, 21, 131) 100%);
+    width:440x;
+    height: 78px;
+    background: rgb(118, 209, 34);
+	background: linear-gradient(135deg, rgb(143, 230, 169) 0%,
+		rgb(28, 167, 90) 100%);
     color: white;
     border-radius: 25px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: center;
     position: absolute;
-    top: 13%;
-    left: 60%;
+    top: 12%;
+    left: 75%;
    
   }
   
@@ -41,11 +42,11 @@ MessageResponse message1 = null;
   .closebtn:hover {
     color: black;
   }
-  .button{
+  .button12{
     border-radius: 25px;
   width: 20%;
-  height: 30px;
-  font-size: 1.0rem;
+  height: 20px;
+  font-size: 1.2rem;
   color: white;
   font-weight: 700;
   background: rgb(234, 235, 240);
@@ -62,7 +63,7 @@ MessageResponse message1 = null;
  <form action="${contextPath}/api/auth/contactUs"  id="myForm">
   
                         <input hidden id="deleteId" name="userId">
-                        <button type="submit" class="button" aria-label="Close">Ok</button>
+                        <button type="submit" class="button12" aria-label="Close">Ok</button>
                     </form>
 </div>
 

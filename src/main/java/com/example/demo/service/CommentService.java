@@ -7,7 +7,6 @@ import com.example.demo.model.Comment;
 
 public interface CommentService {
 	public void addComment(Comment comment);
-	public Comment getCommentByID(String id);
 	public List<Comment> getCommentByItemId(Long id);
 	public void addComment(String commentdetail, LocalDate date, Long id, String clientEmail);
 }

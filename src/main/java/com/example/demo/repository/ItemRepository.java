@@ -2,7 +2,10 @@ package com.example.demo.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -22,6 +25,10 @@ public interface ItemRepository extends JpaRepository<Item,Long> {
 	@Query(value="select * from items b where b.description like %:keyword% or b.how_to_use like %:keyword% or b.ingredients like %:keyword% or b.item_type like %:keyword% or b.name like %:keyword% or b.specifications like %:keyword% or b.suitable_for like %:keyword%", nativeQuery = true)
 	List<Item> search(@Param("keyword")String a);
 	
+	@Transactional
+	@Modifying
+	@Query(value = "SET FOREIGN_KEY_CHECKS = 0", nativeQuery = true)
+	void foreigKeyProblem();
 	
 	Boolean existsByName(String name);
 }

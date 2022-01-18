@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -91,7 +92,7 @@ public class UserServiceImpl implements UserService{
 					.collect(Collectors.toList());
 
 			jwtResponse = new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(),
-					userDetails.getEmail(), roles,userDetails.getProfileImage());
+					userDetails.getEmail(), roles,userDetails.getProfileImage(),userDetails.getImageName());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -126,6 +127,18 @@ public class UserServiceImpl implements UserService{
 			}
 			if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 				message = new MessageResponse("Error: Username is already in use!");
+
+				return message;
+			}
+			int passwordLength = signUpRequest.getPassword().length();
+			if(passwordLength<6) {
+				message = new MessageResponse("Password should be contain atleast 6 characters!");
+
+				return message;
+			}
+			int usernameLength = signUpRequest.getUsername().length();
+			if(usernameLength<5) {
+				message = new MessageResponse("Username should be contain atleast 6 characters!");
 
 				return message;
 			}
@@ -170,7 +183,7 @@ public class UserServiceImpl implements UserService{
 			userRepository.save(user);
 			// emailSender=new EmailSender();
 			emailSender.sendEmail();
-			message = new MessageResponse("User registered successfully!");
+			message = new MessageResponse("User successfully registered!");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -213,7 +226,7 @@ public class UserServiceImpl implements UserService{
 					.path("/api/auth/video/")
 					.path(fileName)
 					.toUriString();
-		}catch(Exception e) {
+		}catch(ResourceNotFoundException e) {
 			e.printStackTrace();
 		}
 		
@@ -225,9 +238,8 @@ public class UserServiceImpl implements UserService{
 	public void deleteUser(Long id) {
 		try {
 			User item = userRepository.findById(id).orElseThrow();
-			System.out.println("user is deletedss");
+			
 			userRepository.foreigKeyProblem();
-			System.out.println("user is deletedss");
 			userRepository.delete(item);
 			
 		} catch (Exception e) {

@@ -49,10 +49,12 @@
 	<%@include file="ViewAllError.jsp"%>
 	<br>
 	<br>
-	<h1>Contact Us List</h1>
+	<h1 style="text-align: center;"><b>VIEW ALL CONTACT REQUESTS</b></h1>
 	<table class="table table-striped">
 		<thead>
-			<tr>
+			<tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 				<th scope="col">User Name</th>
 				<th scope="col">Email</th>
 				<th scope="col">Problem</th>

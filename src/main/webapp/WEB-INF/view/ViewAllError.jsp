@@ -1,30 +1,30 @@
 <%@ page import="com.example.demo.dto.MessageResponse" %>
 <%
-MessageResponse message1 = null;
+MessageResponse message = null;
     try{
-        message1 = (MessageResponse) request.getAttribute("ErrorMessage");
+        message = (MessageResponse) request.getAttribute("ErrorMessage");
     }
     catch (Exception e){
         e.printStackTrace();
     }
 
-    if (message1 != null){
+    if (message != null){
 %>
 
 <style>
   .alert {
-    width:600px;
-    height: 90px;
-    background: rgb(76, 26, 194);
-  background: linear-gradient(135deg, rgb(71, 169, 194) 0%,     rgb(19, 21, 131) 100%);
+    width:450px;
+    height: 78px;
+    background: rgb(118, 209, 34);
+	background: linear-gradient(135deg, rgb(143, 230, 169) 0%,
+		rgb(28, 167, 90) 100%);
     color: white;
     border-radius: 25px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-align: center;
     position: absolute;
-    top: 25%;
-    left: 30%;
-   
+    top: 12%;
+    left: 70%;
    
   }
   
@@ -42,17 +42,13 @@ MessageResponse message1 = null;
   .closebtn:hover {
     color: black;
   }
-  .button1{
-  position: absolute;
-    top: 40%;
-    left: 40%;
+  .button12{
     border-radius: 25px;
   width: 20%;
-  height: 30px;
-  font-size: 1.0rem;
+  height: 20px;
+  font-size: 1.2rem;
   color: white;
-  font-weight: 1000;
-  text-align:center;
+  font-weight: 700;
   background: rgb(234, 235, 240);
   background: linear-gradient(135deg, rgb(78, 98, 121) 0%,     rgb(66, 170, 173) 100%);
   border: 0px;
@@ -60,16 +56,19 @@ MessageResponse message1 = null;
   transition: opacity 0.25s ease-out;
   }
   </style>
-<div class="alert" >
+<div class="alert" style="align-content: center;">
   
-  <strong > <%= message1.getMessage() %></strong> 
+  <strong > <%= message.getMessage() %></strong> 
  
-<br></br>
-                        <button onclick="this.parentElement.style.display='none';" class="button1" >Ok</button>
+ <br>
+                        <button onclick="this.parentElement.style.display='none';" class="button12" >Ok</button>
                     
 </div>
-<br></br>
-<br></br>
-<br></br>
+
+
+
+
+
+
 
 <% } %>

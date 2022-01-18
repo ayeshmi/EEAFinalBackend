@@ -31,21 +31,22 @@ public class UserController {
 	@Autowired
 	private HomePageControllerFacade homeController;
 
+	//login function of the all users
 	@PostMapping("/signinW")
 	public ModelAndView Login(@Valid @ModelAttribute LoginRequest loginRequest) {
+		ModelAndView modelAndView = new ModelAndView();
 		
 		JwtResponse jwtResponse = userService.loginService(loginRequest);
-		ModelAndView modelAndView = new ModelAndView();
+		
 		if(jwtResponse != null) {
 			String page=homeController.directUserToHomePage(jwtResponse);		
-			List<JwtResponse> lectures = new ArrayList<>();
-			lectures.add(jwtResponse);
+			List<JwtResponse> loginResponse = new ArrayList<>();
+			loginResponse.add(jwtResponse);  
 			modelAndView.setViewName(page);	
-			modelAndView.addObject("user",lectures );
+			modelAndView.addObject("user",loginResponse);
 		}	
 		else {
-			MessageResponse message=new MessageResponse("Invalid username and password, Check again.");
-			System.out.println("hello wrong");
+			MessageResponse message=new MessageResponse("Invalid username or password, Try again.");
 			modelAndView.setViewName("login");	
 			modelAndView.addObject("error",message);
 		}
@@ -55,6 +56,7 @@ public class UserController {
 	
 	
 	@PostMapping("/updateUser")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView Update(@RequestParam("address") String address,@RequestParam("email") String email,
 			@RequestParam("birthday") String birthday,@RequestParam("image") MultipartFile file,@RequestParam("username") String username) {
 		      
@@ -64,22 +66,21 @@ public class UserController {
 		if(message != null) {
 			User user=userService.viewUserByEmail(email);
 			modelAndView.addObject("user",user);
-			modelAndView.addObject("ErrorMessage",message);
+			modelAndView.addObject("success",message);
 			modelAndView.setViewName("UpdateProfile");
 		}
 		else {
-			modelAndView.addObject("ErrorMessage","Update is failed.");
+			modelAndView.addObject("error","Update is failed.");
 			modelAndView.setViewName("UpdateProfile");	
 		}
 		
-		//homeController.directUserToHomePage(jwtResponse);
 		return modelAndView;
 		
 	}
 	
 	@GetMapping("/viewAllUserPage")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView getAllUser() {
-		// System.out.println("get item details"+file);
 		
 		List<User> users = userService.getAllUsers();
 		ModelAndView modelAndView = new ModelAndView();
@@ -90,11 +91,9 @@ public class UserController {
 		}
 		else {
 			MessageResponse message=new MessageResponse("User list is empty.");
-			modelAndView.addObject("ErrorMessage",message);
+			modelAndView.addObject("error",message);
 			modelAndView.setViewName("ViewAllUserTable");
 		}
-
-		
 
 		return modelAndView;
 
@@ -103,31 +102,32 @@ public class UserController {
 	
 	
 	@PostMapping("/register")
-	public ModelAndView registerUser(@Valid @ModelAttribute SignupRequest signUpRequest) {
+	public ModelAndView registerUser( @ModelAttribute SignupRequest signUpRequest) {
 		MessageResponse message= userService.registerUser(signUpRequest);
 		
 		ModelAndView modelAndView = new ModelAndView();
+		
 		if(message != null) {
 			String messageWeb=message.getMessage();
-			if(messageWeb.equals("User registered successfully!")) {
-				modelAndView.addObject("error",message);
+			if(messageWeb.equals("User successfully registered!")) {
+				modelAndView.addObject("success",message);
 				modelAndView.setViewName("login");	
 			}else {
 				modelAndView.setViewName("signup");	
-				modelAndView.addObject("loginError",message);
+				modelAndView.addObject("error",message);
 			}
 		}
 		else {
-			System.out.println("Error is calling");
 			modelAndView.setViewName("signup");	
 			MessageResponse messageError=new MessageResponse("Incorrect email format!");
-			modelAndView.addObject("loginError",messageError);
+			modelAndView.addObject("error",messageError);
 		}
 	return modelAndView;
 		
 	}
 	
 	@GetMapping("/viewUserByID/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewUserByID(@PathVariable("id") Long id) {
 		
 		User user = userService.viewUserByID(id);
@@ -147,6 +147,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/viewUserUpdate/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewUserByIDUpdate(@PathVariable("id") Long id) {
 		User user = userService.viewUserByID(id);
 		ModelAndView modelAndView = new ModelAndView();
@@ -160,9 +161,7 @@ public class UserController {
 			modelAndView.addObject("ErrorMessage",message);
 			modelAndView.setViewName("ViewAllUserTable");
 		}
-		
- 
-		
+	
 		return modelAndView;
 
 	}
@@ -176,7 +175,7 @@ public class UserController {
 		if(users != null) {
 			 MessageResponse message=new MessageResponse("User is successfully deleted.");
 		       //modelAndView = getLectures(lecture.getScheduledDate());
-		       modelAndView.addObject("success",message);
+		       modelAndView.addObject("ErrorMessage",message);
 			   modelAndView.addObject("Users", users);
 		}
 		else {
@@ -191,18 +190,23 @@ public class UserController {
 	}
 	
 	@GetMapping("/advanceUserSearch")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView advanceItemSearch(@RequestParam("search") String search) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called12345wwww"+search);
+	
 		List<User> users = userService.advanceItemSearch(search);
-		System.out.println("xxxxxxxx"+users.size());
 		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("Users", users);
-		modelAndView.setViewName("ViewAllUserTable");
+       if(users.size()!=0) {
+    	modelAndView.addObject("Users", users);
+   		 
+       }
+       else {
+    	   MessageResponse message=new MessageResponse("No machers found!");
+    	   modelAndView.addObject("errorMsg",message);
+    	   
+       }
 		
-
-		return modelAndView;
+       modelAndView.setViewName("ViewAllUserTable");
+	   return modelAndView;
 
 	}
 	

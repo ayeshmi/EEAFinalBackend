@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.service.OrderServiceImpl;
 import com.example.demo.service.PaymentServiceImpl;
 import com.example.demo.dto.MessageResponse;
 
@@ -19,14 +20,23 @@ public class PaymentController {
 	@Autowired
 	private PaymentServiceImpl paymentService;
 	
+	@Autowired
+	private OrderServiceImpl orderService;
+	
 	@GetMapping("/addPayment/{price}/{deliveryFee}/{totalFee}/{email}")
 	public ModelAndView addPayment(@PathVariable("price") int price,@PathVariable("email") String email,@PathVariable("deliveryFee") int deliveryFee,@PathVariable("totalFee") int totalFee) {
-		 
-		MessageResponse message=paymentService.addPayment(price,email,deliveryFee,totalFee);
-
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("AddItem");
-       modelAndView.addObject("message", "item is successfully added.");
+		orderService.orderConfirmation(email);
+		MessageResponse message=paymentService.addPayment(price,email,deliveryFee,totalFee);
+        if(message !=null) {
+        	modelAndView.setViewName("OrderDetails");
+            modelAndView.addObject("ErrorMessage", message);	
+        }else {
+        	MessageResponse response =new MessageResponse("Something went wrong, try again!");
+			modelAndView.addObject("errorMsg", response);
+			modelAndView.setViewName("AssignOrders");
+        }
+			
 		 return modelAndView;
 
 	}

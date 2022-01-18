@@ -50,22 +50,24 @@
 
 <br></br>
  <%@include file="Message.jsp" %>
- <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
-
+  <%@include file="Error12.jsp" %>
 <%@include file="AdvanceSearchUser.jsp" %>
 
-<br></br>
-<br></br>
+<br>
+<br><br>
+<h1 style="text-align: center;"><b>VIEW ALL USERS</b></h1>
     <table class="table table-striped">
         <thead>
-          <tr>
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
             <th scope="col">User ID</th>
             <th scope="col">Username</th>
             <th scope="col">Image</th>
             <th scope="col">Email</th>
-            <th scope="col">View</th>
-            <th scope="col">Delete</th>
+            <th scope="col" class="border-left">View</th>
+            <th scope="col" class="border-left">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -75,10 +77,10 @@
             <td>${user.username}</td>
             <td><img class='form-img22'  src=${user.image} alt='image' /></td>
             <td>${user.email}</td>
-            <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewUserByID/${user.id}"
+            <td class="border-left"><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewUserByID/${user.id}"
                        style="margin-left: 5px;"><b>View</b></a></td>
             
-            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
+            <td class="border-left"><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${user.id})"
                        style="margin-left: 5px;"><b>Delete</b></a></td>
             
           </tr>

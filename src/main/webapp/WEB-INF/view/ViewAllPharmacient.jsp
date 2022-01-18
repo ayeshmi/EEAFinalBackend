@@ -47,14 +47,18 @@
 </jsp:include>
 <br><br>
  <%@include file="Message.jsp" %>
- <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
 
 <%@include file="AdvanceSerachPharmacist.jsp" %>
-<br></br>
+<br>
+<br><br>
+
+<h1 style="text-align: center;"><b>VIEW ALL PHARMACISTS</b></h1>
     <table class="table table-striped">
         <thead>
-          <tr>
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Image</th>

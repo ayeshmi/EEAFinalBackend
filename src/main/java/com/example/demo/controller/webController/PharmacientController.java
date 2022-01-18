@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,11 +37,12 @@ public class PharmacientController {
 
 
 	@PostMapping("/addPharmacient")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView addPharmacient(@RequestParam("image") MultipartFile file, @RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName, @RequestParam("contactNumber") String contactNumber,
 			@RequestParam("email") String email, @RequestParam("address") String address,
 			@RequestParam("role") String role) {
-		// System.out.println("get item details"+file);
+		
 		MessageResponse msg=pharmacientService.addPharmacient(file, firstName, lastName, contactNumber, email, address);
 		ModelAndView modelAndView = new ModelAndView();
 		if(msg !=null) {
@@ -66,6 +68,7 @@ public class PharmacientController {
 	}
 
 	@PostMapping("/addAttendence")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView addAttendence(@RequestParam("email") String email, @RequestParam("startTime") String startTime,
 			@RequestParam("endTime") String endTime, @RequestParam("username") String username,
 			@RequestParam("id") Long id) {
@@ -85,22 +88,29 @@ public class PharmacientController {
 	}
 
 	@GetMapping("/viewAllPharmacient")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView getAllPharmacients() {
-		// System.out.println("get item details"+file);
+		
 		List<Pharmacient> pharmacients = pharmacientService.getAllPharmacient();
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("pharmacients", pharmacients);
-		modelAndView.setViewName("ViewAllPharmacient");
-
+		if(pharmacients.size() !=0) {
+			modelAndView.addObject("pharmacients", pharmacients);
+			modelAndView.setViewName("ViewAllPharmacient");
+		}else {
+			MessageResponse response =new MessageResponse("No records found!");
+			modelAndView.addObject("errorMsg", response);
+			modelAndView.setViewName("AssignOrders");
+		}
+		
 		return modelAndView;
 
 	}
 
 	@GetMapping("/viewPharmacientByItem/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView viewPharmacientByID(@PathVariable("id") Long id) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called1234");
+		
 		Pharmacient pharmacient = pharmacientService.viewItemByID(id);
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -112,6 +122,7 @@ public class PharmacientController {
 	}
 
 	@GetMapping("/deletePharmacient")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView deletePharmacient(@RequestParam("userId") Long id) {
 		MessageResponse message = pharmacientService.deletePharmacient(id);
 		List<Pharmacient> pharmacients = pharmacientService.getAllPharmacient();
@@ -132,37 +143,44 @@ public class PharmacientController {
            return modelAndView;
 	}
 
-	@RequestMapping("/addPharmacientPage")
-	public String addItemPage() {
-		return "AddPharmacient";
-	}
+
 	
 	@GetMapping("/viewPharmacientOrders/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView viewOrdersPharmacist(@PathVariable("id") Long id){
-		
-		List<Order> orders=pharmacientService.viewOrdersPharmacist(id);
-
-		System.out.println("orders sizeaaa"+orders.size());
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("items",orders);
-		modelAndView.setViewName("ViewOrdersPharmacist");
+		List<Order> orders=pharmacientService.viewOrdersPharmacist(id);
 		
-		
-		
+		if(orders.size()!=0) {
+			modelAndView.addObject("items",orders);
+			modelAndView.setViewName("ViewOrdersPharmacist");
+		}
+		else {
+			MessageResponse response =new MessageResponse("No records found!");
+			modelAndView.addObject("errorMsg", response);
+			modelAndView.setViewName("ViewOrdersPharmacist");
+		}
+	
 		return modelAndView;
-		
-		
+			
 	}
 	
+	
 	@GetMapping("/advancePharmacistSearch")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView advancePharmacistSearch(@RequestParam("search") String search) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called12345wwww"+search);
-		List<User> users = pharmacientService.advancePharmacistSearch(search);
-		System.out.println("xxxxxxxx"+users.size());
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("pharmacients", users);
-		modelAndView.setViewName("ViewAllPharmacient");
+		List<User> users = pharmacientService.advancePharmacistSearch(search);
+		
+		if(users.size()!=0) {
+			modelAndView.addObject("pharmacients", users);
+			modelAndView.setViewName("ViewAllPharmacient");
+		}
+		else {
+			MessageResponse response =new MessageResponse("No records found!");
+			modelAndView.addObject("errorMsg", response);
+			modelAndView.setViewName("ViewAllPharmacient");
+		}
 
 		return modelAndView;
 

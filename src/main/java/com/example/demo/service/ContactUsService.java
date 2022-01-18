@@ -15,4 +15,5 @@ public interface ContactUsService {
 	public MessageResponse upadateContactUSDetails( Long id, String answer,String email);
 	public MessageResponse deleteContactUs(Long id);
 	public MessageResponse addNewContactusDetailswithUser(@Valid ContactUs contactus, Long id);
+	List<ContactUs> viewContactUsForUser(Long id);
 }

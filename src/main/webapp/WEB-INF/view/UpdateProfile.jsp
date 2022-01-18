@@ -110,7 +110,9 @@ label{
     height: 200px;
 }
     </style>
-<body>
+<body style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
@@ -121,7 +123,7 @@ label{
 <security:authorize access="isAuthenticated()" >
      <security:authentication property="principal.username" var="username"/> 
 </security:authorize>
-<%@include file="ViewAllError.jsp" %>
+<%@include file="ViewSuccess.jsp" %>
 <div >
         <form class="row1 form12" action="/api/auth/updateUser" method="POST" enctype="multipart/form-data">
             <h1 id="headerTitle1"><b>Update User Details.</b></h1>

@@ -8,7 +8,7 @@
   border-radius: 55px;
   position: absolute;
   top:15%;
-  left: 30%;
+  left: 20%;
   font-size: 1.5rem;
   background: rgb(234, 235, 240);
   background: linear-gradient(135deg, rgb(213, 210, 221) 0%,     rgb(77, 143, 209) 100%);
@@ -20,7 +20,7 @@
   height: 50px;
   position: absolute;
   top:15%;
-  right: 26%;
+  right: 36%;
   border-radius: 55px;
   font-size: 1.5rem;
   color: white;

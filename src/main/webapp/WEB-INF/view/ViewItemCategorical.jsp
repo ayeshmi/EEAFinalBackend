@@ -85,7 +85,9 @@ img{
     row-gap: 32px;
 }
 .item{
-    background-color: #e8e8e8;
+    background: rgb(87, 121, 173);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 4px 0 rgba(15, 4, 4, 0.05);
@@ -236,6 +238,8 @@ img{
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
+<%@include file="AdvanceItemSearchUser.jsp" %>
+<br></br>
     <div class = "main-wrapper">
         <div class = "container">
             <div class = "main-title">

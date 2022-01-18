@@ -3,6 +3,7 @@ package com.example.demo.controller.webController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,15 +26,18 @@ public class CommentController {
 	@Autowired
 	private ItemServiceImpl itemService;
 	
-	//adding new book
+	//adding new comment
 	@GetMapping("/addComment/{itemId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView addComment(@RequestParam("commentDetail") String commentdetail,@PathVariable("itemId") Long id,@RequestParam("clientEmail") String clientEmail) {
+		ModelAndView modelAndView = new ModelAndView();
 		
 		commentService.addComment(commentdetail,java.time.LocalDate.now(),id,clientEmail);
 
-		ModelAndView modelAndView = new ModelAndView();
 		Item item = itemService.viewItemByID(id);
+		
 		List<Comment> viewComments = commentService.getCommentByItemId(id);
+		
 		modelAndView.addObject("item", item);
 		modelAndView.addObject("comments", viewComments);
 		modelAndView.setViewName("ViewSelectedItemDetails");
@@ -41,13 +45,7 @@ public class CommentController {
 		return modelAndView;
 	}
 	
-	@GetMapping("/allCommentByID/{id}")
-	public List<Comment> getCommentByID(@PathVariable Long id){
-		
-	List<Comment> updateConatctUS=commentService.getCommentByItemId(id);
-	System.out.println("Hello Comment"+updateConatctUS);
-		return updateConatctUS;
-	}
+	
 	
 	
 	

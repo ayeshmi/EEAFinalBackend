@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,6 @@ import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.Attendence;
 import com.example.demo.model.Order;
 import com.example.demo.model.Pharmacient;
-import com.example.demo.model.SignupRequest;
 import com.example.demo.model.User;
 import com.example.demo.repository.AttendenceRepository;
 import com.example.demo.repository.OrderRepository;
@@ -142,9 +139,8 @@ public class PharmacientServiceImpl implements PharmacientService{
 			User user=userRepository.findById(id)
 					.orElseThrow();
 			Pharmacient pharmacient=pharmacientRepository.findByFirstName(user.getUsername());
-			System.out.println("heloo888"+pharmacient.getId());
 			orders=orderRepository.viewOrdersPharmacist(pharmacient.getId());
-			System.out.println("heloo888"+orders.size());
+			
 		}
 		catch(Exception e) {
 			e.printStackTrace();

@@ -7,16 +7,18 @@
 
 		<div class="modal-content">
 
-			<div class="modal-header">
+			<div class="modal-header" style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 				<h5 class="modal-title" id="exampleModalLabel">
-					<B>Delete User</B>
+					<B>Cancel Order</B>
 				</h5>
 
 			</div>
 
 			<div class="modal-body">
 
-				<P>Tell us, Why are you going to cancel the order?</P>
+				<P>Tell us, Why are you going to cancel this order?</P>
 
 				<div class="modal-footer">
 

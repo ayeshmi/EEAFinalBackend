@@ -97,7 +97,9 @@ label{
     height: 200px;
 }
     </style>
-<body>
+<body style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>

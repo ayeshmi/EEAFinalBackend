@@ -20,4 +20,6 @@ public interface ItemService {
 	public MessageResponse updateItem(MultipartFile file, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,Long id,String availability);
 	public MessageResponse updateItembyID(Item item, Long id);
+	public Item viewItemByName(String name);
+	public List<Item> advanceItemSearch(String search);
 }

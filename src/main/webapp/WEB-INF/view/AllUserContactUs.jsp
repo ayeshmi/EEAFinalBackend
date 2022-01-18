@@ -62,15 +62,15 @@ border-radius: 55px;
 			</button>
 			<div class="collapse navbar-collapse" id="navbarExample01">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Login</b></a>
+					<li class="nav-item active"><a class="nav-link px-3" href="${contextPath}/api/auth/login"><b>Login</b></a>
 					</li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Register</b></a>
+					<li class="nav-item"><a class="nav-link px-3" href="${contextPath}/api/auth/register"><b>Register</b></a>
 					</li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>About
+					<li class="nav-item"><a class="nav-link px-3" href="${contextPath}/api/auth/aboutUs"><b>About
 								Us</b></a></li>
-					<li class="nav-item active"><a class="nav-link px-3" href="#!"><b>Contact
+					<li class="nav-item active"><a class="nav-link px-3" href="${contextPath}/api/auth/AllContactUs"><b>Contact
 								Us</b></a></li>
-					<li class="nav-item"><a class="nav-link px-3" href="#!"><b>Home</b></a>
+					<li class="nav-item"><a class="nav-link px-3" href="${contextPath}/api/auth/home"><b>Home</b></a>
 					</li>
 				</ul>
 

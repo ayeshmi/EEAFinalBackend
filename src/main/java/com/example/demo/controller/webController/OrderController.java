@@ -3,6 +3,7 @@ package com.example.demo.controller.webController;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.model.Attendence;
@@ -34,25 +36,29 @@ public class OrderController {
 	@Autowired
 	private ItemServiceImpl itemService;
 
+	//add item to cart by ID
 	@PostMapping("/addToCart/{itemId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView addOrder(@RequestParam("clientEmail") String clientEmail, @RequestParam("userId") Long userId,
 			@RequestParam("price") String price, @RequestParam("quantity") String quantity, @PathVariable Long itemId,
 			@RequestParam("itemName12") String itemName, @RequestParam("image") String image) {
+		
 		MessageResponse response = null;
-		      
+		ModelAndView modelAndView = new ModelAndView(); 
+		
 		response = orderService.addToCartItem(clientEmail, userId, price, quantity, itemId, java.time.LocalDate.now(),
 				itemName, image);
+		
 		Item item = itemService.viewItemByID(itemId);
-		ModelAndView modelAndView = new ModelAndView();
+			
 		modelAndView.addObject("item", item);
 		if (response != null) {
-
 			modelAndView.addObject("ErrorMessage", response);
 			modelAndView.setViewName("ViewSelectedItemDetails");
 
 		} else {
 			MessageResponse response1 = new MessageResponse("Something went wrong, try again.");
-			modelAndView.addObject("ErrorMessage", response1);
+			modelAndView.addObject("errorMsg", response1);
 			modelAndView.setViewName("ViewSelectedItemDetails");
 
 		}
@@ -61,21 +67,40 @@ public class OrderController {
 
 	}
 
-	@GetMapping("/addOrder/{email}")
-	public void orderConfirmation(@PathVariable String email) {
-		// System.out.println("sdsd"+order.getClientEmail());
-		orderService.orderConfirmation(email);
-		System.out.println("order is sucessfully added");
+	//add order by prescription
+	@PostMapping("/addOrderByPrescription")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
+	public ModelAndView addOrderByPrescription(@RequestParam("email") String clientEmail, @RequestParam("id") Long userId,
+			@RequestParam("name") String name, @RequestParam("note") String note,  @RequestParam("image") MultipartFile image) {
+		MessageResponse response = null;
+		
+		ModelAndView modelAndView = new ModelAndView();
+	      
+		response = orderService.addOrderByPrescription(clientEmail, userId, name, note, java.time.LocalDate.now(),
+				 image);
+		if(response != null) {
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("AddOrderByMedical Prescription");	
+		}else {
+			MessageResponse message =new MessageResponse("Check inputs and try again!");
+			modelAndView.addObject("errorMsg", message);
+		}
+		
+		return modelAndView;
 
 	}
+	
 
 	@GetMapping("/OrderCompleted/{itemId}/{userId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView orderCompleted(@PathVariable("itemId") Long itemId, @PathVariable("userId") Long userId) {
 
 		MessageResponse response = null;
 		ModelAndView modelAndView = new ModelAndView();
+		
 		response = orderService.orderCompleted(itemId);
 		List<Order> orders1 = orderService.viewOrderDetailsUser(userId);
+		
 		if (response != null) {
 			if (orders1.size() != 0) {
 				int totalPrice = 0;
@@ -110,11 +135,14 @@ public class OrderController {
 	}
 
 	@GetMapping("/OrderCancelation")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView orderCancelation(@RequestParam("deleteId") Long itemId, @RequestParam("userId") Long userId,@RequestParam("reason")String reason) {
 		MessageResponse response = null;
 		ModelAndView modelAndView = new ModelAndView();
+		
 		response = orderService.orderCancelation(itemId,reason);
 		List<Order> orders1 = orderService.viewOrderDetailsUser(userId);
+		
 		if (response != null) {
 			if (orders1.size() != 0) {
 				int totalPrice = 0;
@@ -149,11 +177,11 @@ public class OrderController {
 	}
 
 	@GetMapping("/viewCart/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewCartDetailsUser(@PathVariable Long id) {
-
+		ModelAndView modelAndView = new ModelAndView();
 		List<Order> orders = orderService.viewCartDetailsUser(id);
 
-		ModelAndView modelAndView = new ModelAndView();
 		int totalPrice = 0;
 		int priceFullTotal = 0;
 		if (orders.size() != 0) {
@@ -170,7 +198,7 @@ public class OrderController {
 		} else {
 
 			MessageResponse response = new MessageResponse("No Items in the cart.");
-			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("ViewCart");
 
 		}
@@ -178,8 +206,18 @@ public class OrderController {
 		return modelAndView;
 
 	}
+	
+	@GetMapping("/addOrder/{email}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
+	public void orderConfirmation(@PathVariable String email) {
+		
+		orderService.orderConfirmation(email);
+		
+
+	}
 
 	@GetMapping("/viewOrder/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewOrderDetailsUser(@PathVariable Long id) {
 		List<Order> orders1 = orderService.viewOrderDetailsUser(id);
 
@@ -210,6 +248,7 @@ public class OrderController {
 	}
 
 	@RequestMapping("/orderConfirmation/{totalPrice}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView orderPage(@PathVariable int totalPrice) {
 		int deliveryFee = 250;
 		int totalFee = deliveryFee + totalPrice;
@@ -223,17 +262,20 @@ public class OrderController {
 	}
 
 	@GetMapping("/deletecartItem/{id}/{userId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView deleteCartItem(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-		System.out.println("user id" + userId);
-		MessageResponse message = orderService.deleteItem(id);
+		
 		ModelAndView modelAndView = new ModelAndView();
-		List<Order> orders = orderService.viewCartDetailsUser(userId);
 		int totalPrice = 0;
 		int priceFullTotal = 0;
+		
+		MessageResponse message = orderService.deleteItem(id);
+		
+		List<Order> orders = orderService.viewCartDetailsUser(userId);
+		
 		if (orders.size() != 0) {
 			for (int i = 0; i < orders.size(); i++) {
 				Order order1 = orders.get(i);
-
 				int itemPrice = Integer.parseInt(order1.getPrice());
 				int quantity = Integer.parseInt(order1.getQuantity());
 				totalPrice = itemPrice * quantity;
@@ -256,17 +298,17 @@ public class OrderController {
 	}
 	
 	@GetMapping("/viewCancelOrders")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewCancleOrders() {
-		// System.out.println("get item details"+file);
-		List<Order> orders = orderService.getAllCancelOrders();
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(" array size is"+orders);
+		
+		List<Order> orders = orderService.getAllCancelOrders();
 		if(orders.size()!=0) {
 			modelAndView.addObject("items", orders);
 			modelAndView.setViewName("ViewCancelOrders");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("ViewCancelOrders");
 		}
 		
@@ -274,17 +316,18 @@ public class OrderController {
 	}
 	
 	@GetMapping("/viewCompletedOrders")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView viewCompletedOrders() {
-		// System.out.println("get item details"+file);
-		List<Order> orders = orderService.getAllCompletedOrders();
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(" array size is"+orders);
+		
+		List<Order> orders = orderService.getAllCompletedOrders();
+	
 		if(orders.size()!=0) {
 			modelAndView.addObject("items", orders);
 			modelAndView.setViewName("ViewCompletedOrders");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("ViewCompletedOrders");
 		}
 		
@@ -292,17 +335,18 @@ public class OrderController {
 	}
 	
 	@GetMapping("/viewPendingOrders")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 	public ModelAndView viewPendingOrders() {
-		// System.out.println("get item details"+file);
-		List<Order> orders = orderService.getAllProcessingOrders();
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(" array size is"+orders);
+		
+		List<Order> orders = orderService.getAllProcessingOrders();
+		
 		if(orders.size()!=0) {
 			modelAndView.addObject("items", orders);
 			modelAndView.setViewName("ViewProcessingOrders");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("ViewProcessingOrders");
 		}
 		
@@ -310,19 +354,20 @@ public class OrderController {
 	}
 	
 	@GetMapping("/assignOrders")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewOrders() {
-		// System.out.println("get item details"+file);
+		
 		List<Order> orders = orderService.viewOrders();
 		List<Attendence> pharmacist=pharmacientService.getAvailablePharmacist(java.time.LocalDate.now().toString());
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(" array size is"+orders);
+		
 		if(orders.size()!=0) {
 			modelAndView.addObject("items", orders);
 			modelAndView.addObject("pharmacist", pharmacist);
 			modelAndView.setViewName("AssignOrders");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("AssignOrders");
 		}
 		
@@ -330,22 +375,21 @@ public class OrderController {
 	}
 	
 	@PostMapping("/assignOrderToPharmacist")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView assignOrderToPharmacist(@RequestParam("name") String name,@RequestParam("deleteId") Long id) {
-		System.out.println("sdsd"+name);
-		System.out.println("sdsdfff"+id);
-		MessageResponse message=orderService.assignOrderToPharmacist(name,id);
+		
 		ModelAndView modelAndView = new ModelAndView();
+		MessageResponse message=orderService.assignOrderToPharmacist(name,id);
 		List<Order> orders = orderService.viewOrders();
 		List<Attendence> pharmacist=pharmacientService.getAvailablePharmacist(java.time.LocalDate.now().toString());
-		
-		System.out.println(" array size is"+orders);
+
 		if(orders.size()!=0) {
 			modelAndView.addObject("items", orders);
 			modelAndView.addObject("pharmacist", pharmacist);
 			modelAndView.setViewName("AssignOrders");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("AssignOrders");
 		}
 		modelAndView.addObject("ErrorMessage", message);
@@ -354,19 +398,20 @@ public class OrderController {
 	}
 	
 	@GetMapping("/assignOrders/{date}")
+	@PostMapping("/assignOrderToPharmacist")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView viewItemsForOrder(@PathVariable("date") String date) {
 		
 		List<Order> orders = orderService.viewItemsForOrder(date);
 		
 		ModelAndView modelAndView = new ModelAndView();
-		System.out.println(" array size is"+orders);
+		
 		if(orders.size()!=0) {
 			modelAndView.addObject("orders", orders);
-			
 			modelAndView.setViewName("viewItemsForOrder");	
 		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+			MessageResponse response =new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("viewItemsForOrder");
 		}
 		
@@ -375,6 +420,8 @@ public class OrderController {
 	
 	
 	@GetMapping("/pharmacistConfirmation/{id}/{date}")
+	@PostMapping("/assignOrderToPharmacist")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView pharmacistConfirmation(@PathVariable("id") Long id,@PathVariable("date") String date) {
 
 		MessageResponse message = orderService.pharmacistConfirmation(id);

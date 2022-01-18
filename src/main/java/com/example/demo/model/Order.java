@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -27,23 +27,27 @@ public class Order {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@JsonBackReference
+	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "user_ids")
     private User user;
 	
-	@JsonBackReference
+	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE
             , CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "pharmacist_ids")
     private Pharmacient pharmacist;
 	
-	@JsonBackReference
+	
+	@JsonIgnore
 	 @OneToOne(mappedBy = "order",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	    private Payment payment;
 	 
-	@JsonBackReference
+	
+	@JsonIgnore
 	 @ManyToMany(fetch = FetchType.LAZY,
 	            cascade = {CascadeType.PERSIST, CascadeType.MERGE
 	                    , CascadeType.DETACH, CascadeType.REFRESH})
@@ -74,11 +78,11 @@ public class Order {
 	@Size(max = 15)
 	private String date;
 	
-	@NotBlank
+	
 	@Size(max = 100)
 	private String price;
 	
-	@NotBlank
+	
 	@Size(max = 100)
 	private String quantity;
 	

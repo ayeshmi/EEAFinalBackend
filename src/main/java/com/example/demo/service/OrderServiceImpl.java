@@ -1,18 +1,20 @@
 package com.example.demo.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.example.demo.model.Attendence;
 import com.example.demo.model.EmailSender;
 import com.example.demo.dto.MessageResponse;
 import com.example.demo.model.Order;
 import com.example.demo.model.Pharmacient;
 import com.example.demo.model.User;
-import com.example.demo.repository.AttendenceRepository;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.PharmacientRepository;
 import com.example.demo.repository.UserRepository;
@@ -28,14 +30,15 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	private PharmacientRepository pharmacientRepository;
 	
-
+	@Autowired
+	private FileStorageServiceImpl fileStorageService;
 	@Autowired
 	private EmailSender emailSender;
 
 	@Override
 	public MessageResponse addToCartItem(String clientEmail, Long userId, String price, String quantity, Long itemId,
 			LocalDate date, String itemName,String image) {
-		// TODO Auto-generated method stub
+		
 		Order order = new Order();
 		int itemQuantity=Integer.parseInt(quantity);
 		int itemPrice=Integer.parseInt(price);
@@ -47,19 +50,19 @@ public class OrderServiceImpl implements OrderService{
 			order.setDate(date.toString());
 			order.setItemId(itemId);
 			order.setPrice(price);
-			
 			order.setQuantity(quantity);
-			//order.setUserId(userId);
 			order.setType("cart");
 			order.setName(itemName);
 			order.setTotalPrice(Integer.toString(totalPrice));
 			order.setItemImage(image);
 			order.setUser(user);
-
+			int index = image.lastIndexOf('/');
+			String name = image.substring(index+1);
+			order.setImageName(name);
 			orderRepository.save(order);
 			message=new MessageResponse("Item is successfully added to the cart.");
-		}catch(Exception e) {
-			System.out.println("Error is" + e);
+		}catch(ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		return message;
 		
@@ -69,7 +72,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public MessageResponse addToCartItemAPI(String clientEmail, Long userId, String price, String quantity, Long itemId,
 			LocalDate date, String itemName,String  image,String imageName) {
-		// TODO Auto-generated method stub
+		
 		Order order = new Order();
 		int itemQuantity=Integer.parseInt(quantity);
 		int itemPrice=Integer.parseInt(price);
@@ -78,9 +81,9 @@ public class OrderServiceImpl implements OrderService{
 		MessageResponse message=null;
 		try {
 			
-			
 			order.setClientEmail(clientEmail);
-			order.setDate(date.toString());
+			LocalDateTime now = LocalDateTime.now();  
+			order.setDate(now.toString());
 			order.setItemId(itemId);
 			order.setPrice(price);
 			order.setImageName(imageName);
@@ -88,7 +91,10 @@ public class OrderServiceImpl implements OrderService{
 			//order.setUserId(userId);
 			order.setUser(user);
 			order.setType("cart");
-			order.setName(itemName);
+			order.setName(itemName);	
+			int index = image.lastIndexOf('/');
+			String name = image.substring(index+1);
+			order.setImageName(name);
 			order.setTotalPrice(Integer.toString(totalPrice));
 			order.setItemImage(image);
 
@@ -96,12 +102,11 @@ public class OrderServiceImpl implements OrderService{
 			message=new MessageResponse("Item is successfully added to the cart.");
 		}
 		
-		catch(Exception e) {
-			System.out.println("Error is" + e);
+		catch(ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		return message;
 		
-
 	}
 
 	@Override
@@ -109,9 +114,9 @@ public class OrderServiceImpl implements OrderService{
 		List<Order> orders=null;
 		try {
 			orders = orderRepository.searchCartDetails(id);
-		}catch(Exception e)
+		}catch(ResourceNotFoundException e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 
 		return orders;
@@ -122,9 +127,9 @@ public class OrderServiceImpl implements OrderService{
 		List<Order> orders=null;
 		try {
 			orders = orderRepository.searchProcessOrderDetails(id);
-		}catch(Exception e)
+		}catch(ResourceNotFoundException e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 
 		return orders;
@@ -136,9 +141,9 @@ public class OrderServiceImpl implements OrderService{
 		try {
 			orders = orderRepository.searchCancelOrderDetails(id);
 			System.out.println("array size ishhh"+orders.size());
-		}catch(Exception e)
+		}catch(ResourceNotFoundException e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 
 		return orders;
@@ -149,9 +154,9 @@ public class OrderServiceImpl implements OrderService{
 		List<Order> orders=null;
 		try {
 			orders = orderRepository.searchComletedOrderDetails(id);
-		}catch(Exception e)
+		}catch(ResourceNotFoundException e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 
 		return orders;
@@ -169,8 +174,8 @@ public class OrderServiceImpl implements OrderService{
 				orderRepository.save(order);
 			}
 			
-		}catch(Exception e) {
-			System.out.println("Error is" + e);
+		}catch(ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 
@@ -184,8 +189,8 @@ public class OrderServiceImpl implements OrderService{
 			orderRepository.delete(order);
 			
 			message=new MessageResponse ("Item is successfully deleted from the cart.");
-		}catch(Exception e) {
-			System.out.println("Error is" + e);
+		}catch(ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 		return message;
@@ -193,13 +198,13 @@ public class OrderServiceImpl implements OrderService{
 
 	@Override
 	public List<Order> viewOrderDetailsUser(Long id) {
-		// TODO Auto-generated method stub
+		
 		List<Order> orders = null;
 		try {
 			orders = orderRepository.search(id);
 			
 		} catch (Exception e) {
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 
 		return orders;
@@ -213,12 +218,13 @@ public class OrderServiceImpl implements OrderService{
         try {
         	order = orderRepository.findById(itemId).orElseThrow();
         	order.setStatus("Completed");
-    		orderRepository.save(order);
     		order.setCompletedDate(java.time.LocalDate.now().toString());
+    		orderRepository.save(order);
     		emailSender.sendEmailOrderCompleted();
     		message=new MessageResponse("We are happy, Order is successfully completed.");
+    		
         }catch(Exception e) {
-        	System.out.println("Error is" + e);
+        	e.printStackTrace();
         }
 		return message;
 
@@ -236,14 +242,15 @@ public class OrderServiceImpl implements OrderService{
 			orderRepository.save(order);
 			emailSender.sendEmailOrderCancelation();
 			message=new MessageResponse("Order is canceled.");
+			
 		}catch(Exception e) {
-			System.out.println("Error is" + e);
-		
-		
+			e.printStackTrace();
+			
 	}
 		return message;
 	}
 
+	@Override
 	public List<Order> getAllCancelOrders() {
 		List<Order> orders=null;
 		try {
@@ -255,6 +262,7 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 	
+	@Override
 	public List<Order> getAllCompletedOrders() {
 		List<Order> orders=null;
 		try {
@@ -266,6 +274,7 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 	
+	@Override
 	public List<Order> getAllProcessingOrders() {
 		List<Order> orders=null;
 		try {
@@ -277,6 +286,7 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 
+	@Override
 	public List<Order> viewOrders() {
 		List<Order> orders=null;
 		try {
@@ -288,6 +298,7 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 
+	@Override
 	public MessageResponse assignOrderToPharmacist(String name, Long id) {
 		MessageResponse message=null;
 		Order order=orderRepository.findById(id).orElseThrow();
@@ -295,20 +306,18 @@ public class OrderServiceImpl implements OrderService{
 		Pharmacient pharmacient=pharmacientRepository.findByFirstName(name);
 		List<Order> orders=orderRepository.findByDate(order.getDate());
 		message=new MessageResponse("Order is assigned to phramacist");
-		System.out.println("orders"+pharmacient.getId());
+		
 		for(int i=0;i<orders.size();i++) {
 			
 			orders.get(i).setPharmacist(pharmacient);
 			orderRepository.save(orders.get(i));
-			System.out.println("hellooo");
-			
 			
 		}
 		return message;
-		
-		
+	
 	}
 
+	@Override
 	public List<Order> viewItemsForOrder(String date) {
 		List<Order> orders=null;
 		try {
@@ -321,12 +330,61 @@ public class OrderServiceImpl implements OrderService{
 		return orders;
 	}
 	
+	@Override
 	public MessageResponse pharmacistConfirmation(Long id) {
-		MessageResponse message=new MessageResponse("Order is marked as completed");
-		Order order=orderRepository.findById(id).orElseThrow();
-		order.setPhramacistConfirmation("Confirm");
-		orderRepository.save(order);
+		MessageResponse message=null;
+		try {
+			message=new MessageResponse("Order is marked as completed");
+			Order order=orderRepository.findById(id).orElseThrow();
+			order.setPhramacistConfirmation("Confirm");
+			orderRepository.save(order);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return message;
+	}
+
+	public MessageResponse addOrderByPrescription(String clientEmail, Long userId, String name, String note,
+			LocalDate now, MultipartFile image) {
+		MessageResponse message=null;
+		try {
+			Order order=new Order();
+			order.setName(name);
+			order.setDate(now.toString());
+			User user=userRepository.findById(userId).orElseThrow();
+			order.setUser(user);
+			order.setClientEmail(clientEmail);
+			String imagePath=imageUploader(image);
+			String fileName = fileStorageService.storeFile(image);
+			order.setImageName(fileName);	
+			order.setItemImage(imagePath);
+			orderRepository.save(order);
+			message=new MessageResponse("Medical Prescription is successfully added!");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
+	}
+	
+	@Override
+	public String imageUploader(MultipartFile file) {
+		String fileDownloadUri=null;
+		try {
+			String fileName = fileStorageService.storeFile(file);
+			 fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+					.path("/api/auth/video/")
+					.path(fileName)
+					.toUriString();
+		}
+		catch(Exception e) {
+			System.out.println("Error is" + e);
+		}
+		
+		
+		return fileDownloadUri;
 	}
 
 	

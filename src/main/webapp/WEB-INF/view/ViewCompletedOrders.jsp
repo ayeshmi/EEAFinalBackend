@@ -50,14 +50,20 @@
 
 <br></br>
  <%@include file="Message.jsp" %>
- <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
-<h1>Cancel Orders</h1>
+ <%@include file="Error12.jsp" %>
+ <br>
+
+
+<h1 style="text-align: center;"><b>VIEW ALL COMPLETED ORDERS</b></h1>
     <table class="table table-striped">
-        <thead>
-          <tr>
+        <thead >
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
             <th scope="col">Order ID</th>
             <th scope="col">Item Name</th>
+            <th scope="col">Ordered Date</th>
             <th scope="col">Completed Date</th>
             <th scope="col">Price(Rs.)</th>
             
@@ -69,6 +75,7 @@
           <tr>
              <td>${user.id}</td>
             <td>${user.name}</td>
+            <td>${user.date}</td>
              <td>${user.completedDate}</td>
             <td>${user.price}</td>
 

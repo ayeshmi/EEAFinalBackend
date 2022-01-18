@@ -3,7 +3,6 @@ package com.example.demo.service;
 import java.time.LocalDate;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,19 +28,17 @@ public class CommentServiceImpl implements CommentService{
 		
 	}
 	
-	@Override
-	public Comment getCommentByID(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public List<Comment> getCommentByItemId(Long id){
+		List<Comment>  comments=null;
+		try {
+			comments=commentRepository.findByItemID(id);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}			
 		
-		System.out.println("hello ayeshmi"+id);
-		List<Comment>  comments=commentRepository.findByItemID(id);
-				
-		System.out.println("Hello Comment123"+comments);
 		return  comments;
 	}
 
@@ -53,7 +50,7 @@ public class CommentServiceImpl implements CommentService{
 		comment.setDate(date.toString());
 		comment.setItemID(id);
 		comment.setUsername(clientEmail);
-		//comment.setItem(item);
+		comment.setItem(item);
 		commentRepository.save(comment);
 		System.out.println("Comment is sucessfully added");
 		

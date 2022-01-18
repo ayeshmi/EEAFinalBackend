@@ -62,7 +62,9 @@ border-bottom-right-radius: 16px;
     letter-spacing: 2px;
 }
 </style>
-<body>
+<body style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
@@ -105,7 +107,10 @@ border-bottom-right-radius: 16px;
                     <a href="${contextPath}/api/auth/viewItemByItem/${cart.itemId}">${cart.name}</a>
                     <p><strong>Ordered by:</strong>${cart.clientEmail}</p>
                     <p><strong>Order Status:</strong>${cart.status}</p>
-                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}"
+                       <sec:authorize access="isAuthenticated()" >
+     <sec:authentication property="principal.id" var="id"/> 
+</sec:authorize>
+                    <a type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip" href="${contextPath}/api/auth/deletecartItem/${cart.id}/${id}"
                       title="Remove item">
                       <i class="fas fa-trash"></i>
                     </a>

@@ -3,10 +3,9 @@ package com.example.demo.model;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,9 @@ public class ItemController {
 	@Autowired
 	private CommentServiceImpl commentService;
 
+	// add new item
 	@PostMapping("/addItem")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView AddItem(@RequestParam("image") MultipartFile file, @RequestParam("name") String name,
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
@@ -49,101 +52,138 @@ public class ItemController {
 			@RequestParam("itemType") String itemType) {
 
 		MessageResponse message = null;
+		ModelAndView modelAndView = new ModelAndView();
 
 		message = itemService.addItem(file, name, description, specifications, price, ingredients, delivery,
 				suitableFor, howToUse, returnItem, itemType);
-		ModelAndView modelAndView = new ModelAndView();
-		 System.out.println("order is added");
+
 		if (message != null) {
-			if(message.getMessage().equals("Error: Item name is already in use!")) {
+			if (message.getMessage().equals("Error: This item is already in use!")) {
 				modelAndView.addObject("ErrorMessage", message);
-	    		modelAndView.setViewName("AddItem");	
+				modelAndView.setViewName("AddItem");
+			} else {
+				Item item = itemService.viewItemByName(name);
+				modelAndView.addObject("item", item);
+				modelAndView.addObject("ErrorMessage", message);
+				modelAndView.setViewName("AddItemSuccess");
 			}
-			else {
-				 Item item=itemService.viewItemByName(name);
-		            modelAndView.addObject("item", item);
-		            modelAndView.addObject("ErrorMessage", message);
-		    		modelAndView.setViewName("AddItemSuccess");	
-			}
-           
-			
 		} else {
 			modelAndView.setViewName("AddItem");
-			MessageResponse response =new MessageResponse("Check user inputs and try again.");
+			MessageResponse response = new MessageResponse("Check user inputs and try again.");
 			modelAndView.addObject("ErrorMessage", response);
 		}
-		
 
 		return modelAndView;
-
 	}
 
+	// view all items
 	@GetMapping("/viewAllItem")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView getAllItems() {
-		// System.out.println("get item details"+file);
-		List<Item> items = itemService.getAllItems();
 		ModelAndView modelAndView = new ModelAndView();
-		if(items != null) {
+
+		List<Item> items = itemService.getAllItems();
+
+		if (items != null) {
 			modelAndView.addObject("items", items);
-			modelAndView.setViewName("ViewItemCategorical");	
-		}else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
+			modelAndView.setViewName("ViewItemCategorical");
+		} else {
+			MessageResponse response = new MessageResponse("Item list is empty.");
 			modelAndView.addObject("ErrorMessage", response);
 			modelAndView.setViewName("ViewItemCategorical");
 		}
-		
+
 		return modelAndView;
 	}
 
+	// view all items for selected category
 	@GetMapping("/viewSelectedCategoryItem/{name}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView getSelectedCategoryItem(@PathVariable("name") String name) {
+		ModelAndView modelAndView = new ModelAndView();
 
 		List<Item> items = itemService.getSelectedCategoryItem(name);
-		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("items", items);
-		modelAndView.setViewName("ViewSelectedCategoryItemSe");
+		if (items.size() != 0) {
+			modelAndView.addObject("items", items);
+			modelAndView.setViewName("ViewSelectedCategoryItemSe");
+		} else {
+			MessageResponse response = new MessageResponse("No machers found!");
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.setViewName("ViewItemCategorical");
+		}
 
 		return modelAndView;
 
 	}
 
+	// view selected item details
 	@GetMapping("/viewItemByItem/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
 	public ModelAndView viewItemByID(@PathVariable("id") Long id) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called1234");
-		Item item = itemService.viewItemByID(id);
-		List<Comment> viewComments = commentService.getCommentByItemId(id);
 		ModelAndView modelAndView = new ModelAndView();
 
-		modelAndView.addObject("item", item);
-		modelAndView.addObject("comments", viewComments);
-		modelAndView.setViewName("ViewSelectedItemDetails");
+		Item item = itemService.viewItemByID(id);
+		if (item != null) {
+			List<Comment> viewComments = commentService.getCommentByItemId(id);
+			modelAndView.addObject("item", item);
+			modelAndView.addObject("comments", viewComments);
 
+		} else {
+			MessageResponse response = new MessageResponse("No machers found!");
+			modelAndView.addObject("ErrorMessage", response);
+
+		}
+
+		modelAndView.setViewName("ViewSelectedItemDetails");
 		return modelAndView;
 
 	}
-	
+
+	// advance item search
 	@GetMapping("/advanceItemSearch")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView advanceItemSearch(@RequestParam("search") String search) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called12345");
+		ModelAndView modelAndView = new ModelAndView();
+
+		List<Item> items = itemService.advanceItemSearch(search);
+
+		if (items.size() != 0) {
+			modelAndView.addObject("items", items);
+		} else {
+			MessageResponse message = new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", message);
+		}
+		modelAndView.setViewName("ViewAllItemsTable");
+		return modelAndView;
+
+	}
+
+	
+	@GetMapping("/advanceItemSearchUser")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST','ROLE_USER')")
+	public ModelAndView advanceItemSearchUser(@RequestParam("search") String search) {
+		ModelAndView modelAndView = new ModelAndView();
+		
 		List<Item> items = itemService.advanceItemSearch(search);
 		
-		ModelAndView modelAndView = new ModelAndView();
+		if(items.size() != 0) {
+			modelAndView.addObject("items", items);
+		}else {
+			MessageResponse message = new MessageResponse("No machers found!");
+			modelAndView.addObject("errorMsg", message);
+		}
 
-		modelAndView.addObject("items", items);
-		modelAndView.setViewName("ViewAllItemsTable");
-		
-
+		modelAndView.setViewName("ViewSelectedCategoryItemSe");
 		return modelAndView;
 
 	}
 
+	
 	@GetMapping("/viewItemUpdateByItem/{id}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView viewItemUpdateByID(@PathVariable("id") Long id) {
-		// System.out.println("get item details"+file);
-		System.out.println("Called1234");
+		
 		Item item = itemService.viewItemByID(id);
 		ModelAndView modelAndView = new ModelAndView();
 
@@ -154,55 +194,59 @@ public class ItemController {
 
 	}
 
+	//update item details
 	@PostMapping("/updateItem")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView UpdateItem(@RequestParam("image") MultipartFile file,
 			@RequestParam("description") String description, @RequestParam("specifications") String specifications,
 			@RequestParam("price") String price, @RequestParam("ingredients") String ingredients,
 			@RequestParam("delivery") String delivery, @RequestParam("suitableFor") String suitableFor,
-			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem,@RequestParam("name11") Long name,@RequestParam("availability") String availability) {
-	System.out.println("Calleddddddd"+name);
-		MessageResponse message = null;
-		message=itemService.updateItem(file, description, specifications, price, ingredients, delivery, suitableFor, howToUse,
-				returnItem,name,availability);
-		System.out.println("updated123");
+			@RequestParam("howToUse") String howToUse, @RequestParam("returnItem") String returnItem,
+			@RequestParam("name11") Long name, @RequestParam("availability") String availability) {
+		
 		ModelAndView modelAndView = new ModelAndView();
-		if(message !=null) {
+		
+		MessageResponse message = null;
+		message = itemService.updateItem(file, description, specifications, price, ingredients, delivery, suitableFor,
+				howToUse, returnItem, name, availability);
+		
+		
+		if (message != null) {
 			List<Item> items = itemService.getAllItems();
 			modelAndView.addObject("items", items);
-			MessageResponse response =new MessageResponse("Item details are Successfully updated.");
+			MessageResponse response = new MessageResponse("Item details are Successfully updated.");
 			modelAndView.addObject("ErrorMessage", response);
 			modelAndView.setViewName("ViewAllItemsTable");
-		}
-		else {
-			MessageResponse response =new MessageResponse("Item list is empty.");
-			modelAndView.addObject("ErrorMessage", response);
+		} else {
+			MessageResponse response = new MessageResponse("Item list is empty.");
+			modelAndView.addObject("errorMsg", response);
 			modelAndView.setViewName("ViewItemCategorical");
 		}
-		 return modelAndView;
+		return modelAndView;
 	}
 
-	@RequestMapping("/addItemPage")
-	public String addItemPage() {
-		return "AddItem";
-	}
 
 	@RequestMapping("/addItemTable")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView viewAllItemAdming() {
 		List<Item> items = itemService.viewAllItems();
 
 		ModelAndView modelAndView = new ModelAndView();
-
-		modelAndView.addObject("items", items);
-		modelAndView.setViewName("ViewAllItemsTable");
+		
+		if(items.size()!=0) {
+			modelAndView.addObject("items", items);
+			modelAndView.setViewName("ViewAllItemsTable");
+		}else {
+			MessageResponse response = new MessageResponse("Item list is empty.");
+			modelAndView.addObject("errorMsg", response);
+			modelAndView.setViewName("ViewAllItemsTable");
+		}
 
 		return modelAndView;
 
 	}
 
-	@RequestMapping("/itemCategorical")
-	public String addItemCategoricall() {
-		return "ViewItemCategorical";
-	}
+	
 
 	@GetMapping("video/{fileName:.+}")
 	public ResponseEntity<Resource> downloadVideo(@PathVariable String fileName, HttpServletRequest request) {
@@ -224,35 +268,29 @@ public class ItemController {
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType)).body(resource);
 	}
 
+	//delete item from the system
 	@GetMapping("/deleteItem")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_PHARMACIST')")
 	public ModelAndView deleteItem(@RequestParam("itemId") Long id) {
-		
-		MessageResponse response =itemService.deleteItem(id);
-		List<Item> items = itemService.viewAllItems();	
+
+		MessageResponse response = itemService.deleteItem(id);
+		List<Item> items = itemService.viewAllItems();
 		ModelAndView modelAndView = new ModelAndView();
-		if(items.size() !=0) {
-			MessageResponse message=new MessageResponse("Item is successfully deleted.");
-		       //modelAndView = getLectures(lecture.getScheduledDate());
-		       modelAndView.addObject("ErrorMessage",message);
-		       modelAndView.addObject("items", items);
-		       modelAndView.setViewName("ViewAllItemsTable");
-		}
-		
-		
-		else {
-			MessageResponse message=new MessageResponse("Something went wrong, try again!");
+		if (items.size() != 0) {
+
+			modelAndView.addObject("ErrorMessage", response);
+			modelAndView.addObject("items", items);
 			modelAndView.setViewName("ViewAllItemsTable");
-		       modelAndView.addObject("ErrorMessage",message);
-		}	   
-       return  modelAndView;
+		}
+
+		else {
+			MessageResponse message = new MessageResponse("Something went wrong, try again!");
+			modelAndView.setViewName("ViewAllItemsTable");
+			modelAndView.addObject("errorMsg", message);
+		}
+		return modelAndView;
 
 	}
-	
-	@PostMapping("/rating")
-	public void rating(@RequestParam("rating") String number) {
-		System.out.println("number is "+number);
-		
-		
-	}
+
 
 }

@@ -41,17 +41,20 @@
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
  <%@include file="Message.jsp" %>
- <%@include file="ErrorMessage.jsp" %>
  <%@include file="ViewAllError.jsp" %>
-<br><br>
-<h1>Contact Us List</h1>
+ <br>
+
+
+<h1 style="text-align: center;"><b>VIEW ALL CONTACT REQUESTS</b></h1>
     <table class="table table-striped">
         <thead>
-          <tr>
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
             <th scope="col">User Name</th>
             <th scope="col">Email</th>
             <th scope="col">Problem</th>
-            <th scope="col">Reply</th>
+            <th scope="col" class="border-left">Reply</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -62,8 +65,8 @@
             <td>${list.name}</td>
             <td>${list.email}</td>
             <td>${list.message}</td>
-             <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/contactus/${list.id}"
-                       style="margin-left: 5px;"><b>View</b></a></td>
+             <td class="border-left"><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/contactus/${list.id}"
+                       style="margin-left: 5px;"><b>Reply</b></a></td>
             
             <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteLectureModal" onclick="getID(${list.id})"
                        style="margin-left: 5px;"><b>Delete</b></a></td>

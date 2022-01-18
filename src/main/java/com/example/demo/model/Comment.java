@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 
 @Entity
 @Table(name="comment")
@@ -41,7 +41,15 @@ public class Comment {
 	public Comment() {
 		
 	}
-
+	
+	public Comment(Long commentID,  String username,
+			 String commentDetails, String date, Item item) {
+		this.commentID = commentID;
+		this.username = username;
+		this.commentDetails = commentDetails;
+		this.date = date;
+		this.item = item;
+	}
 
 	public Long getCommentID() {
 		return commentID;

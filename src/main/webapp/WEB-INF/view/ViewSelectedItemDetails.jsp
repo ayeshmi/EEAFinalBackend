@@ -225,7 +225,9 @@ border-bottom-right-radius: 16px;
 <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
        </jsp:include> 
-       <%@include file="ViewAllError.jsp" %>
+       <%@include file="Message.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
+  <%@include file="Error12.jsp" %>
   <div class="container">
     <h1 >${item.name}</h1>
     
@@ -235,14 +237,15 @@ border-bottom-right-radius: 16px;
      
       <div class="col">
         
-        <img src=${item.image} alt="Girl in a jacket" width="200" height="200" >
+        <img src=${item.image} alt="Girl in a jacket" width="400" height="300" >
      
       </div>
       <div class="col">
         
-        <p>${item.description}</p>
-        <p>${item.id}</p>
-        <p>Availability: ${item.availability}</p>
+        <p style="font-size:18px;">${item.description}</p>
+        <p style="font-size:18px;">Item ID : ${item.id}</p>
+        <p style="color:blue;font-size:18px;"><b>Rs.${item.price}.00</b></p>
+        <p style="color:red;font-size:18px;"><b> ${item.availability}</b></p>
         
          <form action="/api/auth/addToCart/${item.id}" method="post">
           <div class="d-flex mb-4" style="max-width: 300px">
@@ -290,12 +293,12 @@ border-bottom-right-radius: 16px;
     <div class="row">
       <div class="col">
         <h2>Suitable For:</h2>
-        <p>${item.suitableFor}</p>
+        <p style="font-size:18px;">${item.suitableFor}</p>
         
       </div>
       <div class="col">
         <h2>How To Use:</h2>
-        <p>${item.howToUse}</p>
+        <p style="font-size:18px;">${item.howToUse}</p>
         
       </div>
      
@@ -304,18 +307,18 @@ border-bottom-right-radius: 16px;
     <div class="row">
      <div class="col">
         <h2>Ingredients:</h2>
-        <p>${item.ingredients}</p>
+        <p style="font-size:18px;">${item.ingredients}</p>
         
       </div>
       
       <div class="col">
         <h2>Delivery:</h2>
-        <p>${item.delivery}</p>
+        <p style="color:blue;font-size:18px;"><b>${item.delivery}</b></p>
         
       </div>
       <div class="col">
         <h2>Return:</h2>
-        <p>${item.returnItem}</p>
+        <p style="color:blue;font-size:18px;"><b>${item.returnItem}</b></p>
         
       </div>
     </div>
@@ -353,15 +356,7 @@ border-bottom-right-radius: 16px;
        
         
           <div class="action">
-              <button type="button" class="btn btn-primary btn-xs" title="Edit">
-                  <span class="glyphicon glyphicon-pencil"></span>
-              </button>
-              <button type="button" class="btn btn-success btn-xs" title="block">
-                  <span class="glyphicon glyphicon-ok"></span>
-              </button>
-              <button type="button" class="btn btn-danger btn-xs" title="Delete">
-                  <span class="glyphicon glyphicon-trash"></span>
-              </button>
+           
           </div>
       </div>
   </div>
@@ -378,7 +373,9 @@ border-bottom-right-radius: 16px;
 <div class="row2">
 <h2>Rate from here.</h2>
 <form action="/api/auth/rating" method="post">
- <div class="feedback">
+ <div class="feedback" style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
  
       <div class="rating row2">
       

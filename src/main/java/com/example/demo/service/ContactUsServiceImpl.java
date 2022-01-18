@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import com.example.demo.model.EmailSender;
 import com.example.demo.model.User;
 import com.example.demo.repository.ContactUsRepository;
 import com.example.demo.repository.UserRepository;
+
 
 @Service
 public class ContactUsServiceImpl implements ContactUsService {
@@ -25,55 +28,76 @@ public class ContactUsServiceImpl implements ContactUsService {
 	@Autowired
 	private EmailSender emailSender;
 
+	//find all contact requests from database
 	@Override
 	public List<ContactUs> getAllContactUsDetails() {
-		return contactusRepository.findAll();
+		List<ContactUs> contactus=null;
+		
+		try {
+			contactus= contactusRepository.findAllContactUs();
+		}catch(ResourceNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return contactus;
 	}
 
+	//find new record to the database
 	@Override
 	public MessageResponse addNewContactusDetails(ContactUs contactus) {
 		MessageResponse messageResponse = null;
+		
 		try {
 			contactusRepository.save(contactus);
 			messageResponse = new MessageResponse("Your contactUs request is successfully added.");
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		return messageResponse;
 	}
 
+	//find contact us request by ID
 	@Override
 	public ContactUs getContactUsDetailsById(String id) {
+		Optional<ContactUs> batchOptional = contactusRepository.findById(Long.parseLong(id));
 		ContactUs contactUs = null;
-		try {
-			Long Id = Long.parseLong(id);
-			contactUs = contactusRepository.findById(Id).orElseThrow();
+		 if (batchOptional.isPresent()) {
 
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
-		}
+			 contactUs = batchOptional.get();
+
+	        } else {
+
+	           System.out.println("Contact us detail is not found");
+	        }
+
 
 		return contactUs;
 	}
 
 	@Override
 	public ContactUs getContactUsDetailsByIdAPI(Long id) {
-		ContactUs contactUs = null;
-		try {
-			contactUs = contactusRepository.findById(id).orElseThrow();
+		 Optional<ContactUs> batchOptional = contactusRepository.findById(id);
+	        ContactUs batch = null;
 
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
-		}
+	        if (batchOptional.isPresent()) {
 
-		return contactUs;
+	            batch = batchOptional.get();
+
+	        } else {
+
+	           System.out.println("Contact us detail is not found");
+	        }
+
+	        return batch;
 	}
 
+	//update contact us request detail
 	@Override
 	public MessageResponse upadateContactUSDetails(Long id, String answer, String email) {
 		
 		MessageResponse messageResponse = null;
+		
 		try {
 			ContactUs contactUs = contactusRepository.findById(id).orElseThrow();
 			contactUs.setAnswer(answer);
@@ -81,51 +105,61 @@ public class ContactUsServiceImpl implements ContactUsService {
 			messageResponse = new MessageResponse("Your reply is successfully sent to customer.");
 			emailSender.sendEmailContactUs(email, answer);
 			
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		return messageResponse;
 	}
 
+	//delete contact us request
 	@Override
 	public MessageResponse deleteContactUs(Long id) {
+		
 		MessageResponse messageResponse = null;
+		
 		try {
-
 			ContactUs contactUs = contactusRepository.findById(id).orElseThrow();
 			contactusRepository.delete(contactUs);
 			messageResponse = new MessageResponse("Contact Us Detail is sucessfully deleted.");
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
+			
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		return messageResponse;
 	}
 
+	//add contact us request by registered user
 	@Override
 	public MessageResponse addNewContactusDetailswithUser(@Valid ContactUs contactus, Long id) {
+		
 		MessageResponse messageResponse = null;
+		
 		try {
 			User user = userRepository.findById(id).orElseThrow();
 			contactus.setUser(user);
 			contactusRepository.save(contactus);
 			messageResponse = new MessageResponse("Your contactUs request is successfully added.");
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
+			
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 
 		return messageResponse;
 
 	}
 
+	
+	@Override
 	public List<ContactUs> viewContactUsForUser(Long id) {
+		
 		List<ContactUs> contactList = null;
 		try {
 			contactList = contactusRepository.findByUserID(id);
 
-		} catch (Exception e) {
-			System.out.println("Error is " + e);
+		} catch (ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		return contactList;
 

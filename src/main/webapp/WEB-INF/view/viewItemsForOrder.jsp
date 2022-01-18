@@ -47,11 +47,13 @@
 	<%@include file="ErrorMessage.jsp"%>
 	<%@include file="ViewAllError.jsp"%>
 
-<h1>Order Items</h1>
+<h1 style="text-align: center;"><b>Order Items</b></h1>
 
     <table class="table table-striped">
         <thead>
-          <tr>
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
             <th scope="col">Item Name</th>
             <th scope="col">Item Image</th>
             <th scope="col">Quantity</th>
@@ -67,7 +69,7 @@
              <td><img class='form-img22'  src=${user.itemImage} alt='image' /></td>
              <td>${user.quantity}</td>
              <td>${user.price}</td>
-<td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/pharmacistConfirmation/${user.id}/${user.date}"
+<td class="border-left"><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/pharmacistConfirmation/${user.id}/${user.date}"
                        style="margin-left: 5px;"><b>Completed</b></a></td>
             
             

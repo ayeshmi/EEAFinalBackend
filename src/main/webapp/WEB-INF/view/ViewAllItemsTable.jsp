@@ -75,36 +75,40 @@
 <jsp:include page="Navbar.jsp">
     <jsp:param name="page2" value="home2"/>
 </jsp:include>
-<%@include file="ViewAllError.jsp" %>
+<%@include file="Message.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
+  <%@include file="Error12.jsp" %>
 <%@include file="AdvanceSearchItem.jsp" %>
+<br>
+<br><br><br>
 
-<br></br>
-<br></br>
-
-    <table class="table table-striped">
+<h1 style="text-align: center;"><b>VIEW ALL ITEMS</b></h1>
+    <table class="table table-striped" >
         <thead>
-          <tr>
+          <tr style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
           <th scope="col">Item ID</th>
             <th scope="col">Item Name</th>
             <th scope="col">Image</th>
             <th scope="col">Category</th>
             <th scope="col">Availability</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
+            <th scope="col" class="border-left">Update</th>
+            <th scope="col" class="border-left">Delete</th>
           </tr>
         </thead>
         <tbody>
         <c:forEach var="item" items="${items}">
           <tr>
-            <td>${item.id}</td>
-            <td>${item.name}</td>
-            <td><img class='form-img22'  src=${item.image} alt='image' /></td>
-            <td>${item.specifications}</td>
-            <td>${item.availability}</td>
-            <td><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewItemUpdateByItem/${item.id}"
+            <td >${item.id}</td>
+            <td >${item.name}</td>
+            <td ><img class='form-img22'  src=${item.image} alt='image' /></td>
+            <td >${item.specifications}</td>
+            <td >${item.availability}</td>
+            <td class="border-left"><a type="button" class="btn btn btn-warning"  href = "${contextPath}/api/auth/viewItemUpdateByItem/${item.id}"
                        style="margin-left: 5px;"><b>Update</b></a></td>
            
-            <td><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal" onclick="getID(${item.id})"
+            <td class="border-left"><a type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteItemModal" onclick="getID(${item.id})"
                        style="margin-left: 5px;"><b>Delete</b></a></td>
           </tr>
           </c:forEach>

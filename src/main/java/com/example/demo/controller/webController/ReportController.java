@@ -37,7 +37,6 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
-
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/api/auth")
@@ -127,8 +126,7 @@ public class ReportController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//email.sendMailWithAttachment("domsellanaka@gmail.com", "Heart Prediction Report", "Your Report is attached.", "dsdsdsd");
-		System.out.println("Email is sent");
+		
 		return ResponseEntity.ok("Task is successfully completed.");
 	}
 	

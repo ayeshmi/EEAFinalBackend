@@ -136,7 +136,7 @@ header .carousel-inner .item {
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#"><b>Home</b></a></li>
                         <li><a href="${contextPath}/api/auth/AllContactUs"><b>Contact Us</b></a></li>
-                        <li><a href="${contextPath}/api/auth/login"><b>About Us</b></a></li>
+                        <li><a href="${contextPath}/api/auth/aboutUs"><b>About Us</b></a></li>
                         <li><a href="${contextPath}/api/auth/login"><b>Login</b></a></li>
                         <li><a href="${contextPath}/api/auth/register"><b>Register</b></a></li>
                     </ul>

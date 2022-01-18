@@ -29,7 +29,6 @@ public class User {
 	@Size(max = 100)
 	@Email
 	private String email;
-
 	
 	@Size(max = 50)
 	private String birthday;

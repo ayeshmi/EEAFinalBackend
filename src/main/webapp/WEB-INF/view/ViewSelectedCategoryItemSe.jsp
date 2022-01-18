@@ -82,7 +82,9 @@ img{
     row-gap: 32px;
 }
 .item{
-    background-color: #e8e8e8;
+   background: rgb(59, 130, 236);
+	background: linear-gradient(135deg, rgb(94, 108, 148) 0%,
+		rgb(94, 191, 204) 100%);
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 4px 0 rgba(15, 4, 4, 0.05);
@@ -150,11 +152,11 @@ img{
     justify-content: center;
 }
 .old-price{
-    text-decoration: line-through;
-    opacity: 0.6;
+    
+    color: #dc143c;
 }
 .new-price{
-    color: #f79410;
+    color: #00ffff;
     font-size: 18px;
     font-weight: 600;
     margin-right: 10px;
@@ -234,7 +236,12 @@ height:200px;
 <body>
 <jsp:include page="Navbar.jsp">
        <jsp:param name="page2" value="home2"/>
-       </jsp:include> 
+       </jsp:include>
+       <%@include file="Message.jsp" %>
+ <%@include file="ViewAllError.jsp" %>
+  <%@include file="Error12.jsp" %>
+       <%@include file="AdvanceItemSearchUser.jsp" %>
+       <br></br> 
     <div class = "main-wrapper">
         <div class = "container">
             <div class = "main-title">
@@ -269,8 +276,8 @@ height:200px;
                     <div class = "item-detail">
                         <a href = "${contextPath}/api/auth/viewItemByItem/${item.id}" class = "item-name">${item.name}</a>
                         <div class = "item-price">
-                            <span class = "new-price">${item.price}</span>
-                            <span class = "old-price">$275.60</span>
+                            <span class = "new-price"><b>Rs. ${item.price}</b></span>
+                            <span class = "old-price"><b>5%</b></span>
                         </div>
                         <p>${item.description}</p>
                         <button type = "button" class = "add-btn">add to cart</button>

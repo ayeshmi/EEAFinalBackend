@@ -45,7 +45,7 @@
 	height: 100px;
 }
 </style>
-<body>
+<body >
 	<jsp:include page="Navbar.jsp">
 		<jsp:param name="page2" value="home2" />
 	</jsp:include>
@@ -56,14 +56,18 @@
 	<%@include file="Message.jsp"%>
 	<%@include file="ErrorMessage.jsp"%>
 	<%@include file="ViewAllError.jsp"%>
-	<h1>My Orders</h1>
+	
+	<h1 style="text-align: center;">My Orders</h1>
 	<table class="table table-striped">
-		<thead>
+		<thead style="background: rgb(87, 217, 240);
+	background: linear-gradient(135deg, rgb(161, 181, 236) 0%,
+		rgb(39, 179, 197) 100%);">
 			<tr>
 				<th scope="col">Order ID</th>
 				<th scope="col">Customer Email</th>
 				<th scope="col">Ordered Date</th>
-				<th scope="col">ViewOrder</th>
+				<th scope="col">Status</th>
+				<th scope="col" class="border-left">ViewOrder</th>
 
 
 			</tr>
@@ -74,8 +78,9 @@
 					<td>${user.id}</td>
 					<td>${user.clientEmail}</td>
 					<td>${user.date}</td>
+					<td>${user.status}</td>
 
-					<td><a type="button" class="btn btn btn-warning"
+					<td class="border-left"><a type="button" class="btn btn btn-warning"
 						href="${contextPath}/api/auth/assignOrders/${user.date}"
 						style="margin-left: 5px;"><b>View</b></a></td>
 

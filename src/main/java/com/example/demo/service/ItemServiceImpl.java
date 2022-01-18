@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class ItemServiceImpl implements ItemService{
 	@Autowired
 	private FileStorageServiceImpl fileStorageService;
 	
+	//add new item
 	@Override
 	public MessageResponse addItem(Item item) {
 		
@@ -36,17 +38,17 @@ public class ItemServiceImpl implements ItemService{
 			else {
 				message = new MessageResponse("Item is successfully added.");
 				item.setAvailability("Available");
-				itemRepo.save(item);
-				
+				itemRepo.save(item);	
 			}
 			
-		}catch(Exception e)
+		}catch(ResourceNotFoundException e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		return message;
 	}
 
+	//add new item
 	@Override
 	public MessageResponse addItem(MultipartFile file, String name, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,String itemType) {
@@ -72,7 +74,6 @@ public class ItemServiceImpl implements ItemService{
 		        p.setDescription(description);
 		        p.setHowToUse(howToUse);
 		        p.setIngredients(ingredients);
-
 		        p.setSpecifications(specifications);
 		        p.setSuitableFor(suitableFor);
 		        p.setReturnItem(returnItem);
@@ -82,13 +83,14 @@ public class ItemServiceImpl implements ItemService{
 		        message=new MessageResponse("Item is successfully Added.");
 			}
 		
-		}catch(Exception e) {
-			System.out.println("Error is" + e);
+		}catch(ResourceNotFoundException e) {
+			e.printStackTrace();
 		}
 		
 		return message;
 	}
 	
+	//add image of the item
 	@Override
 	public String imageUploader(MultipartFile file) {
 		String fileDownloadUri=null;
@@ -100,13 +102,13 @@ public class ItemServiceImpl implements ItemService{
 					.toUriString();
 		}
 		catch(Exception e) {
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
-		
-		
+
 		return fileDownloadUri;
 	}
 
+	//get all items
 	@Override
 	public List<Item> getAllItems() {
 		List<Item> items=null;
@@ -114,12 +116,13 @@ public class ItemServiceImpl implements ItemService{
 			 items=itemRepo.findAll();
 		}catch(Exception e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		
 		return items;
 	}
 
+	//get items for selected category 
 	@Override
 	public List<Item> getSelectedCategoryItem(String category) {
 		
@@ -128,11 +131,12 @@ public class ItemServiceImpl implements ItemService{
 			 items=itemRepo.findBySpecifications(category);
 		}catch(Exception e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		return items;
 	}
 
+	//view items by ID
 	@Override
 	public Item viewItemByID(Long id) {
 		
@@ -141,12 +145,14 @@ public class ItemServiceImpl implements ItemService{
 			 item=itemRepo.findById(id).orElseThrow();
 		}catch(Exception e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		
 		return item;
 	}
-
+	
+	//view items by name
+	@Override
     public Item viewItemByName(String name) {
 		
 		Item item=null;
@@ -154,11 +160,13 @@ public class ItemServiceImpl implements ItemService{
 			 item=itemRepo.findByName(name);
 		}catch(Exception e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		
 		return item;
 	}
+	
+	//get all items
 	@Override
 	public List<Item> viewAllItems() {
 		List<Item> items=null;
@@ -166,19 +174,21 @@ public class ItemServiceImpl implements ItemService{
 			 items=itemRepo.findAll();
 		}catch(Exception e)
 		{
-			System.out.println("Error is" + e);
+			e.printStackTrace();
 		}
 		
 		return items;
 		
 	}
 
+	//delete item details
 	@Override
 	public MessageResponse deleteItem(Long id) {
 		MessageResponse message=null;
 		try {
 			Item item=itemRepo.findById(id)
 					.orElseThrow();
+			itemRepo.foreigKeyProblem();
 			itemRepo.delete(item);
 			message=new MessageResponse("Item is successfully deleted."); 
 		}catch(Exception e) {
@@ -189,6 +199,7 @@ public class ItemServiceImpl implements ItemService{
 		return message;
 	}
 
+	//update item details
 	@Override
 	public MessageResponse updateItem(MultipartFile file, String description, String specifications, String price,
 			String ingredients, String delivery, String suitableFor, String howToUse, String returnItem,Long id,String availability) {
@@ -218,6 +229,7 @@ public class ItemServiceImpl implements ItemService{
 		return message;
 	}
 
+	//update item by ID
 	@Override
 	public MessageResponse updateItembyID(Item item, Long id) {
 		MessageResponse message=null;
@@ -243,13 +255,15 @@ public class ItemServiceImpl implements ItemService{
 		}
 		return message;
 	}
-
+	
+	//advance search of the items
+	@Override
 	public List<Item> advanceItemSearch(String search) {
 		List<Item> items=null;
 	     try {
 	    	 items=itemRepo.search(search);
 	     }catch(Exception e) {
-	    	 System.out.println("Error is" + e);
+	    	 e.printStackTrace();
 	     }
 		return items;
 	}

@@ -33,7 +33,7 @@
 }
 </style>
 <nav class="navbar navbar-expand-lg fixed-top navbar-scroll shadow-0"
-	style="background-color: #00bfff;height:80px;">
+	style="background-color:rgb(87, 121, 173);height:80px;">
 	<a class="navbar-brand" href="#" style="font-size: 24px;">DOMSEL</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
@@ -70,8 +70,53 @@
 						<li class="nav-item"><a class="nav-link" href="#"></a></li>
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>		
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>	
 				 <sec:authorize access="hasAuthority('ROLE_USER')">
-				 <li class="nav-item active"><a class="nav-link" href=""><b>Home</b>
+				 <li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"></a></li>
+						<li class="nav-item"><a class="nav-link" href="#"><b>
+						</b></a></li>
+						
+				 <li class="nav-item active"><a class="nav-link" href="${contextPath}/api/auth/viewAllItem"><b>Home</b>
 					<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
@@ -144,48 +189,11 @@
 						</b></a></li>	
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>	
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>		
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+						
+					
+							
+					
+						
 				
     </sec:authorize>
     
@@ -198,28 +206,9 @@
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
 				
-					<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
 				
 				
 				
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-				
-				<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
     <li class="nav-item active"><a class="nav-link" href="${contextPath}/api/auth/pharmacistHomePage"><b>Home</b>
 					<span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="#"><b>
@@ -428,24 +417,7 @@
 						</b></a></li>		
 						<li class="nav-item"><a class="nav-link" href="#"><b>
 						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="#"><b>
-						</b></a></li>
+						
 						<li class="nav-item dropdown">
 						<sec:authorize access="isAuthenticated()" >
 						<sec:authentication property="principal.profileImage" var="profileImage"/> 
